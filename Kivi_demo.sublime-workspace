@@ -1,0 +1,253 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"paddi",
+				"padding-top"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/pavlo/Downloads/AppResourcesToBeTranslated.resx",
+		"/Users/pavlo/Downloads/Windows XP Professional SP3 Nov 2013 + SATA Drivers [ThumperDC]/key.txt",
+		"/Applications/Kivy.app/Contents/Resources/script",
+		"/Users/pavlo/Downloads/Adobe CS6 Master Collection (Mac)/IMPORTANT - READ BEFORE INSTALLING.txt",
+		"/Users/pavlo/Downloads/resources_en_rus.xml",
+		"/Users/pavlo/Downloads/christmas translation_rus.txt",
+		"/Users/pavlo/Downloads/January to Translate - 6 language flyer_RU.pub",
+		"/Users/pavlo/Downloads/TIM-ENGLISH-2.txt",
+		"/Users/pavlo/Downloads/TIM-ENGLISH-1.txt",
+		"/Users/pavlo/Downloads/TIM-ENGLISH-2 (1).txt",
+		"/Users/pavlo/Downloads/easy-voice-recorder.xliff",
+		"/Users/pavlo/Desktop/culture/searchform.php",
+		"/Users/pavlo/Desktop/culture/virtue.css",
+		"/Users/pavlo/Downloads/EN.txt",
+		"/Users/pavlo/Downloads/index (1).php",
+		"/Users/pavlo/Desktop/searchform.php",
+		"/Users/pavlo/Downloads/virtue.css",
+		"/Users/pavlo/Downloads/Hard.java",
+		"/Users/pavlo/Downloads/MCDC.java",
+		"/Users/pavlo/Downloads/HardTest.java",
+		"/Users/pavlo/Desktop/13250169-BBT/Assignment2CTest.java",
+		"/Users/pavlo/Desktop/13250169-BBT/Assignment2BVATest.java",
+		"/Users/pavlo/Desktop/13250169-WBT/Test Code/Assignment2CCTest.java",
+		"/Users/pavlo/Downloads/RU (1).txt",
+		"/Users/pavlo/Desktop/GuitarPro 6/HowToInstall.txt",
+		"/Users/pavlo/Downloads/skeleton.xliff",
+		"/Users/pavlo/Dropbox/Documents/CV/CV.txt",
+		"/Users/pavlo/Downloads/ATT00001.txt",
+		"/Users/pavlo/Dropbox/Dev/Titanium/Kitchen Sink/Resources/etc/paradise_lost.txt",
+		"/Users/pavlo/Desktop/13250169-WBT/Test Code/Assignment2DCCTest.java",
+		"/Users/pavlo/Downloads/Road.java",
+		"/Users/pavlo/Downloads/declineDialog (1).txt",
+		"/Users/pavlo/Downloads/en.txt",
+		"/Users/pavlo/Downloads/Translate 3 ads UTF-8.txt",
+		"/Users/pavlo/Dropbox/Dev/CTest1/src/CTest1_test.c",
+		"/Users/pavlo/Downloads/Drawing1.xml",
+		"/Users/pavlo/Downloads/check-0.9.11/doc/example/tests/check_money.c",
+		"/Users/pavlo/Downloads/cxxtest-4.3/README",
+		"/Users/pavlo/Desktop/1.xmi",
+		"/Users/pavlo/Downloads/check-0.9.11/README",
+		"/Users/pavlo/Downloads/BuzzSearch.txt",
+		"/Users/pavlo/Dropbox/Dev/SoFaT/SoFaT_mobile/Resources/alloy/controllers/index.js",
+		"/Applications/MAMP/bin/mamp/read_todo_list.php",
+		"/Users/pavlo/Desktop/alloy-master/samples/todo/views/index.xml",
+		"/Users/pavlo/Desktop/alloy-master/samples/todo/controllers/index.js",
+		"/Users/pavlo/Desktop/alloy-master/samples/todo/styles/index.tss",
+		"/Users/pavlo/Desktop/.htaccess.php",
+		"/private/var/folders/by/l68x7kr12db1xf100pdg321w0000gn/T/46ebf61a-cedf-4b49-bd07-bd027eca1dd2/public_html/vitae/index.php",
+		"/Users/pavlo/Downloads/description.txt",
+		"/Users/pavlo/Downloads/description (1).txt",
+		"/private/var/folders/by/l68x7kr12db1xf100pdg321w0000gn/T/46ebf61a-cedf-4b49-bd07-bd027eca1dd2/public_html/pubs/index.php",
+		"/Users/pavlo/Downloads/virtue/page-contact.php",
+		"/Users/pavlo/Downloads/wattpad-android.xliff",
+		"/Users/pavlo/Downloads/Help Files Package/Help Translation.en/Craps.htm",
+		"/Users/pavlo/Downloads/Help Files Package/Help Translation.en/Blackjack.htm",
+		"/Users/pavlo/Dropbox/Dev/Insense/InsenseCompilerUnix/.gitignore",
+		"/Users/pavlo/Downloads/Russian.txt",
+		"/Users/pavlo/Desktop/CS605-project-Bazilinskyy/enumerate_python_3.py",
+		"/Users/pavlo/Dropbox/Dev/study-projects/EnumeratingPythonPrograms/src/found_programs.txt",
+		"/Users/pavlo/Downloads/weather translations.txt",
+		"/Users/pavlo/Downloads/weather translations (1).txt",
+		"/Users/pavlo/Downloads/letter3-Russian.txt",
+		"/Users/pavlo/Downloads/inactivityEmail1.txt",
+		"/Users/pavlo/Downloads/inactivityEmail2.txt",
+		"/Users/pavlo/Downloads/inactivityEmail3.txt",
+		"/Users/pavlo/Dropbox/Dev/Insense/InsenseRuntimeUnix/Makefile.include"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"left",
+			".form-search .search-query",
+			"display:block",
+			"500px",
+			"width:100%;",
+			"width: 100%;",
+			"Class representative for MSc Computer Science students of the University of St Andrews, 2012 - 2013",
+			"get_sidebar(",
+			"google",
+			"8190",
+			"Ж 56520/87632: jI",
+			"c*a",
+			"@@@@@@",
+			"Ж 66939: 8J",
+			"Ж 131922",
+			"Ж 131922: zxR",
+			"12848",
+			"ветренно"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 242.0,
+	"status_bar_visible": true
+}
