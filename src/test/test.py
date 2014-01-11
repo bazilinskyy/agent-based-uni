@@ -4,18 +4,35 @@ sys.path.append(lib_path)
 
 import model
 
-# Here's our "unit tests".
+# Lecturer class
 class Lecturer(unittest.TestCase):
 
-	# Consturctor
-    def test1(self):
-    	lec =  model.Lecturer("Bob Fisher", "m", "1234567")
-        self.assertEqual(lec.getName(), "Bob Fisher")
-        self.assertEqual(lec.getGender(), "m")
-        self.assertEqual(lec.getStaffID(), "1234567")
+	def setUp(self):
+		self.l =  model.Lecturer("Bob Fisher", "m", "1234567")
+
+	# Constructor
+	def test1(self):
+		self.assertEqual(self.l.name, "Bob Fisher")
+		self.assertEqual(self.l.gender, "m")
+		self.assertEqual(self.l.staffID, "1234567")
+
+	# getModules
+	def test2(self):
+		self.assertEqual(len(self.l.getModules()), 0)
+
+# Person class
+class Person(unittest.TestCase):
+
+	def setUp(self):
+		self.p =  model.Lecturer("Bob Fisher", "m", "1234567")
+
+	# Constructor
+	def test1(self):
+		self.assertEqual(self.p.name, "Bob Fisher")
+		self.assertEqual(self.p.gender, "m")
 
 def main():
-    unittest.main()
+	unittest.main()
 
 if __name__ == '__main__':
-    main()
+	main()

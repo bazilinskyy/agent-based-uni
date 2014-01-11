@@ -30,5 +30,10 @@ if __name__ == '__main__':
 	if conf.KIVY_READY:
 		PongApp().run()
 
-	lec =  model.Lecturer("Bob", "m")
-	print lec.getName()
+	lec =  model.Lecturer("Bob", "m", "1234")
+	print lec.name
+
+	course = model.Course("CS101", 10)
+	s = model.Student("Bob", "m", "12345", course)
+	print s.name
+	print s.studentID
