@@ -3,6 +3,7 @@ class Course:
 
 	totalSemesters = 8
 	modules = []
+	students = []
 
 	def __init__(self, courseID, courseCredit):
 		self.courseID = courseID
@@ -21,4 +22,7 @@ class Course:
 		return self.totalSemesters
 
 	def addModule(self, module):
-		modules.append(module)
+		self.modules.append(module)
+
+	def addStudent(self, student):
+		self.students.append(student)
