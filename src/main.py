@@ -29,6 +29,6 @@ if conf.KIVY_READY:
 if __name__ == '__main__':
 	if conf.KIVY_READY:
 		PongApp().run()
-		
-	lec =  model.Lecturer("Bob")
+
+	lec =  model.Lecturer("Bob", "m")
 	print lec.getName()
