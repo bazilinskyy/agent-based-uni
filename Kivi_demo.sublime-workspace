@@ -11,13 +11,6 @@
 	},
 	"buffers":
 	[
-		{
-			"settings":
-			{
-				"buffer_size": 0,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -43,6 +36,14 @@
 	},
 	"file_history":
 	[
+		"/Users/pavlo/Dropbox/Dev/Agent-based-Uni/src/AgentBasedUni.kv",
+		"/Users/pavlo/Dropbox/Dev/Agent-based-Uni/src/main.py",
+		"/Users/pavlo/Downloads/ImOnLi_RU.txt",
+		"/Users/pavlo/Downloads/ImOnLi_EN.txt",
+		"/Users/pavlo/Dropbox/Dev/Agent-based-Uni/src/pong.kv",
+		"/Users/pavlo/Dropbox/Dev/Agent-based-Uni/src/agentbaseduni.kv",
+		"/Users/pavlo/Desktop/kivy.tmLanguage",
+		"/Users/pavlo/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
 		"/Users/pavlo/Downloads/AppResourcesToBeTranslated.resx",
 		"/Users/pavlo/Downloads/Windows XP Professional SP3 Nov 2013 + SATA Drivers [ThumperDC]/key.txt",
 		"/Applications/Kivy.app/Contents/Resources/script",
@@ -161,34 +162,8 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"settings":
-					{
-						"buffer_size": 0,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -248,6 +223,6 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 242.0,
+	"side_bar_width": 174.0,
 	"status_bar_visible": true
 }
