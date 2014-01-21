@@ -10,11 +10,12 @@ class Student(Person):
 	totalMarks = 0
 	modules = []
 
-	def __init__(self, name, gender, studentID):
+	def __init__(self, name, gender, studentID, leavingMark = 300):
 		self.studentID = studentID
 		Person.__init__(self, name, gender)
 
 		self.semester = 1
+		self.leavingMark = leavingMark #TODO: check Irish system
 
 	def getModules(self):
 		return self.modules

@@ -1,47 +1,24 @@
 import conf
 import model
 import random
+from UniData import UniData
 
 # Populate list of student in current intake
-intake = []
-courses = [model.Course("CS101", 10), model.Course("AA104", 5), model.Course("DC105", 5), model.Course("CS110", 15), model.Course("IT402", 10)]
-
-# Based on http://stackoverflow.com/questions/5731670/simple-random-name-generator-in-python/5732034#5732034
-def createIntake():
-	# Fetch lists of names
-	parts = {}
-	with open(conf.FILE_WITH_NAMES, 'r') as f:
-		nameList = []
-		for line in f.readlines():
-			line = line.strip()
-			if line.startswith('[') and line.endswith(']'):
-				nameList = []
-				parts[line[1:-1]] = nameList
-			else:
-				nameList.append(line.strip())
-
-	i = 0
-
-	# Create student instances
-	for count in xrange(conf.INTAKE_SIZE):
-		name = ' '.join(random.choice(parts[partName]) for partName in sorted(parts))
-
-		gender = random.choice(["m", "f"])
-		studentID = i
-		i = i + 1
-		s = model.Student(name, gender, studentID)
-		intake.append(s)
-
-	# for x in intake:
-	# 	print x.name, x.gender, x.studentID
+# Load data from Excel and csv files
+data = UniData() 
+data.importData()
+intake = UniData.intakeSummer #TODO process both intakes
+modules = UniData.modules
+courses = UniData.courses
 
 # Algorithm by Ronan Reilly 
 def simulate():
-	createIntake()
+	#createIntake()
 	semester = 1
 
 	# Assume a four year course with two semesters per year
 	while (semester <= 8):
+
 		for student in intake:
 			# intake
 			if (semester == 1):
