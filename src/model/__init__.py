@@ -28,4 +28,5 @@ from Module import *
 from ModuleEnrollment import *
 from Student import *
 from CourseEnrollment import *
+from CourseType import *
 from Course import *

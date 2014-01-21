@@ -5,9 +5,13 @@ class Course:
 	modules = []
 	students = []
 
-	def __init__(self, courseID, courseCredit):
+	def __init__(self, courseID, courseCredit, courseType, accepts = 0, singleHons = 0, jointHons = 0):
 		self.courseID = courseID
 		self.courseCredit = courseCredit
+		self.courseType = courseType
+		self.accepts = accepts
+		self.singleHons = singleHons
+		self.jointHons = jointHons
 
 	def getModules(self):
 		return self.modules

@@ -31,6 +31,19 @@ class Person(unittest.TestCase):
 		self.assertEqual(self.p.name, "Bob Fisher")
 		self.assertEqual(self.p.gender, "m")
 
+# CourseType class
+class CourseType(unittest.TestCase):
+
+	def setUp(self):
+		self.ct =  model.CourseType("BSc", 1400, 340, 210)
+
+	# Constructor
+	def test1(self):
+		self.assertEqual(self.ct.name, "BSc")
+		self.assertEqual(self.ct.accepts, 1400)
+		self.assertEqual(self.ct.singleHons, 340)
+		self.assertEqual(self.ct.jointHons, 210)
+
 def main():
 	unittest.main()
 

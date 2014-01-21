@@ -8,6 +8,7 @@ class UniData():
 	intakeSummer = []
 	intakeAutumn = []
 	courses = []
+	courseTypes = []
 	modules = []
 
 	# @property
@@ -43,10 +44,7 @@ class UniData():
 	# def modules(self, value):
 	# 	self._modules = modules
 
-	def importData(self):
-		# TODO populate with real courses
-		#_courses = [model.Course("CS101", 10), model.Course("AA104", 5), model.Course("DC105", 5), model.Course("CS110", 15), model.Course("IT402", 10)]
-		
+	def importData(self):		
 		# Populate  
 		if (len(self.courses) < 1 and len(self.modules) < 1 and len(self.intakeSummer) < 1 and len(self.intakeAutumn) < 1): # import from files only once
 			try:
@@ -66,17 +64,50 @@ class UniData():
 				#numRowsIntakeSummer = sheetIntakeSummer.nrows - 1
 				numRowsIntakeAutumn = sheetIntakeAutumn.nrows - 1
 
+				## Lines to ignore in files
+				linesIgnoreCourses = [1, 25, 36, 40, 44, 45, 56, 60, 63, 81, 82]
+
 				## Looping over sheet rows
-				## We already know the number of rows
+
+				## Courses and course types
+				currentCourseType = ""
 				for i in range(numRowsCourses):
 					row = sheetCourses.row_slice(i+1)
-					pass
+					if (i + 1 not in linesIgnoreCourses):
+
+						# Check if it is a type of course
+						if (row[0].value in model.CourseType.possibleCourseTypes):
+							jointHons = 0
+							singleHons = 0
+							if (row[4].value != 0):
+								singleHons = row[4].value
+							if (row[5].value  != 0):
+								jointHons = row[5].value
+							self.courseTypes.append(model.CourseType(row[0].value, row[3].value, singleHons, jointHons))
+							currentCourseType = row[0].value
+
+						# Otherwise, it must be a course
+						else:
+							accepts = 0
+							jointHons = 0
+							singleHons = 0
+							courseCredit = -1 #TODO: need this data
+							if (row[3].value != 0):
+								accepts = row[3].value
+							if (row[4].value != 0):
+								singleHons = row[4].value
+							if (row[5].value  != 0):
+								jointHons = row[5].value
+							self.courses.append(model.Course(row[0].value, courseCredit,currentCourseType, accepts, singleHons, jointHons))
 
 				if conf.DEBUG:
 					print 'Data imported'
 					print 'SUMMER INTAKE length:', len(self.intakeSummer)          
 					print 'AUTUMN INTAKE length:', len(self.intakeAutumn)          
-					print 'COURSES       length:', len(self.courses)          
+					print 'COURSES       length:', len(self.courses)         
+					for i in self.courses:
+						print i.courseID
+					print 'COURSE TYPES  length:', len(self.courseTypes)          
 					print 'MODULES       length:', len(self.modules)          
 			except:
 				print traceback.format_exc()
