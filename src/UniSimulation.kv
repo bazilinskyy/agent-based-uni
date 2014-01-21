@@ -1,0 +1,89 @@
+<HBoxWidget>:
+	
+	BoxLayout:
+		id: hBoxWidgetLayout
+		orientation: 'horizontal'
+		size: root.size
+		pos: root.pos
+		BoxLayout:
+			ScrollView:
+				id: left_scrollView
+				text: 'v2'
+		VBoxWidget:
+
+<VBoxWidget>:
+	BoxLayout:
+		orientation: 'vertical'
+		size: root.size
+		pos: root.pos
+		SliderWithLabel:
+			text: 'Enrolled'
+		SliderWithLabel:
+			text: 'Compensation level'
+		SliderWithLabel:
+			text: 'Passing mark'
+		SliderWithLabel:
+			text: 'Number of modules'
+		SliderWithLabel:
+			text: 'Number of courses'
+		SliderWithLabel:
+			text: 'Compensation level'
+		CheckBoxWithLabel:
+			text: 'Compensation'
+
+<SliderWithLabel>:
+	text: ''
+	BoxLayout:
+		orientation: 'horizontal'
+		size: root.size
+		pos: root.pos
+		Label:
+			text: root.text
+			#size_hint_x: 0.6
+			halign: 'left'
+		Slider:
+
+
+<CheckBoxWithLabel>:
+	text: ''
+	BoxLayout:
+		orientation: 'horizontal'
+		size: root.size
+		pos: root.pos
+		Label:
+			text: root.text
+			#size_hint_x: 0.6
+		CheckBox:
+			active: True
+			
+			
+<ContainerBox>:
+	scrollView: left_scrollView
+	orientation: 'horizontal'
+	BoxLayout:
+		id: hBoxWidgetLayout
+		orientation: 'horizontal'
+		size: root.size
+		pos: root.pos
+		BoxLayout:
+			ScrollView:
+				id: left_scrollView
+				text: 'v2'
+			BoxLayout:
+				orientation: 'vertical'
+				size: root.size
+				pos: root.pos
+				SliderWithLabel:
+					text: 'Enrolled'
+				SliderWithLabel:
+					text: 'Compensation level'
+				SliderWithLabel:
+					text: 'Passing mark'
+				SliderWithLabel:
+					text: 'Number of modules'
+				SliderWithLabel:
+					text: 'Number of courses'
+				SliderWithLabel:
+					text: 'Compensation level'
+				CheckBoxWithLabel:
+					text: 'Compensation'

@@ -1,7 +1,7 @@
 # ENVIRONMENT
 DEBUG				= 1
 SHOW_TIMESTAMPS 	= 1
-KIVY_READY 			= 0		# Ready to be published with Kivy
+KIVY_READY 			= 1		# Ready to be published with Kivy
 
 # SIMULATION
 INTAKE_SIZE = 500

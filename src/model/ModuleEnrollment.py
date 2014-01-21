@@ -4,8 +4,10 @@ class ModuleEnrollment:
 	passed = False
 	marksReceived = 0.0
 
-	def __init__(self, semesterTaken):
+	def __init__(self, student, module, semesterTaken):
 		self.semesterTaken = semesterTaken
+		self.student = student
+		self.module = module
 	
 	def getMark(self):
 		return self.marksReceived

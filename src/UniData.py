@@ -1,5 +1,5 @@
 import traceback
-from xlrd import open_workbook, cellname, XL_CELL_TEXT
+from xlrd import open_workbook, cellname
 import csv
 import model
 import conf
@@ -128,6 +128,9 @@ class UniData():
 							currentDepartment, # Department
 							row[4].value # Department
 							))
+
+				## Summer and autumn intakes
+				#TODO
 						
 
 				if conf.DEBUG:

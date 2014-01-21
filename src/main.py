@@ -8,9 +8,15 @@ import sys
 if conf.KIVY_READY:
 	from kivy.app import App
 	from kivy.uix.widget import Widget
-	from kivy.properties import NumericProperty, ReferenceListProperty
 	from kivy.vector import Vector
-	from kivy.garden.graph import Graph, MeshLinePlot
+	# from kivy.garden.graph import Graph, MeshLinePlot
+	from kivy.uix.slider import Slider
+	from kivy.app import App
+	from kivy.uix.button import Button
+	from kivy.uix.boxlayout import BoxLayout
+	from kivy.uix.checkbox import CheckBox
+	from kivy.uix.scrollview import ScrollView
+	from kivy.properties import NumericProperty, ReferenceListProperty, ObjectProperty
 
 if conf.KIVY_READY:
 	# class PongBall(Widget):
@@ -20,21 +26,36 @@ if conf.KIVY_READY:
 
 	#     def move(self):
 	#         self.pos = Vector(*self.velocity) + self.pos
+	 
+	class HBoxWidget(Widget):
+		def __init__(self, **kwargs):
+			super(HBoxWidget, self).__init__(**kwargs)
 
+	class VBoxWidget(Widget):
+		def __init__(self, **kwargs):
+			super(VBoxWidget, self).__init__(**kwargs)
 
-	class MainWindow(Widget):   
-		graph = Graph(xlabel='X', ylabel='Y', x_ticks_minor=5,
-		x_ticks_major=25, y_ticks_major=1,
-		y_grid_label=True, x_grid_label=True, padding=5,
-		x_grid=True, y_grid=True, xmin=-0, xmax=100, ymin=-1, ymax=1)
-		plot = MeshLinePlot(color=[1, 0, 0, 1])
-		plot.points = [(x, sin(x / 10.)) for x in xrange(0, 101)]
-		graph.add_plot(plot)
+	class SliderWithLabel(Widget):
+		def __init__(self, **kwargs):
+			super(SliderWithLabel, self).__init__(**kwargs)
 
+	class CheckBoxWithLabel(Widget):
+		def __init__(self, **kwargs):
+			super(CheckBoxWithLabel, self).__init__(**kwargs)
+			
+	class ContainerBox(BoxLayout):
+		scrollView = ObjectProperty(None)
 
+		def update():
+			print self.scrollView.text
+
+		def __init__(self, **kwargs):
+			super(ContainerBox, self).__init__(**kwargs)
+			print self.scrollView.text
+	 
 	class UniSimulationApp(App):
-	    def build(self):
-	        return MainWindow()
+		def build(self):
+			return ContainerBox() 
 
 # if conf.SHOW_TIMESTAMPS:
 # 	old_f = sys.stdout
