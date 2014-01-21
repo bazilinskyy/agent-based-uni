@@ -32,8 +32,19 @@ if conf.KIVY_READY:
 			super(HBoxWidget, self).__init__(**kwargs)
 
 	class VBoxWidget(Widget):
+		enrolledSlider = ObjectProperty(None)
+		compensationLevelSlider = ObjectProperty(None)
+		passingMarkSlider = ObjectProperty(None)
+		numberOfModulesSlider = ObjectProperty(None)
+		numberOfCourseSlider = ObjectProperty(None)
+		compensationLevelSlider = ObjectProperty(None)
+		compensationCheckBox = ObjectProperty(None)
+
 		def __init__(self, **kwargs):
 			super(VBoxWidget, self).__init__(**kwargs)
+
+		def on_touch_up(self, touch):
+			print self.enrolledSlider.value
 
 	class SliderWithLabel(Widget):
 		def __init__(self, **kwargs):
@@ -44,16 +55,55 @@ if conf.KIVY_READY:
 			super(CheckBoxWithLabel, self).__init__(**kwargs)
 			
 	class ContainerBox(BoxLayout):
-		scrollView = ObjectProperty(None)
+		textView = ObjectProperty(None)
+		enrolledSlider = ObjectProperty(None)
+		compensationLevelSlider = ObjectProperty(None)
+		passingMarkSlider = ObjectProperty(None)
+		numberOfModulesSlider = ObjectProperty(None)
+		numberOfCourseSlider = ObjectProperty(None)
+		compensationLevelSlider = ObjectProperty(None)
+		compensationCheckBox = ObjectProperty(None)
 
-		def update():
-			print self.scrollView.text
+		# Record current values in the GUI for updates
+		previousValues= []
+
+		def on_touch_up(self, touch):
+			currentValues= [
+				self.enrolledSlider.value,
+				self.compensationLevelSlider.value,
+				self.passingMarkSlider.value,
+				self.numberOfModulesSlider.value,
+				self.numberOfCourseSlider.value,
+				self.compensationLevelSlider.value,
+				self.compensationCheckBox.active
+			]
+
+			for i in range(len(currentValues)):
+				if (currentValues[i] != self.previousValues[i]):
+					# TODO pass parameters to simulation function
+					update = simulate()
+					if conf.DEBUG:
+						print "Update from simulation: ", update
+					self.textView.text = update
+					break
+			self.previousValues = currentValues[:]
+
 
 		def __init__(self, **kwargs):
 			super(ContainerBox, self).__init__(**kwargs)
-			print self.scrollView.text
+			self.previousValues= [
+				self.enrolledSlider.value,
+				self.compensationLevelSlider.value,
+				self.passingMarkSlider.value,
+				self.numberOfModulesSlider.value,
+				self.numberOfCourseSlider.value,
+				self.compensationLevelSlider.value,
+				self.compensationCheckBox.active
+			]
 	 
 	class UniSimulationApp(App):
+		title = 'University agent-based simualation by Pavlo Bazilinskyy'
+
 		def build(self):
 			return ContainerBox() 
 

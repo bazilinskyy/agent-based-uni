@@ -42,3 +42,5 @@ def simulate():
 
 	if conf.DEBUG:
 		print "Simulation finished."
+
+	return "SIMULATION FINISHED."

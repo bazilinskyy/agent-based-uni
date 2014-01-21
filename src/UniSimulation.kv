@@ -12,26 +12,42 @@
 		VBoxWidget:
 
 <VBoxWidget>:
+	enrolledSlider: enrolledSlider
+	compensationLevelSlider: compensationLevelSlider
+	passingMarkSlider: passingMarkSlider
+	numberOfModulesSlider: numberOfModulesSlider
+	numberOfCourseSlider: numberOfCourseSlider
+	compensationLevelSlider: compensationLevelSlider
+	compensationCheckBox: compensationCheckBox
+
 	BoxLayout:
 		orientation: 'vertical'
 		size: root.size
 		pos: root.pos
 		SliderWithLabel:
 			text: 'Enrolled'
+			id: enrolledSlider
 		SliderWithLabel:
 			text: 'Compensation level'
+			id: compensationLevelSlider
 		SliderWithLabel:
 			text: 'Passing mark'
+			id: passingMarkSlider
 		SliderWithLabel:
 			text: 'Number of modules'
+			id: numberOfModulesSlider
 		SliderWithLabel:
 			text: 'Number of courses'
+			id: numberOfCourseSlider
 		SliderWithLabel:
 			text: 'Compensation level'
+			id: compensationLevelSlider
 		CheckBoxWithLabel:
 			text: 'Compensation'
+			id: compensationCheckBox
 
 <SliderWithLabel>:
+	value: slider.value
 	text: ''
 	BoxLayout:
 		orientation: 'horizontal'
@@ -42,10 +58,11 @@
 			#size_hint_x: 0.6
 			halign: 'left'
 		Slider:
-
+			id: slider
 
 <CheckBoxWithLabel>:
 	text: ''
+	active: checkbox.active
 	BoxLayout:
 		orientation: 'horizontal'
 		size: root.size
@@ -54,11 +71,20 @@
 			text: root.text
 			#size_hint_x: 0.6
 		CheckBox:
+			id: checkbox
 			active: True
 			
 			
 <ContainerBox>:
-	scrollView: left_scrollView
+	textView: textView
+	enrolledSlider: enrolledSlider
+	compensationLevelSlider: compensationLevelSlider
+	passingMarkSlider: passingMarkSlider
+	numberOfModulesSlider: numberOfModulesSlider
+	numberOfCourseSlider: numberOfCourseSlider
+	compensationLevelSlider: compensationLevelSlider
+	compensationCheckBox: compensationCheckBox
+
 	orientation: 'horizontal'
 	BoxLayout:
 		id: hBoxWidgetLayout
@@ -66,24 +92,35 @@
 		size: root.size
 		pos: root.pos
 		BoxLayout:
-			ScrollView:
-				id: left_scrollView
-				text: 'v2'
+			Label:
+				size: root.size
+				pos: root.pos
+				id: textView
+				text: 'Simulation results will appear here.'
+				valign: 'top'
+				halign: 'left'
 			BoxLayout:
 				orientation: 'vertical'
 				size: root.size
 				pos: root.pos
 				SliderWithLabel:
 					text: 'Enrolled'
+					id: enrolledSlider
 				SliderWithLabel:
 					text: 'Compensation level'
+					id: compensationLevelSlider
 				SliderWithLabel:
 					text: 'Passing mark'
+					id: passingMarkSlider
 				SliderWithLabel:
 					text: 'Number of modules'
+					id: numberOfModulesSlider
 				SliderWithLabel:
 					text: 'Number of courses'
+					id: numberOfCourseSlider
 				SliderWithLabel:
 					text: 'Compensation level'
+					id: compensationLevelSlider
 				CheckBoxWithLabel:
 					text: 'Compensation'
+					id: compensationCheckBox
