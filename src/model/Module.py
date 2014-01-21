@@ -5,10 +5,12 @@ class Module:
 
 	students = []
 
-	def __init__(self, moduleID, moduleCredit, semesterGiven):
-		self.moduleID = studentID
+	def __init__(self, moduleID, moduleName, moduleCredit, semesterGiven, department, enrolledStudents):
+		self.moduleID = moduleID
+		self.moduleName = moduleName
 		self.moduleCredit = moduleCredit
 		self.semesterGiven = semesterGiven
+		self.enrolledStudents = enrolledStudents
 
 	def addStudent(self, student):
 		students.append(student)
@@ -21,3 +23,6 @@ class Module:
 
 	def getSemesterGiven(self):
 		return self.semesterGiven
+
+	def getModuleCreditSum(self):
+		return self.moduleCredit * self.enrolledStudents

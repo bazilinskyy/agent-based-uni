@@ -10,6 +10,8 @@ class UniData():
 	courses = []
 	courseTypes = []
 	modules = []
+	departments = []
+	faculties = []
 
 	# @property
 	# def intakeAutumn(self):
@@ -53,62 +55,90 @@ class UniData():
 				fileModules = self.openDataFile(conf.FILE_WITH_MODULES)
 				fileIntakeSummer = self.openDataFile(conf.FILE_WITH_INTAKE_SUMMER)
 				fileIntakeAutumn = self.openDataFile(conf.FILE_WITH_INTAKE_AUTUMN)
-				## Reading the sheet we need
-				sheetCourses = fileCourses.sheet_by_index(0)
+
+				
 				sheetModules = fileModules.sheet_by_index(0)
 				#sheetIntakeSummer = fileIntakeSummer.sheet_by_index(0)
 				sheetIntakeAutumn = fileIntakeAutumn.sheet_by_index(0)
 				## Calculating numbers of rows in received sheets
-				numRowsCourses = sheetCourses.nrows - 1
-				numRowsModules = sheetModules.nrows - 1
+				
 				#numRowsIntakeSummer = sheetIntakeSummer.nrows - 1
 				numRowsIntakeAutumn = sheetIntakeAutumn.nrows - 1
 
-				## Lines to ignore in files
-				linesIgnoreCourses = [1, 25, 36, 40, 44, 45, 56, 60, 63, 81, 82]
-
-				## Looping over sheet rows
-
 				## Courses and course types
+				linesIgnoreCourses = [1, 25, 36, 40, 44, 45, 56, 60, 63, 81, 82] # Lines to ignore in the file
+				sheetCourses = fileCourses.sheet_by_index(0) # Only 1 sheet present
+				numRowsCourses = sheetCourses.nrows - 1
+
 				currentCourseType = ""
 				for i in range(numRowsCourses):
 					row = sheetCourses.row_slice(i+1)
 					if (i + 1 not in linesIgnoreCourses):
+						jointHons = -1
+						singleHons = -1
+						accepts = -1
+						if (row[3].value != 0):
+							accepts = row[3].value
+						if (row[4].value != 0):
+							singleHons = row[4].value
+						if (row[5].value  != 0):
+							jointHons = row[5].value
 
 						# Check if it is a type of course
 						if (row[0].value in model.CourseType.possibleCourseTypes):
-							jointHons = 0
-							singleHons = 0
-							if (row[4].value != 0):
-								singleHons = row[4].value
-							if (row[5].value  != 0):
-								jointHons = row[5].value
 							self.courseTypes.append(model.CourseType(row[0].value, row[3].value, singleHons, jointHons))
 							currentCourseType = row[0].value
 
 						# Otherwise, it must be a course
 						else:
-							accepts = 0
-							jointHons = 0
-							singleHons = 0
 							courseCredit = -1 #TODO: need this data
-							if (row[3].value != 0):
-								accepts = row[3].value
-							if (row[4].value != 0):
-								singleHons = row[4].value
-							if (row[5].value  != 0):
-								jointHons = row[5].value
 							self.courses.append(model.Course(row[0].value, courseCredit,currentCourseType, accepts, singleHons, jointHons))
+
+				## Modules, departments, faculties
+				linesIgnoreModules = [0, 1, 2, 1209, 1210, 1211] # Lines to ignore in the file
+				sheetModules = fileModules.sheet_by_index(0) # Reading the sheet with UG
+				numRowsModules = sheetModules.nrows - 1
+
+				## Courses and course types
+				currentFaculty = model.Faculty("NA")
+				currentDepartment = model.Department("NA", currentFaculty)
+
+				for i in range(numRowsModules):
+					row = sheetModules.row_slice(i+1)
+					if (i + 1 not in linesIgnoreModules):
+						# Check if we found a new faculty
+						if (row[0].value != currentFaculty.name):
+							newFaculty = model.Faculty(row[0].value)
+							self.faculties.append(newFaculty)
+							currentFaculty = newFaculty
+
+						# Check if we found a new department
+						if (row[1].value != currentDepartment.name):
+							newDepartment = model.Department(row[1].value, currentFaculty)
+							self.departments.append(newDepartment)
+							currentDepartment = newDepartment
+
+						# Add new module
+						semesterGiven = -1 #TODO mossing data
+						self.modules.append(model.Module(
+							row[2].value, # Module ID
+							row[3].value, # Module name
+							row[5].value, # Module credit
+							semesterGiven, # Semester given
+							currentDepartment, # Department
+							row[4].value # Department
+							))
+						
 
 				if conf.DEBUG:
 					print 'Data imported'
 					print 'SUMMER INTAKE length:', len(self.intakeSummer)          
 					print 'AUTUMN INTAKE length:', len(self.intakeAutumn)          
 					print 'COURSES       length:', len(self.courses)         
-					for i in self.courses:
-						print i.courseID
 					print 'COURSE TYPES  length:', len(self.courseTypes)          
 					print 'MODULES       length:', len(self.modules)          
+					print 'FACULTIES     length:', len(self.faculties)        
+					print 'DEPARTMENTS   length:', len(self.departments)          
 			except:
 				print traceback.format_exc()
 

@@ -30,3 +30,5 @@ from Student import *
 from CourseEnrollment import *
 from CourseType import *
 from Course import *
+from Department import *
+from Faculty import *
