@@ -91,36 +91,48 @@
 		orientation: 'horizontal'
 		size: root.size
 		pos: root.pos
+		TabbedPanel:
+		    do_default_tab: False
+			TabbedPanelItem:
+		        text: 'Summary'
+		        Label:
+					size: root.size
+					pos: root.pos
+					id: textView
+					text: 'Simulation results will appear here.'
+					valign: 'top'
+					halign: 'left'
+		    TabbedPanelItem:
+		        text: 'Graph'
+		        Label:
+	                text: 'Graph will be here.'
+		    TabbedPanelItem:
+		        text: 'Cloud-based'
+	            Label:
+	                text: 'Particle-based representation will be here.'
+
 		BoxLayout:
-			Label:
-				size: root.size
-				pos: root.pos
-				id: textView
-				text: 'Simulation results will appear here.'
-				valign: 'top'
-				halign: 'left'
-			BoxLayout:
-				orientation: 'vertical'
-				size: root.size
-				pos: root.pos
-				SliderWithLabel:
-					text: 'Enrolled'
-					id: enrolledSlider
-				SliderWithLabel:
-					text: 'Compensation level'
-					id: compensationLevelSlider
-				SliderWithLabel:
-					text: 'Passing mark'
-					id: passingMarkSlider
-				SliderWithLabel:
-					text: 'Number of modules'
-					id: numberOfModulesSlider
-				SliderWithLabel:
-					text: 'Number of courses'
-					id: numberOfCourseSlider
-				SliderWithLabel:
-					text: 'Compensation level'
-					id: compensationLevelSlider
-				CheckBoxWithLabel:
-					text: 'Compensation'
-					id: compensationCheckBox
+			orientation: 'vertical'
+			size: root.size
+			pos: root.pos
+			SliderWithLabel:
+				text: 'Enrolled'
+				id: enrolledSlider
+			SliderWithLabel:
+				text: 'Compensation level'
+				id: compensationLevelSlider
+			SliderWithLabel:
+				text: 'Passing mark'
+				id: passingMarkSlider
+			SliderWithLabel:
+				text: 'Number of modules'
+				id: numberOfModulesSlider
+			SliderWithLabel:
+				text: 'Number of courses'
+				id: numberOfCourseSlider
+			SliderWithLabel:
+				text: 'Compensation level'
+				id: compensationLevelSlider
+			CheckBoxWithLabel:
+				text: 'Compensation'
+				id: compensationCheckBox

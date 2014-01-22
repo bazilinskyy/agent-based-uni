@@ -17,6 +17,8 @@ if conf.KIVY_READY:
 	from kivy.uix.checkbox import CheckBox
 	from kivy.uix.scrollview import ScrollView
 	from kivy.properties import NumericProperty, ReferenceListProperty, ObjectProperty
+	from kivy.uix.tabbedpanel import TabbedPanel
+	from kivy.uix.floatlayout import FloatLayout
 
 if conf.KIVY_READY:
 	# class PongBall(Widget):
