@@ -11,6 +11,7 @@ class Module:
 		self.moduleCredit = moduleCredit
 		self.semesterGiven = semesterGiven
 		self.enrolledStudents = enrolledStudents
+		self.students = []
 
 	def addStudent(self, student):
 		students.append(student)

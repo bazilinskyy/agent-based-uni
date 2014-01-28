@@ -5,15 +5,18 @@ class Student(Person):
 	__doc__ = "Student"
 
 	points = 0
+	marks = 0
 	semester = 0
 	totalSemesters = 8
 	totalMarks = 0
 	modules = []
+	moduleEnrollments = {}
 
 	def __init__(self, studentID, name = "Student X", gender = "m", leavingCertificate = 75):
 		self.studentID = studentID
 		Person.__init__(self, name, gender)
-
+		self.modules = []
+		self.moduleEnrollments = {}
 		self.semester = 1
 		self.leavingCertificate = leavingCertificate #TODO: check Irish system
 

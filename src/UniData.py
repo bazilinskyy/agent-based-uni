@@ -11,6 +11,7 @@ class UniData():
 	courseTypes = []
 	modules = {}
 	moduleEnrollments = []
+	courseEnrollments = []
 	departments = []
 	faculties = []
 
@@ -163,9 +164,9 @@ class UniData():
 
 							# And add to the list of modules
 							self.modules[row[2].value] = moduleEnrolled
-
+						# And module enrollment
 						moduleEnroll = model.ModuleEnrollment(self.intakeSummer[str(int(row[3].value))], moduleEnrolled, 1)
-						
+
 						# PASS / FAIL / ABSENT / PASS BY COMPENSATION etc.
 						if (row[6].value == "PASS"): 
 							moduleEnroll.status = "PASS"
@@ -190,6 +191,11 @@ class UniData():
 
 						self.moduleEnrollments.append(moduleEnroll)
 
+						# And add to the list of modules of a particular student
+						self.intakeSummer[str(int(row[3].value))].modules.append(moduleEnrolled)
+						# Also, add module enrollment to the student
+						self.intakeSummer[str(int(row[3].value))].moduleEnrollments[row[4].value] = moduleEnroll
+
 
 				# Autumn intake
 				tempSet.clear()
@@ -204,9 +210,8 @@ class UniData():
 							self.intakeAutumn[str(int(row[3].value))] = model.Student(str(int(row[3].value)))
 							tempSet.add(str(row[3]))
 
-
 						## Enrol student into a module
-						# Default to the first semester of a given year
+						# Default to the second semester of a given year
 
 						# Try to find a previously loaded module
 						try:
@@ -223,9 +228,9 @@ class UniData():
 
 							# And add to the list of modules
 							self.modules[row[2].value] = moduleEnrolled
-
+						# And module enrollment
 						moduleEnroll = model.ModuleEnrollment(self.intakeAutumn[str(int(row[3].value))], moduleEnrolled, 2)
-						
+
 						# PASS / FAIL / ABSENT / PASS BY COMPENSATION etc.
 						if (row[6].value == "PASS"): 
 							moduleEnroll.status = "PASS"
@@ -249,10 +254,11 @@ class UniData():
 							moduleEnroll.marksReceived = 0
 
 						self.moduleEnrollments.append(moduleEnroll)
-						
 
-
-
+						# And add to the list of modules of a particular student
+						self.intakeAutumn[str(int(row[3].value))].modules.append(moduleEnrolled)
+						# Also, add module enrollment to the student
+						self.intakeAutumn[str(int(row[3].value))].moduleEnrollments[row[4].value] = moduleEnroll
 
 				if conf.DEBUG:
 					print 'Data imported'
@@ -269,10 +275,22 @@ class UniData():
 					print 'COURSE TYPES  length:', len(self.courseTypes)          
 					print 'MODULES       length:', len(self.modules)          
 					print 'FACULTIES     length:', len(self.faculties)        
-					print 'DEPARTMENTS   length:', len(self.departments)   
+					print 'DEPARTMENTS   length:', len(self.departments)
+					
+					# Calculate an average number of enrolled modules per student
+					keys = self.intakeSummer.keys()
+					numModulesEnrolled = 0
+					for key in keys:
+						numModulesEnrolled += len(self.intakeSummer[key].getModules())
 
-					print 'SUMMER'
+					keys = self.intakeAutumn.keys()
+					for key in keys:
+						numModulesEnrolled += len(self.intakeAutumn[key].getModules())
+					numModulesEnrolled /= (len(self.intakeSummer.keys()) + len(self.intakeAutumn.keys()))
+					print 'STUDENTS average enrolled modules:', numModulesEnrolled
+
 					print '1st YEAR'
+					print 'SUMMER'
 					passedList = []
 					failedList = []
 					compensationList = []
@@ -281,20 +299,21 @@ class UniData():
 					excemptionList = []
 					satisfactoryList = []
 					for i in self.moduleEnrollments:
-						if (i.status == "PASS"):
-							passedList.append(i)
-						elif (i.status == "FAIL"):
-							failedList.append(i)
-						elif (i.status == "PASS BY COMPENSATION"):
-							compensationList.append(i)
-						elif (i.status == "ABSENT"):
-							absentList.append(i)
-						elif (i.status == "DID NOT COMPLETE"):
-							didnotcompleteList.append(i)
-						elif (i.status == "EXEMPTION"):
-							excemptionList.append(i)
-						elif (i.status == "SATISFACTORY"):
-							satisfactoryList.append(i)
+						if (i.semesterTaken == 1):
+							if (i.status == "PASS"):
+								passedList.append(i)
+							elif (i.status == "FAIL"):
+								failedList.append(i)
+							elif (i.status == "PASS BY COMPENSATION"):
+								compensationList.append(i)
+							elif (i.status == "ABSENT"):
+								absentList.append(i)
+							elif (i.status == "DID NOT COMPLETE"):
+								didnotcompleteList.append(i)
+							elif (i.status == "EXEMPTION"):
+								excemptionList.append(i)
+							elif (i.status == "SATISFACTORY"):
+								satisfactoryList.append(i)
 					print 'STUDENTS                   passed:', len(passedList)
 					print 'STUDENTS                   failed:', len(failedList)
 					print 'STUDENTS   passed by compensation:', len(compensationList)
@@ -303,6 +322,38 @@ class UniData():
 					print 'STUDENTS                  excempt:', len(excemptionList)
 					print 'STUDENTS             satisfactory:', len(satisfactoryList)
 
+					print 'AUTUMN'
+					passedList = []
+					failedList = []
+					compensationList = []
+					absentList = []
+					didnotcompleteList = []
+					excemptionList = []
+					satisfactoryList = []
+					for i in self.moduleEnrollments:
+						if (i.semesterTaken == 2):
+							if (i.status == "PASS"):
+								passedList.append(i)
+							elif (i.status == "FAIL"):
+								failedList.append(i)
+							elif (i.status == "PASS BY COMPENSATION"):
+								compensationList.append(i)
+							elif (i.status == "ABSENT"):
+								absentList.append(i)
+							elif (i.status == "DID NOT COMPLETE"):
+								didnotcompleteList.append(i)
+							elif (i.status == "EXEMPTION"):
+								excemptionList.append(i)
+							elif (i.status == "SATISFACTORY"):
+								satisfactoryList.append(i)
+
+					print 'STUDENTS                   passed:', len(passedList)
+					print 'STUDENTS                   failed:', len(failedList)
+					print 'STUDENTS   passed by compensation:', len(compensationList)
+					print 'STUDENTS                   absent:', len(absentList)
+					print 'STUDENTS         did not complete:', len(didnotcompleteList)
+					print 'STUDENTS                  excempt:', len(excemptionList)
+					print 'STUDENTS             satisfactory:', len(satisfactoryList)
 
 			except:
 				print traceback.format_exc()

@@ -31,12 +31,12 @@ def simulate():
 						module.addStudent(intake[student])
 			
 			# progress
-			modulesTaken = intake[student].getModules()
+			modulesTaken = intake[student].moduleEnrollments
 			for module in modulesTaken:
-				result = assess(module, intake[student].getPoints())
+				result = modulesTaken[module].marksReceived
 				if (result >= 40):
-					intake[student].credit += module.getModuleCredit()
-					intake[student].marks += result * module.getModuleCredit() / course.getCourseCredit(semester)
+					intake[student].points += modulesTaken[module].module.getModuleCredit()
+					intake[student].marks += result * modulesTaken[module].module.getModuleCredit() / course.getCourseCredit()
 				intake[student].semester += 1
 		semester += 1
 
