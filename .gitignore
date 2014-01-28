@@ -36,3 +36,6 @@ nosetests.xml
 .pydevproject
 *.sublime-project
 *.sublime-workspace
+
+# Sentisitive data
+/src/data
