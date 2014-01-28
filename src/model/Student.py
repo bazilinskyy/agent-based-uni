@@ -10,7 +10,7 @@ class Student(Person):
 	totalMarks = 0
 	modules = []
 
-	def __init__(self, name, gender, studentID, leavingCertificate = 75):
+	def __init__(self, studentID, name = "Student X", gender = "m", leavingCertificate = 75):
 		self.studentID = studentID
 		Person.__init__(self, name, gender)
 

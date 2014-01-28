@@ -23,21 +23,21 @@ def simulate():
 			# intake
 			if (semester == 1):
 				course = random.choice(courses)
-				course.addStudent(student)
+				course.addStudent(intake[student])
 				modules = course.getModules()
 
 				for module in modules:
-					if (student.canTake(module) and module.getSemesterGiven() == student.getSemester()):
-						module.addStudent(student)
+					if (intake[student].canTake(module) and module.getSemesterGiven() == intake[student].getSemester()):
+						module.addStudent(intake[student])
 			
 			# progress
-			modulesTaken = student.getModules()
+			modulesTaken = intake[student].getModules()
 			for module in modulesTaken:
-				result = assess(module, student.getPoints())
+				result = assess(module, intake[student].getPoints())
 				if (result >= 40):
-					student.credit += module.getModuleCredit()
-					student.marks += result * module.getModuleCredit() / course.getCourseCredit(semester)
-				student.semester += 1
+					intake[student].credit += module.getModuleCredit()
+					intake[student].marks += result * module.getModuleCredit() / course.getCourseCredit(semester)
+				intake[student].semester += 1
 		semester += 1
 
 	if conf.DEBUG:

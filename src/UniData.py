@@ -5,8 +5,8 @@ import model
 import conf
 
 class UniData():
-	intakeSummer = []
-	intakeAutumn = []
+	intakeSummer = {}
+	intakeAutumn = {}
 	courses = []
 	courseTypes = []
 	modules = []
@@ -130,12 +130,42 @@ class UniData():
 							))
 
 				## Summer and autumn intakes
-				#TODO
+				
+				# Summer intake
+				tempSet = set()
+				linesIgnoreIntakeSummer = [0, 1, 2, 3, 4, 5, 6] # Lines to ignore in the file
+				sheetIntakeSummer = fileIntakeSummer.sheet_by_index(0) # Reading the sheet with UG
+				numRowsIntakeSummer = sheetIntakeSummer.nrows - 1
+
+				for i in range(numRowsIntakeSummer):
+					row = sheetIntakeSummer.row_slice(i+1)
+					if (i + 1 not in linesIgnoreIntakeSummer and str(row[3]) not in tempSet):
+						self.intakeSummer[str(row[3])] = model.Student(str(int(row[3].value)))
+						tempSet.add(str(row[3]))
+
+				# Autumn intake
+				tempSet.clear()
+				linesIgnoreIntakeAutumn = [0, 1, 2, 3, 4, 5, 6] # Lines to ignore in the file
+				sheetIntakeAutumn = fileIntakeAutumn.sheet_by_index(0) # Reading the sheet with UG
+				numRowsIntakeAutumn = sheetIntakeAutumn.nrows - 1
+
+				for i in range(numRowsIntakeAutumn):
+					row = sheetIntakeAutumn.row_slice(i+1)
+					if (i + 1 not in linesIgnoreIntakeAutumn and str(row[3]) not in tempSet):
+						self.intakeAutumn[str(row[3])] = model.Student(str(int(row[3].value)))
+						tempSet.add(str(row[3]))
 						
 
 				if conf.DEBUG:
 					print 'Data imported'
-					print 'SUMMER INTAKE length:', len(self.intakeSummer)          
+					print 'SUMMER INTAKE length:', len(self.intakeSummer)   
+
+					# # Print student IDs
+					# keys = self.intakeSummer.keys()
+					# keys.sort()
+					# for key in keys:
+					# 	print self.intakeSummer[key].studentID
+
 					print 'AUTUMN INTAKE length:', len(self.intakeAutumn)          
 					print 'COURSES       length:', len(self.courses)         
 					print 'COURSE TYPES  length:', len(self.courseTypes)          
@@ -168,7 +198,7 @@ class UniData():
 			gender = random.choice(["m", "f"])
 			studentID = i
 			i = i + 1
-			s = model.Student(name, gender, studentID)
+			s = model.Student(studentID, name, gender)
 			intake.append(s)
 
 		# for x in intake:
