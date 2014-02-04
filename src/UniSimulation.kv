@@ -49,6 +49,8 @@
 <SliderWithLabel>:
 	value: slider.value
 	text: ''
+	min: 0
+	max: 1000
 	BoxLayout:
 		orientation: 'horizontal'
 		size: root.size
@@ -59,6 +61,8 @@
 			halign: 'left'
 		Slider:
 			id: slider
+			min: root.min
+			max: root.max
 
 <CheckBoxWithLabel>:
 	text: ''
@@ -94,14 +98,17 @@
 		TabbedPanel:
 		    do_default_tab: False
 			TabbedPanelItem:
-		        text: 'Summary'
-		        Label:
-					size: root.size
-					pos: root.pos
-					id: textView
-					text: 'Simulation results will appear here.'
-					valign: 'top'
-					halign: 'left'
+				text: 'Summary'
+				ScrollView:
+					size_hint: (1, 1)
+					Label:
+						size_hint: (1, None)
+						size: root.size
+						pos: root.pos
+						id: textView
+						text: 'Simulation results will appear here.'
+						valign: 'top'
+						halign: 'left'
 		    TabbedPanelItem:
 		        text: 'Graph'
 		        Label:
@@ -121,6 +128,7 @@
 			SliderWithLabel:
 				text: 'Compensation level'
 				id: compensationLevelSlider
+				max: 100
 			SliderWithLabel:
 				text: 'Passing mark'
 				id: passingMarkSlider

@@ -5,11 +5,9 @@ from UniData import UniData
 
 # Populate list of student in current intake
 # Load data from Excel and csv files
-data = UniData() 
-data.importData()
-intake = UniData.intakeSummer #TODO process both intakes
-modules = UniData.modules
-courses = UniData.courses
+intake = {} #TODO process both intakes
+modules = {}
+courses = []
 
 # Algorithm by Ronan Reilly 
 def simulate():

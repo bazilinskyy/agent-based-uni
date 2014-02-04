@@ -261,21 +261,21 @@ class UniData():
 						self.intakeAutumn[str(int(row[3].value))].moduleEnrollments[row[4].value] = moduleEnroll
 
 				if conf.DEBUG:
-					print 'Data imported'
-					print 'SUMMER INTAKE length:', len(self.intakeSummer)   
+					update = 'Data imported'
+					update += "\n" +  'SUMMER INTAKE length:' + str(len(self.intakeSummer))
 
 					# # Print student IDs
 					# keys = self.intakeSummer.keys()
 					# keys.sort()
 					# for key in keys:
-					# 	print self.intakeSummer[key].studentID
+					# 	update += "\n" +  self.intakeSummer[key].studentID
 
-					print 'AUTUMN INTAKE length:', len(self.intakeAutumn)          
-					print 'COURSES       length:', len(self.courses)         
-					print 'COURSE TYPES  length:', len(self.courseTypes)          
-					print 'MODULES       length:', len(self.modules)          
-					print 'FACULTIES     length:', len(self.faculties)        
-					print 'DEPARTMENTS   length:', len(self.departments)
+					update += "\n" +  'AUTUMN INTAKE length:' + str(len(self.intakeAutumn))       
+					update += "\n" +  'COURSES       length:' + str(len(self.courses))   
+					update += "\n" +  'COURSE TYPES  length:' + str(len(self.courseTypes))
+					update += "\n" +  'MODULES       length:' + str(len(self.modules))     
+					update += "\n" +  'FACULTIES     length:' + str(len(self.faculties))        
+					update += "\n" +  'DEPARTMENTS   length:' + str(len(self.departments))
 					
 					# Calculate an average number of enrolled modules per student
 					keys = self.intakeSummer.keys()
@@ -287,10 +287,10 @@ class UniData():
 					for key in keys:
 						numModulesEnrolled += len(self.intakeAutumn[key].getModules())
 					numModulesEnrolled /= (len(self.intakeSummer.keys()) + len(self.intakeAutumn.keys()))
-					print 'STUDENTS average enrolled modules:', numModulesEnrolled
+					update += "\n" +  'STUDENTS average enrolled modules:' + str(numModulesEnrolled)
 
-					print '1st YEAR'
-					print 'SUMMER'
+					update += "\n" +  '1st YEAR'
+					update += "\n" +  'SUMMER'
 					passedList = []
 					failedList = []
 					compensationList = []
@@ -314,15 +314,15 @@ class UniData():
 								excemptionList.append(i)
 							elif (i.status == "SATISFACTORY"):
 								satisfactoryList.append(i)
-					print 'STUDENTS                   passed:', len(passedList)
-					print 'STUDENTS                   failed:', len(failedList)
-					print 'STUDENTS   passed by compensation:', len(compensationList)
-					print 'STUDENTS                   absent:', len(absentList)
-					print 'STUDENTS         did not complete:', len(didnotcompleteList)
-					print 'STUDENTS                  excempt:', len(excemptionList)
-					print 'STUDENTS             satisfactory:', len(satisfactoryList)
+					update += "\n" +  'STUDENTS                   passed:' + str(len(passedList))
+					update += "\n" +  'STUDENTS                   failed:' + str(len(failedList))
+					update += "\n" +  'STUDENTS   passed by compensation:' + str(len(compensationList))
+					update += "\n" +  'STUDENTS                   absent:' + str(len(absentList))
+					update += "\n" +  'STUDENTS         did not complete:' + str(len(didnotcompleteList))
+					update += "\n" +  'STUDENTS                  excempt:' + str(len(excemptionList))
+					update += "\n" +  'STUDENTS             satisfactory:' + str(len(satisfactoryList))
 
-					print 'AUTUMN'
+					update += "\n" +  'AUTUMN'
 					passedList = []
 					failedList = []
 					compensationList = []
@@ -347,14 +347,14 @@ class UniData():
 							elif (i.status == "SATISFACTORY"):
 								satisfactoryList.append(i)
 
-					print 'STUDENTS                   passed:', len(passedList)
-					print 'STUDENTS                   failed:', len(failedList)
-					print 'STUDENTS   passed by compensation:', len(compensationList)
-					print 'STUDENTS                   absent:', len(absentList)
-					print 'STUDENTS         did not complete:', len(didnotcompleteList)
-					print 'STUDENTS                  excempt:', len(excemptionList)
-					print 'STUDENTS             satisfactory:', len(satisfactoryList)
-
+					update += "\n" +  'STUDENTS                   passed:' + str(len(passedList))
+					update += "\n" +  'STUDENTS                   failed:' + str(len(failedList))
+					update += "\n" +  'STUDENTS   passed by compensation:' + str(len(compensationList))
+					update += "\n" +  'STUDENTS                   absent:' + str(len(absentList))
+					update += "\n" +  'STUDENTS         did not complete:' + str(len(didnotcompleteList))
+					update += "\n" +  'STUDENTS                  excempt:' + str(len(excemptionList))
+					update += "\n" +  'STUDENTS             satisfactory:' + str(len(satisfactoryList))
+					return update
 			except:
 				print traceback.format_exc()
 

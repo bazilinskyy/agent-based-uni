@@ -2,6 +2,7 @@ import conf
 import model
 from simulation import simulate
 from UniData import UniData
+import simulation
 import sys
 
 # Kivy imports
@@ -102,6 +103,15 @@ if conf.KIVY_READY:
 				self.compensationLevelSlider.value,
 				self.compensationCheckBox.active
 			]
+
+			# Populate list of student in current intake
+			# Load data from Excel and csv files
+			data = UniData() 
+			update = data.importData()
+			intake = UniData.intakeSummer #TODO process both intakes
+			modules = UniData.modules
+			courses = UniData.courses
+			self.textView.text = update
 	 
 	class UniSimulationApp(App):
 		title = 'University agent-based simualation by Pavlo Bazilinskyy'
@@ -121,4 +131,4 @@ if __name__ == '__main__':
 		UniSimulationApp().run()
 
 	# Run simulation
-	simulate()
+	# simulate()
