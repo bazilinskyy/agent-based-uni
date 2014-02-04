@@ -49,8 +49,9 @@
 <SliderWithLabel>:
 	value: slider.value
 	text: ''
+	text2: ''
 	min: 0
-	max: 1000
+	max: 100
 	BoxLayout:
 		orientation: 'horizontal'
 		size: root.size
@@ -59,6 +60,10 @@
 			text: root.text
 			#size_hint_x: 0.6
 			halign: 'left'
+		#Label:
+		#	text: root.text2
+		#	size_hint_x: 0.2
+		#	halign: 'left'
 		Slider:
 			id: slider
 			min: root.min
@@ -81,13 +86,14 @@
 			
 <ContainerBox>:
 	textView: textView
-	enrolledSlider: enrolledSlider
 	compensationLevelSlider: compensationLevelSlider
-	passingMarkSlider: passingMarkSlider
-	numberOfModulesSlider: numberOfModulesSlider
-	numberOfCourseSlider: numberOfCourseSlider
-	compensationLevelSlider: compensationLevelSlider
-	compensationCheckBox: compensationCheckBox
+	compensationThresholdSlider: compensationThresholdSlider
+	transferCheckBox: transferCheckBox
+	repeatsCheckBox: repeatsCheckBox
+	transferLabel: transferLabel
+	repeatsLabel: repeatsLabel
+	compensationLevelLabel: compensationLevelLabel
+	compensationThresholdLabel: compensationThresholdLabel
 
 	orientation: 'horizontal'
 	BoxLayout:
@@ -114,7 +120,7 @@
 		        Label:
 	                text: 'Graph will be here.'
 		    TabbedPanelItem:
-		        text: 'Cloud-based'
+		        text: 'Particle'
 	            Label:
 	                text: 'Particle-based representation will be here.'
 
@@ -122,25 +128,50 @@
 			orientation: 'vertical'
 			size: root.size
 			pos: root.pos
-			SliderWithLabel:
-				text: 'Enrolled'
-				id: enrolledSlider
-			SliderWithLabel:
-				text: 'Compensation level'
-				id: compensationLevelSlider
-				max: 100
-			SliderWithLabel:
-				text: 'Passing mark'
-				id: passingMarkSlider
-			SliderWithLabel:
-				text: 'Number of modules'
-				id: numberOfModulesSlider
-			SliderWithLabel:
-				text: 'Number of courses'
-				id: numberOfCourseSlider
-			SliderWithLabel:
-				text: 'Compensation level'
-				id: compensationLevelSlider
-			CheckBoxWithLabel:
-				text: 'Compensation'
-				id: compensationCheckBox
+			size_hint: (1.0, 0.5)
+			BoxLayout:
+				orientation: 'horizontal'
+				size: root.size
+				pos: root.pos
+				Label:
+					id: compensationLevelLabel
+					halign: 'left'
+					markup: True
+				Slider:
+					id: compensationLevelSlider
+					min: 1
+					max: 100
+			BoxLayout:
+				orientation: 'horizontal'
+				size: root.size
+				pos: root.pos
+				Label:
+					id: compensationThresholdLabel
+					halign: 'left'
+					markup: True
+				Slider:
+					id: compensationThresholdSlider
+					min: 1
+					max: 100
+			BoxLayout:
+				orientation: 'horizontal'
+				size: root.size
+				pos: root.pos
+				Label:
+					text: 'Allow repeats'
+					id: repeatsLabel
+					markup: True
+				CheckBox:
+					id: repeatsCheckBox
+					active: True
+			BoxLayout:
+				orientation: 'horizontal'
+				size: root.size
+				pos: root.pos
+				Label:
+					text: 'Transfer of credits'
+					id: transferLabel
+					markup: True
+				CheckBox:
+					id: transferCheckBox
+					active: True

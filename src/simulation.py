@@ -9,8 +9,8 @@ intake = {} #TODO process both intakes
 modules = {}
 courses = []
 
-# Algorithm by Ronan Reilly 
-def simulate():
+# Algorithm by Ronan Reilly and Pavlo Bazilinskyy
+def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfCredits):
 	#createIntake()
 	semester = 1
 
