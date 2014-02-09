@@ -260,101 +260,104 @@ class UniData():
 						# Also, add module enrollment to the student
 						self.intakeAutumn[str(int(row[3].value))].moduleEnrollments[row[4].value] = moduleEnroll
 
+				update = 'Data imported'
+				update += "\n" +  'SUMMER INTAKE length:' + str(len(self.intakeSummer))
+
+				# # Print student IDs
+				# keys = self.intakeSummer.keys()
+				# keys.sort()
+				# for key in keys:
+				# 	update += "\n" +  self.intakeSummer[key].studentID
+
+				update += "\n" +  'AUTUMN INTAKE length:' + str(len(self.intakeAutumn))       
+				update += "\n" +  'COURSES       length:' + str(len(self.courses))   
+				update += "\n" +  'COURSE TYPES  length:' + str(len(self.courseTypes))
+				update += "\n" +  'MODULES       length:' + str(len(self.modules))     
+				update += "\n" +  'FACULTIES     length:' + str(len(self.faculties))        
+				update += "\n" +  'DEPARTMENTS   length:' + str(len(self.departments))
+				
+				# Calculate an average number of enrolled modules per student
+				keys = self.intakeSummer.keys()
+				numModulesEnrolled = 0
+				for key in keys:
+					numModulesEnrolled += len(self.intakeSummer[key].getModules())
+
+				keys = self.intakeAutumn.keys()
+				for key in keys:
+					numModulesEnrolled += len(self.intakeAutumn[key].getModules())
+				numModulesEnrolled /= (len(self.intakeSummer.keys()) + len(self.intakeAutumn.keys()))
+				update += "\n" +  'STUDENTS average enrolled modules:' + str(numModulesEnrolled)
+
+				update += "\n" +  '1st YEAR'
+				update += "\n" +  'SUMMER'
+				passedList = []
+				failedList = []
+				compensationList = []
+				absentList = []
+				didnotcompleteList = []
+				excemptionList = []
+				satisfactoryList = []
+				for i in self.moduleEnrollments:
+					if (i.semesterTaken == 1):
+						if (i.status == "PASS"):
+							passedList.append(i)
+						elif (i.status == "FAIL"):
+							failedList.append(i)
+						elif (i.status == "PASS BY COMPENSATION"):
+							compensationList.append(i)
+						elif (i.status == "ABSENT"):
+							absentList.append(i)
+						elif (i.status == "DID NOT COMPLETE"):
+							didnotcompleteList.append(i)
+						elif (i.status == "EXEMPTION"):
+							excemptionList.append(i)
+						elif (i.status == "SATISFACTORY"):
+							satisfactoryList.append(i)
+				update += "\n" +  'STUDENTS                   passed:' + str(len(passedList))
+				update += "\n" +  'STUDENTS                   failed:' + str(len(failedList))
+				update += "\n" +  'STUDENTS   passed by compensation:' + str(len(compensationList))
+				update += "\n" +  'STUDENTS                   absent:' + str(len(absentList))
+				update += "\n" +  'STUDENTS         did not complete:' + str(len(didnotcompleteList))
+				update += "\n" +  'STUDENTS                  excempt:' + str(len(excemptionList))
+				update += "\n" +  'STUDENTS             satisfactory:' + str(len(satisfactoryList))
+
+				update += "\n" +  'AUTUMN'
+				passedList = []
+				failedList = []
+				compensationList = []
+				absentList = []
+				didnotcompleteList = []
+				excemptionList = []
+				satisfactoryList = []
+				for i in self.moduleEnrollments:
+					if (i.semesterTaken == 2):
+						if (i.status == "PASS"):
+							passedList.append(i)
+						elif (i.status == "FAIL"):
+							failedList.append(i)
+						elif (i.status == "PASS BY COMPENSATION"):
+							compensationList.append(i)
+						elif (i.status == "ABSENT"):
+							absentList.append(i)
+						elif (i.status == "DID NOT COMPLETE"):
+							didnotcompleteList.append(i)
+						elif (i.status == "EXEMPTION"):
+							excemptionList.append(i)
+						elif (i.status == "SATISFACTORY"):
+							satisfactoryList.append(i)
+
+				update += "\n" +  'STUDENTS                   passed:' + str(len(passedList))
+				update += "\n" +  'STUDENTS                   failed:' + str(len(failedList))
+				update += "\n" +  'STUDENTS   passed by compensation:' + str(len(compensationList))
+				update += "\n" +  'STUDENTS                   absent:' + str(len(absentList))
+				update += "\n" +  'STUDENTS         did not complete:' + str(len(didnotcompleteList))
+				update += "\n" +  'STUDENTS                  excempt:' + str(len(excemptionList))
+				update += "\n" +  'STUDENTS             satisfactory:' + str(len(satisfactoryList))
+
 				if conf.DEBUG:
-					update = 'Data imported'
-					update += "\n" +  'SUMMER INTAKE length:' + str(len(self.intakeSummer))
+					print update
 
-					# # Print student IDs
-					# keys = self.intakeSummer.keys()
-					# keys.sort()
-					# for key in keys:
-					# 	update += "\n" +  self.intakeSummer[key].studentID
-
-					update += "\n" +  'AUTUMN INTAKE length:' + str(len(self.intakeAutumn))       
-					update += "\n" +  'COURSES       length:' + str(len(self.courses))   
-					update += "\n" +  'COURSE TYPES  length:' + str(len(self.courseTypes))
-					update += "\n" +  'MODULES       length:' + str(len(self.modules))     
-					update += "\n" +  'FACULTIES     length:' + str(len(self.faculties))        
-					update += "\n" +  'DEPARTMENTS   length:' + str(len(self.departments))
-					
-					# Calculate an average number of enrolled modules per student
-					keys = self.intakeSummer.keys()
-					numModulesEnrolled = 0
-					for key in keys:
-						numModulesEnrolled += len(self.intakeSummer[key].getModules())
-
-					keys = self.intakeAutumn.keys()
-					for key in keys:
-						numModulesEnrolled += len(self.intakeAutumn[key].getModules())
-					numModulesEnrolled /= (len(self.intakeSummer.keys()) + len(self.intakeAutumn.keys()))
-					update += "\n" +  'STUDENTS average enrolled modules:' + str(numModulesEnrolled)
-
-					update += "\n" +  '1st YEAR'
-					update += "\n" +  'SUMMER'
-					passedList = []
-					failedList = []
-					compensationList = []
-					absentList = []
-					didnotcompleteList = []
-					excemptionList = []
-					satisfactoryList = []
-					for i in self.moduleEnrollments:
-						if (i.semesterTaken == 1):
-							if (i.status == "PASS"):
-								passedList.append(i)
-							elif (i.status == "FAIL"):
-								failedList.append(i)
-							elif (i.status == "PASS BY COMPENSATION"):
-								compensationList.append(i)
-							elif (i.status == "ABSENT"):
-								absentList.append(i)
-							elif (i.status == "DID NOT COMPLETE"):
-								didnotcompleteList.append(i)
-							elif (i.status == "EXEMPTION"):
-								excemptionList.append(i)
-							elif (i.status == "SATISFACTORY"):
-								satisfactoryList.append(i)
-					update += "\n" +  'STUDENTS                   passed:' + str(len(passedList))
-					update += "\n" +  'STUDENTS                   failed:' + str(len(failedList))
-					update += "\n" +  'STUDENTS   passed by compensation:' + str(len(compensationList))
-					update += "\n" +  'STUDENTS                   absent:' + str(len(absentList))
-					update += "\n" +  'STUDENTS         did not complete:' + str(len(didnotcompleteList))
-					update += "\n" +  'STUDENTS                  excempt:' + str(len(excemptionList))
-					update += "\n" +  'STUDENTS             satisfactory:' + str(len(satisfactoryList))
-
-					update += "\n" +  'AUTUMN'
-					passedList = []
-					failedList = []
-					compensationList = []
-					absentList = []
-					didnotcompleteList = []
-					excemptionList = []
-					satisfactoryList = []
-					for i in self.moduleEnrollments:
-						if (i.semesterTaken == 2):
-							if (i.status == "PASS"):
-								passedList.append(i)
-							elif (i.status == "FAIL"):
-								failedList.append(i)
-							elif (i.status == "PASS BY COMPENSATION"):
-								compensationList.append(i)
-							elif (i.status == "ABSENT"):
-								absentList.append(i)
-							elif (i.status == "DID NOT COMPLETE"):
-								didnotcompleteList.append(i)
-							elif (i.status == "EXEMPTION"):
-								excemptionList.append(i)
-							elif (i.status == "SATISFACTORY"):
-								satisfactoryList.append(i)
-
-					update += "\n" +  'STUDENTS                   passed:' + str(len(passedList))
-					update += "\n" +  'STUDENTS                   failed:' + str(len(failedList))
-					update += "\n" +  'STUDENTS   passed by compensation:' + str(len(compensationList))
-					update += "\n" +  'STUDENTS                   absent:' + str(len(absentList))
-					update += "\n" +  'STUDENTS         did not complete:' + str(len(didnotcompleteList))
-					update += "\n" +  'STUDENTS                  excempt:' + str(len(excemptionList))
-					update += "\n" +  'STUDENTS             satisfactory:' + str(len(satisfactoryList))
-					return update
+				return update
 			except:
 				print traceback.format_exc()
 

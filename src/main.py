@@ -96,7 +96,7 @@ if conf.KIVY_READY:
 					# TODO pass parameters to simulation function
 					update = simulate(compensationLevel, compensationThreashold, repeatsLabel, transferOfCredits)
 					if conf.DEBUG:
-						print "Update from simulation: ", update
+						print "Update from simulation: \n", update
 					self.textView.text = update
 					break
 			self.previousValues = currentValues[:]
@@ -113,11 +113,12 @@ if conf.KIVY_READY:
 			# Populate list of student in current intake
 			# Load data from Excel and csv files
 			data = UniData() 
-			update = data.importData()
-			intake = UniData.intakeSummer #TODO process both intakes
-			modules = UniData.modules
-			courses = UniData.courses
-			self.textView.text = update
+			simulation.update = data.importData()
+			simulation.intake = UniData.intakeSummer
+			simulation.intakeAutumn = UniData.intakeAutumn
+			simulation.modules = UniData.modules
+			simulation.courses = UniData.courses
+			self.textView.text = simulation.update
 
 			# Update labels ans sliders with current values
 			self.compensationLevelLabel.text = "Compensation\nlevel - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(conf.COMPENSATION_LEVEL) + "[/color]"
