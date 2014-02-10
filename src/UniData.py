@@ -144,6 +144,7 @@ class UniData():
 					if (i + 1 not in linesIgnoreIntakeSummer and row[2].value == 1): # Limit to result from only the first year
 						if (str(row[3]) not in tempSet): 
 							self.intakeSummer[str(int(row[3].value))] = model.Student(str(int(row[3].value)))
+							self.intakeSummer[str(int(row[3].value))].leavingCertificate = int(row[11].value) # Leaving certificate
 							tempSet.add(str(row[3]))
 
 						## Enrol student into a module
@@ -205,9 +206,11 @@ class UniData():
 
 				for i in range(numRowsIntakeAutumn):
 					row = sheetIntakeAutumn.row_slice(i+1)
-					if (i + 1 not in linesIgnoreIntakeAutumn and row[2].value == "1"): # Limit to result from only the first year
+					if (i + 1 not in linesIgnoreIntakeAutumn and row[2].value == 1): # Limit to result from only the first year
 						if (str(row[3]) not in tempSet): 
 							self.intakeAutumn[str(int(row[3].value))] = model.Student(str(int(row[3].value)))
+							self.intakeAutumn[str(int(row[3].value))].leavingCertificate = int(row[11].value) # Leaving certificate
+
 							tempSet.add(str(row[3]))
 
 						## Enrol student into a module
@@ -254,6 +257,7 @@ class UniData():
 							moduleEnroll.marksReceived = 0
 
 						self.moduleEnrollments.append(moduleEnroll)
+						print len(self.moduleEnrollments)
 
 						# And add to the list of modules of a particular student
 						self.intakeAutumn[str(int(row[3].value))].modules.append(moduleEnrolled)
@@ -288,7 +292,6 @@ class UniData():
 				numModulesEnrolled /= (len(self.intakeSummer.keys()) + len(self.intakeAutumn.keys()))
 				update += "\n" +  'STUDENTS average enrolled modules:' + str(numModulesEnrolled)
 
-				update += "\n" +  '1st YEAR'
 				update += "\n" +  'SUMMER'
 				passedList = []
 				failedList = []
@@ -313,13 +316,13 @@ class UniData():
 							excemptionList.append(i)
 						elif (i.status == "SATISFACTORY"):
 							satisfactoryList.append(i)
-				update += "\n" +  'STUDENTS                   passed:' + str(len(passedList))
-				update += "\n" +  'STUDENTS                   failed:' + str(len(failedList))
-				update += "\n" +  'STUDENTS   passed by compensation:' + str(len(compensationList))
-				update += "\n" +  'STUDENTS                   absent:' + str(len(absentList))
-				update += "\n" +  'STUDENTS         did not complete:' + str(len(didnotcompleteList))
-				update += "\n" +  'STUDENTS                  excempt:' + str(len(excemptionList))
-				update += "\n" +  'STUDENTS             satisfactory:' + str(len(satisfactoryList))
+				update += "\n" +  'Passed:' + str(len(passedList))
+				update += "\n" +  'Failed:' + str(len(failedList))
+				update += "\n" +  'Passed by compensation:' + str(len(compensationList))
+				update += "\n" +  'Absent:' + str(len(absentList))
+				update += "\n" +  'Did not complete:' + str(len(didnotcompleteList))
+				update += "\n" +  'Excempt:' + str(len(excemptionList))
+				update += "\n" +  'Satisfactory:' + str(len(satisfactoryList))
 
 				update += "\n" +  'AUTUMN'
 				passedList = []
@@ -346,13 +349,13 @@ class UniData():
 						elif (i.status == "SATISFACTORY"):
 							satisfactoryList.append(i)
 
-				update += "\n" +  'STUDENTS                   passed:' + str(len(passedList))
-				update += "\n" +  'STUDENTS                   failed:' + str(len(failedList))
-				update += "\n" +  'STUDENTS   passed by compensation:' + str(len(compensationList))
-				update += "\n" +  'STUDENTS                   absent:' + str(len(absentList))
-				update += "\n" +  'STUDENTS         did not complete:' + str(len(didnotcompleteList))
-				update += "\n" +  'STUDENTS                  excempt:' + str(len(excemptionList))
-				update += "\n" +  'STUDENTS             satisfactory:' + str(len(satisfactoryList))
+				update += "\n" +  'Passed:' + str(len(passedList))
+				update += "\n" +  'Failed:' + str(len(failedList))
+				update += "\n" +  'Passed by compensation:' + str(len(compensationList))
+				update += "\n" +  'Absent:' + str(len(absentList))
+				update += "\n" +  'Did not complete:' + str(len(didnotcompleteList))
+				update += "\n" +  'Excempt:' + str(len(excemptionList))
+				update += "\n" +  'Satisfactory:' + str(len(satisfactoryList))
 
 				if conf.DEBUG:
 					print update

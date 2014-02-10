@@ -20,6 +20,9 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 	studentsPassedByAutoRepeats = 0
 	totalAverageMark = 0.0
 
+	# For calculation of the average leaving certificate
+	averageLeavingCert = 0.0
+
 	for student in intake.keys(): # Iterate through all students
 		# Define variables to calculate results in modules
 		passedModules = 0
@@ -37,6 +40,9 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 			averageGrade += intake[student].moduleEnrollments[moduleEnr].marksReceived
 		averageGrade /= len(intake[student].moduleEnrollments)
 		totalAverageMark += averageGrade
+
+		# Calculating average leaving certificate
+		averageLeavingCert += intake[student].leavingCertificate
 
 		for moduleEnr in intake[student].moduleEnrollments: # Iterate through all enrolled modules for each student
 			#First check if pass by compesation still holds
@@ -141,7 +147,8 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 		studentsPassed += 1
 		intake[student].resultFromSimluation = True
 
-	totalAverageMark /= len(intake)
+	totalAverageMark /= len(intake) # Calculate average grade
+	averageLeavingCert /= len(intake) # Calcualte average leaving certificate
 
 	if conf.DEBUG:
 		print "Simulation finished."
@@ -153,6 +160,10 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 	update += "\n" +  'Students passed by transfer of credits: ' + str(studentsPassedByTransferCredits)
 	update += "\n" +  'Students passed by auto repeats: ' + str(studentsPassedByAutoRepeats)
 	update += "\n" +  'Average grade: ' + str(totalAverageMark)
+	update += "\n" +  'Average leaving certificate: ' + str(averageLeavingCert)
+
+	if conf.DEBUG:
+		print update
 
 	return update
 
