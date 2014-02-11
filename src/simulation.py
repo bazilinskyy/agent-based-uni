@@ -3,6 +3,7 @@ import model
 import random
 from UniData import UniData
 import random
+import copy
 
 # Populate list of student in current intake
 # Load data from Excel and csv files
@@ -15,15 +16,15 @@ courses = []		# List of all courses
 initial_intake = {} 		# Summer intake
 initial_intakeAutumn = {} 	# Autumn intake
 initial_modules = {}		# All modules, sorted by ID
-initial_courses = []		# List of all courses
+initial_courses = []		# List of all courses	
 
 # Algorithm by Pavlo Bazilinskyy
 def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfCredits, intelligentAgents):
 	# Reset data
-	intake = initial_intake
-	intakeAutumn = initial_intakeAutumn
-	modules = initial_modules
-	courses = initial_courses
+	intake = copy.deepcopy(initial_intake)
+	intakeAutumn = copy.deepcopy(initial_intakeAutumn)
+	modules = copy.deepcopy(initial_modules)
+	courses = copy.deepcopy(initial_courses)
 
 	# Variables for calculating 
 	studentsPassed = 0
@@ -62,7 +63,6 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 					intake[student].moduleEnrollments[moduleEnr].status == "PASS BY COMPENSATION") and 
 					averageGrade >= conf.COMPENSATION_THREASHOLD and 
 					intake[student].moduleEnrollments[moduleEnr].marksReceived <= conf.COMPENSATION_LEVEL):
-					print "PASSED"
 					intake[student].moduleEnrollments[moduleEnr].status == "PASS"
 
 			# Average grade calculation

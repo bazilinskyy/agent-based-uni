@@ -4,6 +4,7 @@ from simulation import simulate
 from UniData import UniData
 import simulation
 import sys
+import copy
 
 # Kivy imports
 if conf.KIVY_READY:
@@ -47,7 +48,7 @@ if conf.KIVY_READY:
 			super(VBoxWidget, self).__init__(**kwargs)
 
 		def on_touch_up(self, touch):
-			print self.enrolledSlider.value
+			pass
 
 	class SliderWithLabel(Widget):
 		def __init__(self, **kwargs):
@@ -104,7 +105,7 @@ if conf.KIVY_READY:
 
 			for i in range(len(currentValues)):
 				if (currentValues[i] != self.previousValues[i]):
-					# TODO pass parameters to simulation function
+					# Run simulation
 					update = simulate(conf.COMPENSATION_LEVEL, conf.COMPENSATION_THREASHOLD, conf.AUTO_REPEATS , conf.TRANSFER_OF_CREDITS, conf.INTELLIGENT_AGENTS)
 					if conf.DEBUG:
 						print "Update from simulation: \n", update
@@ -133,10 +134,10 @@ if conf.KIVY_READY:
 			self.textView.text = simulation.update
 
 			# Populate initial data
-			simulation.initial_intake = UniData.intakeSummer
-			simulation.initial_intakeAutumn = UniData.intakeAutumn
-			simulation.initial_modules = UniData.modules
-			simulation.initial_courses = UniData.courses
+			simulation.initial_intake = copy.deepcopy(UniData.intakeSummer)
+			simulation.initial_intakeAutumn = copy.deepcopy(UniData.intakeAutumn)
+			simulation.initial_modules = copy.deepcopy(UniData.modules)
+			simulation.initial_courses = copy.deepcopy(UniData.courses)
 
 			# Update labels ans sliders with current values
 			self.compensationLevelLabel.text = "Compensation\nlevel - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(conf.COMPENSATION_LEVEL) + "[/color]"

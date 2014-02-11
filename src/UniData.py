@@ -257,7 +257,6 @@ class UniData():
 							moduleEnroll.marksReceived = 0
 
 						self.moduleEnrollments.append(moduleEnroll)
-						print len(self.moduleEnrollments)
 
 						# And add to the list of modules of a particular student
 						self.intakeAutumn[str(int(row[3].value))].modules.append(moduleEnrolled)
