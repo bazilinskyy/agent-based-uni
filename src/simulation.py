@@ -11,7 +11,7 @@ modules = {}		# All modules, sorted by ID
 courses = []		# List of all courses
 
 # Algorithm by Pavlo Bazilinskyy
-def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfCredits):
+def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfCredits, intelligentAgents):
 	# Variables for calculating 
 	studentsPassed = 0
 	studentsFailed = 0

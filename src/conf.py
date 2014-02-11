@@ -4,7 +4,8 @@ SHOW_TIMESTAMPS 	= 1
 KIVY_READY 			= 1		# Ready to be published with Kivy
 
 # SIMULATION
-INTAKE_SIZE 					= 500
+INTELLIGENT_AGENTS 				= True # Agent exhibit intelligent behaviour based on their school leaving certificated
+INTAKE_SIZE 					= 500 # Not used
 COMPENSATION_LEVEL 				= 25
 COMPENSATION_THREASHOLD 		= 50
 AUTO_REPEATS 					= True

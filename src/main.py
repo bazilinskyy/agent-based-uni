@@ -69,32 +69,43 @@ if conf.KIVY_READY:
 		repeatsCheckBox = ObjectProperty(None)
 		transferLabel = ObjectProperty(None)
 		repeatsLabel = ObjectProperty(None)
+		intAgentLabelCheckBox = ObjectProperty(None)
+		intAgentLabel = ObjectProperty(None)
  
 		# Record current values in the GUI for updates
 		previousValues= []
 
 		def on_touch_up(self, touch):
+			# Auto repeats and transfer of credits cannot be True at the same time
+			if (self.transferCheckBox.active and self.previousValues[3]):
+				self.repeatsCheckBox.active = False
+			if (self.repeatsCheckBox.active and self.previousValues[4]):
+				self.transferCheckBox.active = False
+
+
 			currentValues= [
 				self.compensationLevelSlider.value,
 				self.compensationThresholdSlider.value,
 				self.transferCheckBox.active,
-				self.repeatsCheckBox.active
+				self.repeatsCheckBox.active,
+				self.intAgentCheckBox.active
 			]
 
 			# Update simulation variables
-			compensationLevel = int(self.compensationLevelSlider.value)
-			compensationThreashold = int(self.compensationThresholdSlider.value)
-			repeatsLabel = self.repeatsCheckBox.active
-			transferOfCredits = self.transferCheckBox.active
+			conf.COMPENSATION_LEVEL = int(self.compensationLevelSlider.value)
+			conf.COMPENSATION_THREASHOLD = int(self.compensationThresholdSlider.value)
+			conf.AUTO_REPEATS = self.repeatsCheckBox.active
+			conf.TRANSFER_OF_CREDITS = self.transferCheckBox.active
+			conf.INTELLIGENT_AGENTS = self.intAgentCheckBox.active
 
 			# Update labels
-			self.compensationLevelLabel.text = "Compensation\nlevel - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(compensationLevel) + "[/color]"
-			self.compensationThresholdLabel.text = "Compensation\nthreashold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(compensationThreashold) + "[/color]"
+			self.compensationLevelLabel.text = "Compensation\nlevel - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(conf.COMPENSATION_LEVEL) + "[/color]"
+			self.compensationThresholdLabel.text = "Compensation\nthreashold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(conf.COMPENSATION_THREASHOLD) + "[/color]"
 
 			for i in range(len(currentValues)):
 				if (currentValues[i] != self.previousValues[i]):
 					# TODO pass parameters to simulation function
-					update = simulate(compensationLevel, compensationThreashold, repeatsLabel, transferOfCredits)
+					update = simulate(conf.COMPENSATION_LEVEL, conf.COMPENSATION_THREASHOLD, conf.AUTO_REPEATS , conf.TRANSFER_OF_CREDITS, conf.INTELLIGENT_AGENTS)
 					if conf.DEBUG:
 						print "Update from simulation: \n", update
 					self.textView.text = update
@@ -107,7 +118,8 @@ if conf.KIVY_READY:
 				self.compensationLevelSlider.value,
 				self.compensationThresholdSlider.value,
 				self.transferCheckBox.active,
-				self.repeatsCheckBox.active
+				self.repeatsCheckBox.active,
+				self.intAgentCheckBox.active
 			]
 
 			# Populate list of student in current intake
@@ -127,6 +139,7 @@ if conf.KIVY_READY:
 			self.transferCheckBox.active = conf.TRANSFER_OF_CREDITS
 			self.compensationLevelSlider.value = conf.COMPENSATION_LEVEL
 			self.compensationThresholdSlider.value = conf.COMPENSATION_THREASHOLD
+			self.intAgentCheckBox.active = conf.INTELLIGENT_AGENTS
 
 	class UniSimulationApp(App):
 		title = 'Agent-based simualation of NUIM by pavlo.bazilinskyy@gmail.com'

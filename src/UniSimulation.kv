@@ -94,6 +94,8 @@
 	repeatsLabel: repeatsLabel
 	compensationLevelLabel: compensationLevelLabel
 	compensationThresholdLabel: compensationThresholdLabel
+	intAgentCheckBox: intAgentCheckBox
+	intAgentLabel: intAgentLabel
 
 	orientation: 'horizontal'
 	BoxLayout:
@@ -174,4 +176,15 @@
 					markup: True
 				CheckBox:
 					id: transferCheckBox
+					active: True
+			BoxLayout:
+				orientation: 'horizontal'
+				size: root.size
+				pos: root.pos
+				Label:
+					text: 'Intelligent agents'
+					id: intAgentLabel
+					markup: True
+				CheckBox:
+					id: intAgentCheckBox
 					active: True

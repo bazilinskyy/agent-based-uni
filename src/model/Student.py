@@ -15,7 +15,7 @@ class Student(Person):
 	resultFromSimluation = True # Result from simualtuion: True -> advance to next year; False -> expelled
 	passedByCompFromSimulation = 0 # Counter of a number of passed by compensation modules
 
-	def __init__(self, studentID, name = "Student X", gender = "m", leavingCertificate = 590):
+	def __init__(self, studentID, name = "Student X", gender = "m", leavingCertificate = 700):
 		self.studentID = studentID
 		Person.__init__(self, name, gender)
 		self.modules = []
