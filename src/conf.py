@@ -4,8 +4,11 @@ SHOW_TIMESTAMPS 	= 1
 KIVY_READY 			= 1		# Ready to be published with Kivy
 
 # SIMULATION
-INTELLIGENT_AGENTS 				= True # Agent exhibit intelligent behaviour based on their school leaving certificated
-INTAKE_SIZE 					= 500 # Not used
+INTELLIGENT_AGENTS 				= True 		# Agent exhibit intelligent behaviour based on their school leaving certificated
+INTELLENT_AGENT_COEF			= 0.02  	# By how many percent agents are more clever 
+INTELLENT_AGENT_CHANGE			= 0.8  		# What is a chance of the agent exhibiting intelligent behaviour. 1.0 - always intelligent
+INTELLENT_AGENT_LC_THRESHOLD	= 600		# Appluy intelligent behaviour only if leaving certificate is higher that this number
+INTAKE_SIZE 					= 500  # Not used
 COMPENSATION_LEVEL 				= 25
 COMPENSATION_THREASHOLD 		= 50
 AUTO_REPEATS 					= True

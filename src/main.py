@@ -132,6 +132,12 @@ if conf.KIVY_READY:
 			simulation.courses = UniData.courses
 			self.textView.text = simulation.update
 
+			# Populate initial data
+			simulation.initial_intake = UniData.intakeSummer
+			simulation.initial_intakeAutumn = UniData.intakeAutumn
+			simulation.initial_modules = UniData.modules
+			simulation.initial_courses = UniData.courses
+
 			# Update labels ans sliders with current values
 			self.compensationLevelLabel.text = "Compensation\nlevel - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(conf.COMPENSATION_LEVEL) + "[/color]"
 			self.compensationThresholdLabel.text = "Compensation\nthreashold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(conf.COMPENSATION_THREASHOLD) + "[/color]"

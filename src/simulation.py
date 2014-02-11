@@ -2,6 +2,7 @@ import conf
 import model
 import random
 from UniData import UniData
+import random
 
 # Populate list of student in current intake
 # Load data from Excel and csv files
@@ -10,8 +11,20 @@ intakeAutumn = {} 	# Autumn intake
 modules = {}		# All modules, sorted by ID
 courses = []		# List of all courses
 
+# Record initial state, with no changes
+initial_intake = {} 		# Summer intake
+initial_intakeAutumn = {} 	# Autumn intake
+initial_modules = {}		# All modules, sorted by ID
+initial_courses = []		# List of all courses
+
 # Algorithm by Pavlo Bazilinskyy
 def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfCredits, intelligentAgents):
+	# Reset data
+	intake = initial_intake
+	intakeAutumn = initial_intakeAutumn
+	modules = initial_modules
+	courses = initial_courses
+
 	# Variables for calculating 
 	studentsPassed = 0
 	studentsFailed = 0
@@ -37,6 +50,22 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 		# Calculate average grade
 		averageGrade = 0.0
 		for moduleEnr in intake[student].moduleEnrollments:
+			# Intelligent agent behaviour
+			grade = intake[student].moduleEnrollments[moduleEnr].marksReceived
+			# print "1: ", grade, " plus: ", conf.INTELLENT_AGENT_COEF * intake[student].leavingCertificate
+			# Add marks based on the leaving school certificate mark, based on probability of exhibiting intellgent behaviour INTELLENT_AGENT_CHANGE
+			if random.random() <= conf.INTELLENT_AGENT_CHANGE and intake[student].leavingCertificate >= conf.INTELLENT_AGENT_LC_THRESHOLD:
+				grade += conf.INTELLENT_AGENT_COEF * intake[student].leavingCertificate
+				intake[student].moduleEnrollments[moduleEnr].marksReceived = grade
+				# Check if it makes a failed module passed
+				if ((intake[student].moduleEnrollments[moduleEnr].status == "FAIL" or
+					intake[student].moduleEnrollments[moduleEnr].status == "PASS BY COMPENSATION") and 
+					averageGrade >= conf.COMPENSATION_THREASHOLD and 
+					intake[student].moduleEnrollments[moduleEnr].marksReceived <= conf.COMPENSATION_LEVEL):
+					print "PASSED"
+					intake[student].moduleEnrollments[moduleEnr].status == "PASS"
+
+			# Average grade calculation
 			averageGrade += intake[student].moduleEnrollments[moduleEnr].marksReceived
 		averageGrade /= len(intake[student].moduleEnrollments)
 		totalAverageMark += averageGrade
