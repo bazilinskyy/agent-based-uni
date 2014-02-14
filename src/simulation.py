@@ -182,14 +182,29 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 	if conf.DEBUG:
 		print "Simulation finished."
 
-	update = 'Results:'
-	update += "\n" +  'Students passed: ' + str(studentsPassed)
-	update += "\n" +  'Students failed: ' + str(studentsFailed)
-	update += "\n" +  'Students passed by compensation: ' + str(studentsPassedByCompensation)
-	update += "\n" +  'Students passed by transfer of credits: ' + str(studentsPassedByTransferCredits)
-	update += "\n" +  'Students passed by auto repeats: ' + str(studentsPassedByAutoRepeats)
-	update += "\n" +  'Average grade: ' + str(totalAverageMark)
-	update += "\n" +  'Average leaving certificate: ' + str(averageLeavingCert)
+	# update = 'Results:'
+	# update += "\n" +  'Students passed: ' + str(studentsPassed)
+	# update += "\n" +  'Students failed: ' + str(studentsFailed)
+	# update += "\n" +  'Students passed by compensation: ' + str(studentsPassedByCompensation)
+	# update += "\n" +  'Students passed by transfer of credits: ' + str(studentsPassedByTransferCredits)
+	# update += "\n" +  'Students passed by auto repeats: ' + str(studentsPassedByAutoRepeats)
+	# update += "\n" +  'Average grade: ' + str(totalAverageMark)
+	# update += "\n" +  'Average leaving certificate: ' + str(averageLeavingCert)
+
+	update = {}
+	update["studentsPassedValue"] = str(studentsPassed)
+	update["studentsFailedValue"] = str(studentsFailed)
+	update["studentsPassedByCompensationValue"] = str(studentsPassedByCompensation)
+	update["studentsPassedByTransferOfCreditsValue"] = str(studentsPassedByTransferCredits)
+	update["studentsPassedByAutoRepeatsValue"] = str(studentsPassedByAutoRepeats)
+	update["averageGradeValue"] = str(totalAverageMark)
+	update["averageLeavingCertificateValue"] = str(averageLeavingCert)
+
+	# update["modulesPassedValue"] = str(passedModules)
+	# update["modulesFailedValue"] = str(failedModulesd)
+	# update["modulesPassedByCompensationValue"] = str(modulesPass)
+	# update["modulesAbsentValue"] = str(studentsPassed)
+	# update["modulesPassedByAutoRepeatsValue"] = str(studentsPassed)
 
 	if conf.DEBUG:
 		print update

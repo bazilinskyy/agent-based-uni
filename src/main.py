@@ -71,6 +71,34 @@ if conf.KIVY_READY:
 		intAgentLabelCheckBox = ObjectProperty(None)
 		intAgentLabel = ObjectProperty(None)
 		simulateButton = ObjectProperty(None)
+
+		#Output labels - students
+		studentsPassedLabel = ObjectProperty(None)
+		studentsPassedValue = ObjectProperty(None)
+		studentsPassedByCompensationLabel = ObjectProperty(None)
+		studentsPassedByCompensationValue = ObjectProperty(None)
+		studentsPassedByTransferOfCreditsLabel = ObjectProperty(None)
+		studentsPassedByTransferOfCreditsValue = ObjectProperty(None)
+		studentsPassedByAutoRepeatsLabel = ObjectProperty(None)
+		studentsPassedByAutoRepeatsValue = ObjectProperty(None)
+		averageGradeLabel = ObjectProperty(None)
+		averageGradeValue = ObjectProperty(None)
+		averageLeavingCertificateLabel = ObjectProperty(None)
+		averageLeavingCertificateValue = ObjectProperty(None)
+		studentsFailedLabel = ObjectProperty(None)
+		studentsFailedValue = ObjectProperty(None)
+
+		#Output labels - modules
+		modulesPassedLabel = ObjectProperty(None)
+		modulesPassedValue = ObjectProperty(None)
+		modulesFailedLabel = ObjectProperty(None)
+		modulesFailedValue = ObjectProperty(None)
+		modulesPassedByCompensationLabel = ObjectProperty(None)
+		modulesPassedByCompensationValue = ObjectProperty(None)
+		modulesAbsentLabel = ObjectProperty(None)
+		modulesAbsentValue = ObjectProperty(None)
+		modulesPassedByAutoRepeatsLabel = ObjectProperty(None)
+		modulesPassedByAutoRepeatsValue = ObjectProperty(None)
  
 		# Record current values in the GUI for updates
 		currentValues = []
@@ -81,7 +109,25 @@ if conf.KIVY_READY:
 
 			if conf.DEBUG:
 				print "Update from simulation: \n", update
-			self.textView.text = update
+			#self.textView.text = update
+			self.updateLabels(update) # Update lebels on GUI
+
+		def updateLabels(self, a):
+			#Output labels - students
+			self.studentsPassedValue.text = "[b]" + a["studentsPassedValue"] + "[b]"
+			self.studentsPassedByCompensationValue.text = "[b]" + a["studentsPassedByCompensationValue"] + "[b]"
+			self.studentsPassedByTransferOfCreditsValue.text = "[b]" + a["studentsPassedByTransferOfCreditsValue"] + "[b]"
+			self.studentsPassedByAutoRepeatsValue.text = "[b]" + a["studentsPassedByAutoRepeatsValue"] + "[b]"
+			self.averageGradeValue.text = "[b]" + a["averageGradeValue"] + "[b]"
+			self.averageLeavingCertificateValue.text = "[b]" + a["averageLeavingCertificateValue"] + "[b]"
+			self.studentsFailedValue.text = "[b]" + a["studentsFailedValue"] + "[b]"
+
+			#Output labels - modules
+			# self.modulesPassedValue = a["modulesPassedValue"]
+			# self.modulesFailedValue = a["modulesFailedValue"]
+			# self.modulesPassedByCompensationValue = a["modulesPassedByCompensationValue"]
+			# self.modulesAbsentValue = a["modulesAbsentValue"]
+			# self.modulesPassedByAutoRepeatsValue = a["modulesPassedByAutoRepeatsValue"]
 
 		def on_touch_up(self, touch):
 			# Auto repeats and transfer of credits cannot be True at the same time
@@ -127,7 +173,7 @@ if conf.KIVY_READY:
 			simulation.intakeAutumn = UniData.intakeAutumn
 			simulation.modules = UniData.modules
 			simulation.courses = UniData.courses
-			self.textView.text = simulation.update
+			#self.textView.text = simulation.update
 
 			# Populate initial data
 			simulation.initial_intake = copy.deepcopy(UniData.intakeSummer)

@@ -85,7 +85,7 @@
 			
 			
 <ContainerBox>:
-	textView: textView
+	#textView: textView
 	compensationLevelSlider: compensationLevelSlider
 	compensationThresholdSlider: compensationThresholdSlider
 	transferCheckBox: transferCheckBox
@@ -97,6 +97,34 @@
 	intAgentCheckBox: intAgentCheckBox
 	intAgentLabel: intAgentLabel
 	simulateButton: simulateButton
+
+	#Output labels - students
+	studentsPassedLabel: studentsPassedLabel
+	studentsPassedValue: studentsPassedValue
+	studentsPassedByCompensationLabel: studentsPassedByCompensationLabel
+	studentsPassedByCompensationValue: studentsPassedByCompensationValue
+	studentsPassedByTransferOfCreditsLabel: studentsPassedByTransferOfCreditsLabel
+	studentsPassedByTransferOfCreditsValue: studentsPassedByTransferOfCreditsValue
+	studentsPassedByAutoRepeatsLabel: studentsPassedByAutoRepeatsLabel
+	studentsPassedByAutoRepeatsValue: studentsPassedByAutoRepeatsValue
+	averageGradeLabel: averageGradeLabel
+	averageGradeValue: averageGradeValue
+	averageLeavingCertificateLabel: averageLeavingCertificateLabel
+	averageLeavingCertificateValue: averageLeavingCertificateValue
+	studentsFailedLabel: studentsFailedLabel
+	studentsFailedValue: studentsFailedValue
+
+	#Output labels - modules
+	#modulesPassedLabel: modulesPassedLabel
+	#modulesPassedValue: modulesPassedValue
+	#modulesFailedLabel: modulesFailedLabel
+	#modulesFailedValue: modulesFailedValue
+	#modulesPassedByCompensationLabel: modulesPassedByCompensationLabel
+	#modulesPassedByCompensationValue: modulesPassedByCompensationValue
+	#modulesAbsentLabel: modulesAbsentLabel
+	#modulesAbsentValue: modulesAbsentValue
+	#modulesPassedByAutoRepeatsLabel: modulesPassedByAutoRepeatsLabel
+	#modulesPassedByAutoRepeatsValue: modulesPassedByAutoRepeatsValue
 
 	orientation: 'horizontal'
 	BoxLayout:
@@ -110,14 +138,176 @@
 				text: 'Summary'
 				ScrollView:
 					size_hint: (1, 1)
-					Label:
-						size_hint: (1, None)
+					#Label:
+					#	size_hint: (1, None)
+					#	size: root.size
+					#	pos: root.pos
+					#	id: textView
+					#	text: 'Simulation results will appear here.'
+					#	valign: 'top'
+					#	halign: 'left'
+					BoxLayout:
+						orientation: 'vertical'
 						size: root.size
 						pos: root.pos
-						id: textView
-						text: 'Simulation results will appear here.'
-						valign: 'top'
-						halign: 'left'
+						size_hint: (1.0, 0.5)
+						BoxLayout:
+							orientation: 'horizontal'
+							size: root.size
+							pos: root.pos
+							Label:
+								id: studentsPassedLabel
+								halign: 'left'
+								markup: True
+								text: "Passed"
+							Label:
+								id: studentsPassedValue
+								halign: 'left'
+								markup: True
+						BoxLayout:
+							orientation: 'horizontal'
+							size: root.size
+							pos: root.pos
+							Label:
+								id: studentsPassedByCompensationLabel
+								halign: 'left'
+								markup: True
+								text: "Passed by compensation"
+							Label:
+								id: studentsPassedByCompensationValue
+								halign: 'left'
+								markup: True
+						BoxLayout:
+							orientation: 'horizontal'
+							size: root.size
+							pos: root.pos
+							Label:
+								id: studentsPassedByTransferOfCreditsLabel
+								halign: 'left'
+								markup: True
+								text: "Passed by transfer of credits"
+							Label:
+								id: studentsPassedByTransferOfCreditsValue
+								halign: 'left'
+								markup: True
+						BoxLayout:
+							orientation: 'horizontal'
+							size: root.size
+							pos: root.pos
+							Label:
+								id: studentsPassedByAutoRepeatsLabel
+								halign: 'left'
+								markup: True
+								text: "Passed by auto repeats"
+							Label:
+								id: studentsPassedByAutoRepeatsValue
+								halign: 'left'
+								markup: True
+						BoxLayout:
+							orientation: 'horizontal'
+							size: root.size
+							pos: root.pos
+							Label:
+								id: studentsFailedLabel
+								halign: 'left'
+								markup: True
+								text: "Failed"
+							Label:
+								id: studentsFailedValue
+								halign: 'left'
+								markup: True
+						BoxLayout:
+							orientation: 'horizontal'
+							size: root.size
+							pos: root.pos
+							Label:
+								id: averageGradeLabel
+								halign: 'left'
+								markup: True
+								text: "Average grade"
+							Label:
+								id: averageGradeValue
+								halign: 'left'
+								markup: True
+						BoxLayout:
+							orientation: 'horizontal'
+							size: root.size
+							pos: root.pos
+							Label:
+								id: averageLeavingCertificateLabel
+								halign: 'left'
+								markup: True
+								text: "Average leaving certificat"
+							Label:
+								id: averageLeavingCertificateValue
+								halign: 'left'
+								markup: True
+	#					BoxLayout:
+	# 						orientation: 'horizontal'
+	# 						size: root.size
+	# 						pos: root.pos
+	# 						Label:
+	# 							id: modulesPassedLabel
+	# 							halign: 'left'
+	# 							markup: True
+	# 							text: "Modules - passed"
+	# 						Label:
+	# 							id: modulesPassedValue
+	# 							halign: 'left'
+	# 							markup: True
+	# 					BoxLayout:
+	# 						orientation: 'horizontal'
+	# 						size: root.size
+	# 						pos: root.pos
+	# 						Label:
+	# 							id: modulesFailedLabel
+	# 							halign: 'left'
+	# 							markup: True
+	# 							text: "Modules - failed"
+	# 						Label:
+	# 							id: modulesFailedValue
+	# 							halign: 'left'
+	# 							markup: True
+	# 					BoxLayout:
+	# 						orientation: 'horizontal'
+	# 						size: root.size
+	# 						pos: root.pos
+	# 						Label:
+	# 							id: modulesPassedByCompensationLabel
+	# 							halign: 'left'
+	# 							markup: True
+	# 							text: "Modules - passed by compensation"
+	# 						Label:
+	# 							id: modulesPassedByCompensationValue
+	# 							halign: 'left'
+	# 							markup: True
+	# 					BoxLayout:
+	# 						orientation: 'horizontal'
+	# 						size: root.size
+	# 						pos: root.pos
+	# 						Label:
+	# 							id: modulesAbsentLabel
+	# 							halign: 'left'
+	# 							markup: True
+	# 							text: "Modules - absent"
+	# 						Label:
+	# 							id: modulesAbsentValue
+	# 							halign: 'left'
+	# 							markup: True
+	# 					BoxLayout:
+	# 						orientation: 'horizontal'
+	# 						size: root.size
+	# 						pos: root.pos
+	# 						Label:
+	# 							id: modulesPassedByAutoRepeatsLabel
+	# 							halign: 'left'
+	# 							markup: True
+	# 							text: "Modules passed by auto repeats"
+	# 						Label:
+	# 							id: modulesPassedByAutoRepeatsValue
+	# 							halign: 'left'
+	# 							markup: True
+
 		    TabbedPanelItem:
 		        text: 'Graph'
 		        Label:
