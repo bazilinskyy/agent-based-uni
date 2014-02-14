@@ -97,6 +97,8 @@
 	intAgentCheckBox: intAgentCheckBox
 	intAgentLabel: intAgentLabel
 	simulateButton: simulateButton
+	intAgentThresholdLabel: intAgentThresholdLabel
+	intAgentThresholdTextInput: intAgentThresholdTextInput
 
 	#Output labels - students
 	studentsPassedLabel: studentsPassedLabel
@@ -157,12 +159,14 @@
 							pos: root.pos
 							Label:
 								id: studentsPassedLabel
-								halign: 'left'
+								text: "Passed"
 								markup: True
 								text: "Passed"
+								text_size: (180, None)
+								halign: 'left'
 							Label:
 								id: studentsPassedValue
-								halign: 'left'
+								text_size: (None, None)
 								markup: True
 						BoxLayout:
 							orientation: 'horizontal'
@@ -170,12 +174,12 @@
 							pos: root.pos
 							Label:
 								id: studentsPassedByCompensationLabel
-								halign: 'left'
+								text_size: (180, None)
 								markup: True
 								text: "Passed by compensation"
+								halign: 'left'
 							Label:
 								id: studentsPassedByCompensationValue
-								halign: 'left'
 								markup: True
 						BoxLayout:
 							orientation: 'horizontal'
@@ -183,12 +187,12 @@
 							pos: root.pos
 							Label:
 								id: studentsPassedByTransferOfCreditsLabel
-								halign: 'left'
+								text_size: (180, None)
 								markup: True
 								text: "Passed by transfer of credits"
+								halign: 'left'
 							Label:
 								id: studentsPassedByTransferOfCreditsValue
-								halign: 'left'
 								markup: True
 						BoxLayout:
 							orientation: 'horizontal'
@@ -196,12 +200,12 @@
 							pos: root.pos
 							Label:
 								id: studentsPassedByAutoRepeatsLabel
-								halign: 'left'
+								text_size: (180, None)
 								markup: True
 								text: "Passed by auto repeats"
+								halign: 'left'
 							Label:
 								id: studentsPassedByAutoRepeatsValue
-								halign: 'left'
 								markup: True
 						BoxLayout:
 							orientation: 'horizontal'
@@ -209,12 +213,12 @@
 							pos: root.pos
 							Label:
 								id: studentsFailedLabel
-								halign: 'left'
+								text_size: (180, None)
 								markup: True
 								text: "Failed"
+								halign: 'left'
 							Label:
 								id: studentsFailedValue
-								halign: 'left'
 								markup: True
 						BoxLayout:
 							orientation: 'horizontal'
@@ -222,12 +226,12 @@
 							pos: root.pos
 							Label:
 								id: averageGradeLabel
-								halign: 'left'
+								text_size: (180, None)
 								markup: True
 								text: "Average grade"
+								halign: 'left'
 							Label:
 								id: averageGradeValue
-								halign: 'left'
 								markup: True
 						BoxLayout:
 							orientation: 'horizontal'
@@ -235,12 +239,12 @@
 							pos: root.pos
 							Label:
 								id: averageLeavingCertificateLabel
-								halign: 'left'
+								text_size: (180, None)
 								markup: True
-								text: "Average leaving certificat"
+								text: "Average leaving certificate"
+								halign: 'left'
 							Label:
 								id: averageLeavingCertificateValue
-								halign: 'left'
 								markup: True
 	#					BoxLayout:
 	# 						orientation: 'horizontal'
@@ -378,6 +382,17 @@
 					markup: True
 				CheckBox:
 					id: intAgentCheckBox
+					active: True
+			BoxLayout:
+				orientation: 'horizontal'
+				size: root.size
+				pos: root.pos
+				Label:
+					text: 'Intelligent threshold'
+					id: intAgentThresholdLabel
+					markup: True
+				TextInput:
+					id: intAgentThresholdTextInput
 					active: True
 			Button:
 				id: simulateButton

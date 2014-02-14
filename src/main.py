@@ -71,6 +71,8 @@ if conf.KIVY_READY:
 		intAgentLabelCheckBox = ObjectProperty(None)
 		intAgentLabel = ObjectProperty(None)
 		simulateButton = ObjectProperty(None)
+		intAgentThresholdLabel = ObjectProperty(None)
+		intAgentThresholdTextInput = ObjectProperty(None)
 
 		#Output labels - students
 		studentsPassedLabel = ObjectProperty(None)

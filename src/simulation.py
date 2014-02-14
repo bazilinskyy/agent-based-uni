@@ -64,6 +64,17 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 					averageGrade >= conf.COMPENSATION_THREASHOLD and 
 					intake[student].moduleEnrollments[moduleEnr].marksReceived <= conf.COMPENSATION_LEVEL):
 					intake[student].moduleEnrollments[moduleEnr].status == "PASS"
+				# Check if a student was absent on the exam
+				elif (intake[student].moduleEnrollments[moduleEnr].status == "ABSENT" and conf.INTELLENT_AGENT_ABSENT_MODULE):
+					# Calcualate total average grade
+					tempAverageGrade = 0.0
+					for tempModuleEnr in intake[student].moduleEnrollments:
+						tempAverageGrade += intake[student].moduleEnrollments[moduleEnr].marksReceived
+					tempAverageGrade /= len(intake[student].moduleEnrollments)
+					# If average grade > conf.INTELLENT_AGENT_ABSENT_MODULE_THRESHOLD, there is conf.INTELLENT_AGENT_CHANGE / 2 the student Passed this module with a grade equal to his average grade
+					if tempAverageGrade >= conf.INTELLENT_AGENT_ABSENT_MODULE_THRESHOLD and random.random() <= conf.INTELLENT_AGENT_CHANGE / 2:
+						intake[student].moduleEnrollments[moduleEnr].status == "PASS"
+						intake[student].moduleEnrollments[moduleEnr].marksReceived = tempAverageGrade
 
 			# Average grade calculation
 			averageGrade += intake[student].moduleEnrollments[moduleEnr].marksReceived
