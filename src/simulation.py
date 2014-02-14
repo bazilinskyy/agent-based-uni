@@ -55,7 +55,7 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 			grade = intake[student].moduleEnrollments[moduleEnr].marksReceived
 			# print "1: ", grade, " plus: ", conf.INTELLENT_AGENT_COEF * intake[student].leavingCertificate
 			# Add marks based on the leaving school certificate mark, based on probability of exhibiting intellgent behaviour INTELLENT_AGENT_CHANGE
-			if random.random() <= conf.INTELLENT_AGENT_CHANGE and intake[student].leavingCertificate >= conf.INTELLENT_AGENT_LC_THRESHOLD:
+			if conf.INTELLIGENT_AGENTS and random.random() <= conf.INTELLENT_AGENT_CHANGE and intake[student].leavingCertificate >= conf.INTELLENT_AGENT_LC_THRESHOLD:
 				grade += conf.INTELLENT_AGENT_COEF * intake[student].leavingCertificate
 				intake[student].moduleEnrollments[moduleEnr].marksReceived = grade
 				# Check if it makes a failed module passed
@@ -99,7 +99,7 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 				satisfactoryModules += 1
 
 		# Found failed modules, and auto repeats are possible
-		if (failedModules > 0 and conf.AUTO_REPEATS == True and conf.TRANSFER_OF_CREDITS == False):
+		if (failedModules > 0 and conf.AUTO_REPEATS == True and conf.TRANSFER_OF_CREDITS == False and failedModules <= conf.AUTO_REPEATS_LIMIT):
 			modulesPassedByAutoRepeats = False
 			# Find this student in autumn intake
 			if (intake[student].studentID in intakeAutumn.keys()):

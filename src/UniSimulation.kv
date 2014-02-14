@@ -96,6 +96,7 @@
 	compensationThresholdLabel: compensationThresholdLabel
 	intAgentCheckBox: intAgentCheckBox
 	intAgentLabel: intAgentLabel
+	simulateButton: simulateButton
 
 	orientation: 'horizontal'
 	BoxLayout:
@@ -121,10 +122,10 @@
 		        text: 'Graph'
 		        Label:
 	                text: 'Graph will be here.'
-		    TabbedPanelItem:
-		        text: 'Particle'
-	            Label:
-	                text: 'Particle-based representation will be here.'
+		    #TabbedPanelItem:
+		    #    text: 'Particle'
+	        #    Label:
+	        #        text: 'Particle-based representation will be here.'
 
 		BoxLayout:
 			orientation: 'vertical'
@@ -188,3 +189,6 @@
 				CheckBox:
 					id: intAgentCheckBox
 					active: True
+			Button:
+				id: simulateButton
+				text: "Simulate"

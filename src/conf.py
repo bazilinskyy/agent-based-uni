@@ -12,6 +12,7 @@ INTAKE_SIZE 					= 500  # Not used
 COMPENSATION_LEVEL 				= 25
 COMPENSATION_THREASHOLD 		= 50
 AUTO_REPEATS 					= True
+AUTO_REPEATS_LIMIT				= 999 # Missing information, set to very large numer
 TRANSFER_OF_CREDITS				= False
 TRANSFER_OF_CREDITS_MODULES		= 2 # How many modules can be transfered
 PASS_BY_COMPENSATION			= True
