@@ -73,6 +73,8 @@ if conf.KIVY_READY:
 		simulateButton = ObjectProperty(None)
 		intAgentThresholdLabel = ObjectProperty(None)
 		intAgentThresholdTextInput = ObjectProperty(None)
+		intAgentChangeTextInput = ObjectProperty(None)
+		intAgentChangeLabel = ObjectProperty(None)
 
 		#Output labels - students
 		studentsPassedLabel = ObjectProperty(None)
@@ -152,6 +154,8 @@ if conf.KIVY_READY:
 			conf.AUTO_REPEATS = self.repeatsCheckBox.active
 			conf.TRANSFER_OF_CREDITS = self.transferCheckBox.active
 			conf.INTELLIGENT_AGENTS = self.intAgentCheckBox.active
+			conf.INTELLENT_AGENT_LC_THRESHOLD = int(self.intAgentThresholdTextInput.text)
+			conf.INTELLENT_AGENT_CHANGE = float(self.intAgentChangeTextInput.text)
 
 			# Update labels
 			self.compensationLevelLabel.text = "Compensation\nlevel - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(conf.COMPENSATION_LEVEL) + "[/color]"
@@ -191,6 +195,8 @@ if conf.KIVY_READY:
 			self.compensationLevelSlider.value = conf.COMPENSATION_LEVEL
 			self.compensationThresholdSlider.value = conf.COMPENSATION_THREASHOLD
 			self.intAgentCheckBox.active = conf.INTELLIGENT_AGENTS
+			self.intAgentThresholdTextInput.text = str(conf.INTELLENT_AGENT_LC_THRESHOLD)
+			self.intAgentChangeTextInput.text = str(conf.INTELLENT_AGENT_CHANGE)
 
 			self.simulateButton.bind(on_press=self.runSimulation)
 

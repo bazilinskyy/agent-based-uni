@@ -99,6 +99,8 @@
 	simulateButton: simulateButton
 	intAgentThresholdLabel: intAgentThresholdLabel
 	intAgentThresholdTextInput: intAgentThresholdTextInput
+	intAgentChangeLabel: intAgentChangeLabel
+	intAgentChangeTextInput: intAgentChangeTextInput
 
 	#Output labels - students
 	studentsPassedLabel: studentsPassedLabel
@@ -325,7 +327,7 @@
 			orientation: 'vertical'
 			size: root.size
 			pos: root.pos
-			size_hint: (1.0, 0.5)
+			size_hint: (1.0, 0.9)
 			BoxLayout:
 				orientation: 'horizontal'
 				size: root.size
@@ -388,12 +390,23 @@
 				size: root.size
 				pos: root.pos
 				Label:
+					text: 'Intelligent change'
+					id: intAgentChangeLabel
+					markup: True
+				TextInput:
+					id: intAgentChangeTextInput
+					multiline: False
+			BoxLayout:
+				orientation: 'horizontal'
+				size: root.size
+				pos: root.pos
+				Label:
 					text: 'Intelligent threshold'
 					id: intAgentThresholdLabel
 					markup: True
 				TextInput:
 					id: intAgentThresholdTextInput
-					active: True
+					multiline: False
 			Button:
 				id: simulateButton
 				text: "Simulate"
