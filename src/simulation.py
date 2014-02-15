@@ -18,6 +18,10 @@ initial_intakeAutumn = {} 	# Autumn intake
 initial_modules = {}		# All modules, sorted by ID
 initial_courses = []		# List of all courses	
 
+# Record statistics of students passing/failing based on their school leaving certificates
+lcPassed = {}
+lcFailed = {}
+
 # Algorithm by Pavlo Bazilinskyy
 def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfCredits, intelligentAgents):
 	# Reset data
@@ -148,7 +152,7 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 			else:
 				studentsFailed += 1
 				intake[student].resultFromSimluation = False
-				continue
+				addLcFailed(intake[student].leavingCertificate)
 
 			if (modulesPassedByAutoRepeats):
 				studentsPassedByAutoRepeats += 1
@@ -158,11 +162,13 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 		if (passByCompensationModules > 2):
 			studentsFailed += 1
 			intake[student].resultFromSimluation = False
+			addLcFailed(intake[student].leavingCertificate)
 			continue
 		# Student has failed moduels, and both auto repeats and transfer of credits are disabled
 		elif (failedModules > 0 and conf.AUTO_REPEATS == False and conf.TRANSFER_OF_CREDITS == False):
 			studentsFailed += 1
 			intake[student].resultFromSimluation = False
+			addLcFailed(intake[student].leavingCertificate)
 			continue
 		# Found failed modules, but auto repeats and transfer of credits are not allowed
 		elif (failedModules > 0 and conf.TRANSFER_OF_CREDITS == True and conf.AUTO_REPEATS == False):
@@ -171,6 +177,7 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 			if (failedModules < conf.TRANSFER_OF_CREDITS_MODULES):
 				studentsFailed += 1
 				intake[student].resultFromSimluation = False
+				addLcFailed(intake[student].leavingCertificate)
 				continue
 			else:
 				studentsPassedByTransferCredits += 1
@@ -178,6 +185,7 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 		elif (didNotCompleteModules > conf.DID_NOT_COMPLETE_MODULES):
 			studentsFailed += 1
 			intake[student].resultFromSimluation = False
+			addLcFailed(intake[student].leavingCertificate)
 			continue
 		# Everything is fine and this student can advance to the next year
 		if (passByCompensationModules <= 2 and passByCompensationModules > 0):
@@ -186,6 +194,7 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 		# Everything is fine and this student can go to the next year
 		studentsPassed += 1
 		intake[student].resultFromSimluation = True
+		addLcPassed(intake[student].leavingCertificate)
 
 	totalAverageMark /= len(intake) # Calculate average grade
 	averageLeavingCert /= len(intake) # Calcualte average leaving certificate
@@ -222,6 +231,19 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 
 	return update
 
+# Record in the dictionary of numbers of students who failed sorted by leaving certificate points
+def addLcFailed(leavingCertificate):
+	try:
+		lcFailed[leavingCertificate] += 1
+	except KeyError, e:
+		lcFailed[leavingCertificate] = 1
+
+# Record in the dictionary of numbers of students who passed sorted by leaving certificate points
+def addLcPassed(leavingCertificate):
+	try:
+		lcPassed[leavingCertificate] += 1
+	except KeyError, e:
+		lcPassed[leavingCertificate] = 1
 
 # Algorithm by Ronan Reilly and Pavlo Bazilinskyy
 def simulate_old(compensationLevel, compensationThreashold, autoRepeats, transferOfCredits):

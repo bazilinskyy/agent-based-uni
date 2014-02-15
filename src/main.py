@@ -123,6 +123,22 @@ if conf.KIVY_READY:
 			#self.textView.text = update
 			self.updateLabels(update) # Update lebels on GUI
 
+
+			print simulation.lcPassed
+			print simulation.lcFailed
+
+			#Plot graphs
+			#Plot for passed
+			plotPassed = MeshLinePlot(color=[0, 1, 0, 1])
+			plotPassed.points = [( x, simulation.lcPassed[x]) for x in simulation.lcPassed.keys()]
+			self.graph.add_plot(plotPassed)
+
+			#Plot for failed
+			plotFailed = MeshLinePlot(color=[1, 0, 0, 1])
+			plotFailed.points = [(x, simulation.lcFailed[x]) for x in simulation.lcFailed.keys()]
+			self.graph.add_plot(plotFailed)
+
+
 		def updateLabels(self, a):
 			#Output labels - students
 			self.studentsPassedValue.text = "[b]" + a["studentsPassedValue"] + "[b]"
@@ -230,12 +246,6 @@ if conf.KIVY_READY:
 			self.intAgentLevelTextInput.text = str(conf.INTELLENT_AGENT_COEF)
 
 			self.simulateButton.bind(on_press=self.runSimulation)
-
-			#Plot graph
-
-			plot = MeshLinePlot(color=[1, 0, 0, 1])
-			plot.points = [(x, sin(x / 10.)) for x in xrange(0, 101)]
-			self.graph.add_plot(plot)
 
 	class UniSimulationApp(App):
 		title = 'Agent-based simualation of NUIM by pavlo.bazilinskyy@gmail.com'
