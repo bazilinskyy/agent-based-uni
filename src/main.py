@@ -35,7 +35,7 @@ if conf.KIVY_READY:
 
 	#     def move(self):
 	#         self.pos = Vector(*self.velocity) + self.pos
-	 
+
 	class HBoxWidget(Widget):
 		def __init__(self, **kwargs):
 			super(HBoxWidget, self).__init__(**kwargs)
@@ -64,6 +64,10 @@ if conf.KIVY_READY:
 			super(CheckBoxWithLabel, self).__init__(**kwargs)
 			
 	class ContainerBox(BoxLayout):
+		# Plots for the graph
+		plotPassed = None
+		plotFailed = None
+
 		textView = ObjectProperty(None)
 		compensationLevelSlider = ObjectProperty(None)
 		compensationLevelLabel = ObjectProperty(None)
@@ -124,11 +128,13 @@ if conf.KIVY_READY:
 			#self.textView.text = update
 			self.updateLabels(update) # Update lebels on GUI
 
-
-			print simulation.lcPassed
-			print simulation.lcFailed
-
 			##Plot graphs
+			# Try to remove plots
+			try:
+				self.graph.remove_plot(self.plotPassed) # Remove passed plot
+				self.graph.remove_plot(self.plotFailed) # Remove failed plot
+			except Exception, e:
+				pass
 
 			# Sort dictionaries
 			# Sort dictionaries with passed / failed agains leaving certificates
@@ -136,14 +142,14 @@ if conf.KIVY_READY:
 			lcFailed = OrderedDict(sorted(simulation.lcFailed.items()))
 
 			#Plot for passed
-			plotPassed = MeshLinePlot(color=[0, 1, 0, 1])
-			plotPassed.points = [(x, y) for x, y in lcPassed.iteritems()]
-			self.graph.add_plot(plotPassed)
+			self.plotPassed = MeshLinePlot(color=[0, 1, 0, 1])
+			self.plotPassed.points = [(x, y) for x, y in lcPassed.iteritems()]
+			self.graph.add_plot(self.plotPassed)
 
 			#Plot for failed
-			plotFailed = MeshLinePlot(color=[1, 0, 0, 1])
-			plotFailed.points = [(x, y) for x, y in lcFailed.iteritems()]
-			self.graph.add_plot(plotFailed)
+			self.plotFailed = MeshLinePlot(color=[1, 0, 0, 1])
+			self.plotFailed.points = [(x, y) for x, y in lcFailed.iteritems()]
+			self.graph.add_plot(self.plotFailed)
 
 
 		def updateLabels(self, a):

@@ -29,6 +29,8 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 	intakeAutumn = copy.deepcopy(initial_intakeAutumn)
 	modules = copy.deepcopy(initial_modules)
 	courses = copy.deepcopy(initial_courses)
+	lcPassed.clear()
+	lcFailed.clear()
 
 	# Variables for calculating 
 	studentsPassed = 0
