@@ -6,6 +6,7 @@ import simulation
 import sys
 import copy
 import re
+from math import sin
 
 # Kivy imports
 if conf.KIVY_READY:
@@ -23,6 +24,7 @@ if conf.KIVY_READY:
 	from kivy.uix.tabbedpanel import TabbedPanel
 	from kivy.uix.floatlayout import FloatLayout
 	from kivy.uix.textinput import TextInput
+	from kivy.garden.graph import Graph, MeshLinePlot
 
 if conf.KIVY_READY:
 	# class PongBall(Widget):
@@ -79,6 +81,7 @@ if conf.KIVY_READY:
 		intAgentChanceLabel = ObjectProperty(None)
 		intAgentLevelLabel = ObjectProperty(None)
 		intAgentLevelTextInput = ObjectProperty(None)
+		graph = ObjectProperty(None)
 
 		#Output labels - students
 		studentsPassedLabel = ObjectProperty(None)
@@ -227,6 +230,12 @@ if conf.KIVY_READY:
 			self.intAgentLevelTextInput.text = str(conf.INTELLENT_AGENT_COEF)
 
 			self.simulateButton.bind(on_press=self.runSimulation)
+
+			#Plot graph
+
+			plot = MeshLinePlot(color=[1, 0, 0, 1])
+			plot.points = [(x, sin(x / 10.)) for x in xrange(0, 101)]
+			self.graph.add_plot(plot)
 
 	class UniSimulationApp(App):
 		title = 'Agent-based simualation of NUIM by pavlo.bazilinskyy@gmail.com'
