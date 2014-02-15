@@ -5,6 +5,7 @@ from UniData import UniData
 import simulation
 import sys
 import copy
+import re
 
 # Kivy imports
 if conf.KIVY_READY:
@@ -21,6 +22,7 @@ if conf.KIVY_READY:
 	from kivy.properties import NumericProperty, ReferenceListProperty, ObjectProperty
 	from kivy.uix.tabbedpanel import TabbedPanel
 	from kivy.uix.floatlayout import FloatLayout
+	from kivy.uix.textinput import TextInput
 
 if conf.KIVY_READY:
 	# class PongBall(Widget):
@@ -72,9 +74,11 @@ if conf.KIVY_READY:
 		intAgentLabel = ObjectProperty(None)
 		simulateButton = ObjectProperty(None)
 		intAgentThresholdLabel = ObjectProperty(None)
-		intAgentThresholdTextInput = ObjectProperty(None)
-		intAgentChangeTextInput = ObjectProperty(None)
+		intAgentThresholdSlider = ObjectProperty(None)
+		intAgentChangeSlider = ObjectProperty(None)
 		intAgentChangeLabel = ObjectProperty(None)
+		intAgentLevelLabel = ObjectProperty(None)
+		intAgentLevelTextInput = ObjectProperty(None)
 
 		#Output labels - students
 		studentsPassedLabel = ObjectProperty(None)
@@ -154,12 +158,21 @@ if conf.KIVY_READY:
 			conf.AUTO_REPEATS = self.repeatsCheckBox.active
 			conf.TRANSFER_OF_CREDITS = self.transferCheckBox.active
 			conf.INTELLIGENT_AGENTS = self.intAgentCheckBox.active
-			conf.INTELLENT_AGENT_LC_THRESHOLD = int(self.intAgentThresholdTextInput.text)
-			conf.INTELLENT_AGENT_CHANGE = float(self.intAgentChangeTextInput.text)
+			conf.INTELLENT_AGENT_LC_THRESHOLD = int(self.intAgentThresholdSlider.value)
+			conf.INTELLENT_AGENT_CHANCE = self.intAgentChangeSlider.value
+			conf.INTELLENT_AGENT_COEF = float(self.intAgentLevelTextInput.text)
 
-			# Update labels
-			self.compensationLevelLabel.text = "Compensation\nlevel - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(conf.COMPENSATION_LEVEL) + "[/color]"
-			self.compensationThresholdLabel.text = "Compensation\nthreashold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(conf.COMPENSATION_THREASHOLD) + "[/color]"
+			self.updateConfLabels()
+
+		def on_touch_move(self, touch):
+			self.updateConfLabels()
+			
+		## Update labels
+		def updateConfLabels(self):
+			self.compensationLevelLabel.text = "Compensation\nlevel - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(self.compensationLevelSlider.value)) + "[/color]"
+			self.compensationThresholdLabel.text = "Compensation\nthreashold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(self.compensationThresholdSlider.value)) + "[/color]"
+			self.intAgentThresholdLabel.text = "Intelligent\nthreashold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(self.intAgentThresholdSlider.value)) + "[/color]"
+			self.intAgentChangeLabel.text = "Intelligent\nchange - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(self.intAgentChangeSlider.value) + "[/color]"
 
 		def __init__(self, **kwargs):
 			super(ContainerBox, self).__init__(**kwargs)
@@ -190,13 +203,16 @@ if conf.KIVY_READY:
 			# Update labels ans sliders with current values
 			self.compensationLevelLabel.text = "Compensation\nlevel - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(conf.COMPENSATION_LEVEL) + "[/color]"
 			self.compensationThresholdLabel.text = "Compensation\nthreashold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(conf.COMPENSATION_THREASHOLD) + "[/color]"
+			self.intAgentThresholdLabel.text = "Intelligent\nthreashold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(conf.INTELLENT_AGENT_LC_THRESHOLD) + "[/color]"
+			self.intAgentChangeLabel.text = "Intelligent\nchange - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(conf.INTELLENT_AGENT_CHANCE) + "[/color]"
 			self.repeatsCheckBox.active = conf.AUTO_REPEATS
 			self.transferCheckBox.active = conf.TRANSFER_OF_CREDITS
 			self.compensationLevelSlider.value = conf.COMPENSATION_LEVEL
 			self.compensationThresholdSlider.value = conf.COMPENSATION_THREASHOLD
 			self.intAgentCheckBox.active = conf.INTELLIGENT_AGENTS
-			self.intAgentThresholdTextInput.text = str(conf.INTELLENT_AGENT_LC_THRESHOLD)
-			self.intAgentChangeTextInput.text = str(conf.INTELLENT_AGENT_CHANGE)
+			self.intAgentThresholdSlider.value = conf.INTELLENT_AGENT_LC_THRESHOLD
+			self.intAgentChangeSlider.value = conf.INTELLENT_AGENT_CHANCE
+			self.intAgentLevelTextInput.text = str(conf.INTELLENT_AGENT_COEF)
 
 			self.simulateButton.bind(on_press=self.runSimulation)
 
@@ -205,6 +221,17 @@ if conf.KIVY_READY:
 
 		def build(self):
 			return ContainerBox() 
+
+	class FloatInput(TextInput):
+
+		pat = re.compile('[^0-9]')
+		def insert_text(self, substring, from_undo=False):
+			pat = self.pat
+			if '.' in self.text:
+				s = re.sub(pat, '', substring)
+			else:
+				s = '.'.join([re.sub(pat, '', s) for s in substring.split('.', 1)])
+			return super(FloatInput, self).insert_text(s, from_undo=from_undo)
 
 # if conf.SHOW_TIMESTAMPS:
 # 	old_f = sys.stdout

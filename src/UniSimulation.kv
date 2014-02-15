@@ -98,9 +98,11 @@
 	intAgentLabel: intAgentLabel
 	simulateButton: simulateButton
 	intAgentThresholdLabel: intAgentThresholdLabel
-	intAgentThresholdTextInput: intAgentThresholdTextInput
+	intAgentThresholdSlider: intAgentThresholdSlider
 	intAgentChangeLabel: intAgentChangeLabel
-	intAgentChangeTextInput: intAgentChangeTextInput
+	intAgentChangeSlider: intAgentChangeSlider
+	intAgentLevelLabel: intAgentLevelLabel
+	intAgentLevelTextInput: intAgentLevelTextInput
 
 	#Output labels - students
 	studentsPassedLabel: studentsPassedLabel
@@ -390,12 +392,25 @@
 				size: root.size
 				pos: root.pos
 				Label:
-					text: 'Intelligent change'
+					text: 'Intelligent level'
+					id: intAgentLevelLabel
+					markup: True
+				FloatInput:
+					id: intAgentLevelTextInput
+					multiline: False
+			BoxLayout:
+				orientation: 'horizontal'
+				size: root.size
+				pos: root.pos
+				Label:
+					text: 'Intelligent chance'
 					id: intAgentChangeLabel
 					markup: True
-				TextInput:
-					id: intAgentChangeTextInput
-					multiline: False
+				Slider:
+					id: intAgentChangeSlider
+					min: 0
+					max: 1
+					step: 0.01
 			BoxLayout:
 				orientation: 'horizontal'
 				size: root.size
@@ -404,9 +419,11 @@
 					text: 'Intelligent threshold'
 					id: intAgentThresholdLabel
 					markup: True
-				TextInput:
-					id: intAgentThresholdTextInput
-					multiline: False
+				Slider:
+					id: intAgentThresholdSlider
+					min: 1
+					max: 1000
+					step: 1
 			Button:
 				id: simulateButton
 				text: "Simulate"

@@ -55,7 +55,7 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 			grade = intake[student].moduleEnrollments[moduleEnr].marksReceived
 			# print "1: ", grade, " plus: ", conf.INTELLENT_AGENT_COEF * intake[student].leavingCertificate
 			# Add marks based on the leaving school certificate mark, based on probability of exhibiting intellgent behaviour INTELLENT_AGENT_CHANGE
-			if conf.INTELLIGENT_AGENTS and random.random() <= conf.INTELLENT_AGENT_CHANGE and intake[student].leavingCertificate >= conf.INTELLENT_AGENT_LC_THRESHOLD:
+			if conf.INTELLIGENT_AGENTS and random.random() <= conf.INTELLENT_AGENT_CHANCE and intake[student].leavingCertificate >= conf.INTELLENT_AGENT_LC_THRESHOLD:
 				grade += conf.INTELLENT_AGENT_COEF * intake[student].leavingCertificate
 				intake[student].moduleEnrollments[moduleEnr].marksReceived = grade
 				# Check if it makes a failed module passed
@@ -72,7 +72,7 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 						tempAverageGrade += intake[student].moduleEnrollments[moduleEnr].marksReceived
 					tempAverageGrade /= len(intake[student].moduleEnrollments)
 					# If average grade > conf.INTELLENT_AGENT_ABSENT_MODULE_THRESHOLD, there is conf.INTELLENT_AGENT_CHANGE / 2 the student Passed this module with a grade equal to his average grade
-					if tempAverageGrade >= conf.INTELLENT_AGENT_ABSENT_MODULE_THRESHOLD and random.random() <= conf.INTELLENT_AGENT_CHANGE / 2:
+					if tempAverageGrade >= conf.INTELLENT_AGENT_ABSENT_MODULE_THRESHOLD and random.random() <= conf.INTELLENT_AGENT_CHANCE / 2:
 						intake[student].moduleEnrollments[moduleEnr].status == "PASS"
 						intake[student].moduleEnrollments[moduleEnr].marksReceived = tempAverageGrade
 
