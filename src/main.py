@@ -75,8 +75,8 @@ if conf.KIVY_READY:
 		simulateButton = ObjectProperty(None)
 		intAgentThresholdLabel = ObjectProperty(None)
 		intAgentThresholdSlider = ObjectProperty(None)
-		intAgentChangeSlider = ObjectProperty(None)
-		intAgentChangeLabel = ObjectProperty(None)
+		intAgentChanceSlider = ObjectProperty(None)
+		intAgentChanceLabel = ObjectProperty(None)
 		intAgentLevelLabel = ObjectProperty(None)
 		intAgentLevelTextInput = ObjectProperty(None)
 
@@ -159,7 +159,7 @@ if conf.KIVY_READY:
 			conf.TRANSFER_OF_CREDITS = self.transferCheckBox.active
 			conf.INTELLIGENT_AGENTS = self.intAgentCheckBox.active
 			conf.INTELLENT_AGENT_LC_THRESHOLD = int(self.intAgentThresholdSlider.value)
-			conf.INTELLENT_AGENT_CHANCE = self.intAgentChangeSlider.value
+			conf.INTELLENT_AGENT_CHANCE = self.intAgentChanceSlider.value
 			conf.INTELLENT_AGENT_COEF = float(self.intAgentLevelTextInput.text)
 
 			self.updateConfLabels()
@@ -172,7 +172,13 @@ if conf.KIVY_READY:
 			self.compensationLevelLabel.text = "Compensation\nlevel - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(self.compensationLevelSlider.value)) + "[/color]"
 			self.compensationThresholdLabel.text = "Compensation\nthreashold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(self.compensationThresholdSlider.value)) + "[/color]"
 			self.intAgentThresholdLabel.text = "Intelligent\nthreashold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(self.intAgentThresholdSlider.value)) + "[/color]"
-			self.intAgentChangeLabel.text = "Intelligent\nchange - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(self.intAgentChangeSlider.value) + "[/color]"
+			# Add zero to the value of chance to avoid jumping labels
+			chance = self.intAgentChanceSlider.value
+			if chance in [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]: # Modulus does not work somehow
+				chance = str(chance) + "0"
+			else:
+				chance = str(chance)
+			self.intAgentChanceLabel.text = "Intelligent\nchance - [color=" + conf.LABEL_VALUE_COLOR + "]" + chance + "[/color]"
 
 		def __init__(self, **kwargs):
 			super(ContainerBox, self).__init__(**kwargs)
@@ -204,14 +210,20 @@ if conf.KIVY_READY:
 			self.compensationLevelLabel.text = "Compensation\nlevel - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(conf.COMPENSATION_LEVEL) + "[/color]"
 			self.compensationThresholdLabel.text = "Compensation\nthreashold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(conf.COMPENSATION_THREASHOLD) + "[/color]"
 			self.intAgentThresholdLabel.text = "Intelligent\nthreashold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(conf.INTELLENT_AGENT_LC_THRESHOLD) + "[/color]"
-			self.intAgentChangeLabel.text = "Intelligent\nchange - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(conf.INTELLENT_AGENT_CHANCE) + "[/color]"
+			# Add zero to the value of chance to avoid jumping labels
+			chance = conf.INTELLENT_AGENT_CHANCE
+			if chance in [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]: # Modulus does not work somehow
+				chance = str(chance) + "0"
+			else:
+				chance = str(chance)
+			self.intAgentChanceLabel.text = "Intelligent\nchance - [color=" + conf.LABEL_VALUE_COLOR + "]" + chance + "[/color]"
 			self.repeatsCheckBox.active = conf.AUTO_REPEATS
 			self.transferCheckBox.active = conf.TRANSFER_OF_CREDITS
 			self.compensationLevelSlider.value = conf.COMPENSATION_LEVEL
 			self.compensationThresholdSlider.value = conf.COMPENSATION_THREASHOLD
 			self.intAgentCheckBox.active = conf.INTELLIGENT_AGENTS
 			self.intAgentThresholdSlider.value = conf.INTELLENT_AGENT_LC_THRESHOLD
-			self.intAgentChangeSlider.value = conf.INTELLENT_AGENT_CHANCE
+			self.intAgentChanceSlider.value = conf.INTELLENT_AGENT_CHANCE
 			self.intAgentLevelTextInput.text = str(conf.INTELLENT_AGENT_COEF)
 
 			self.simulateButton.bind(on_press=self.runSimulation)
