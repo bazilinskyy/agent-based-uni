@@ -93,7 +93,8 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 			grade = intake[student].moduleEnrollments[moduleEnr].marksReceived
 			# Add marks based on the leaving school certificate mark, based on probability of exhibiting intellgent behaviour INTELLENT_AGENT_CHANGE
 			if conf.INTELLIGENT_AGENTS and random.random() <= conf.INTELLENT_AGENT_CHANCE and intake[student].leavingCertificate >= conf.INTELLENT_AGENT_LC_THRESHOLD:
-				grade += conf.INTELLENT_AGENT_COEF * intake[student].leavingCertificate
+				print "grade: ", grade, " plus: ", float(conf.INTELLENT_AGENT_COEF) / 1000 * intake[student].leavingCertificate
+				grade += float(conf.INTELLENT_AGENT_COEF) / 1000 * intake[student].leavingCertificate
 				intake[student].moduleEnrollments[moduleEnr].marksReceived = grade
 				# Check if it makes a failed module passed
 				if (intake[student].moduleEnrollments[moduleEnr].status == "FAIL" and intake[student].moduleEnrollments[moduleEnr].marksReceived >= conf.PASSING_THRESHOLD):
@@ -111,7 +112,7 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 					for tempModuleEnr in intake[student].moduleEnrollments:
 						tempAverageGrade += intake[student].moduleEnrollments[moduleEnr].marksReceived
 					tempAverageGrade /= len(intake[student].moduleEnrollments)
-					# If average grade > conf.INTELLENT_AGENT_ABSENT_MODULE_THRESHOLD, there is conf.INTELLENT_AGENT_CHANGE / 2 the student Passed this module with a grade equal to his average grade
+					# If average grade > conf.INTELLENT_AGENT_ABSENT_MODULE_THRESHOLD, there is "conf.INTELLENT_AGENT_CHANGE / 2" chance the student passed this module with a grade equal to his average grade
 					if tempAverageGrade >= conf.INTELLENT_AGENT_ABSENT_MODULE_THRESHOLD and random.random() <= conf.INTELLENT_AGENT_CHANCE / 2:
 						intake[student].moduleEnrollments[moduleEnr].status = "PASS"
 						intake[student].moduleEnrollments[moduleEnr].marksReceived = int(tempAverageGrade)
@@ -173,6 +174,7 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 							# elif (intakeAutumn[intake[student].studentID].moduleEnrollments[moduleEnr.module.moduleID] == "ABSENT"):
 							# 	absentModules += 1
 							elif (modEnrAutumn.status == "PASS BY COMPENSATION"):
+									# Check if pass by compensation holds, if not mark this module as failed
 									if (averageGrade >= conf.COMPENSATION_THREASHOLD and modEnrAutumn.marksReceived >= conf.COMPENSATION_LEVEL and conf.PASS_BY_COMPENSATION == True):
 										passByCompensationModules += 1
 										failedModules -= 1
@@ -201,7 +203,6 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 				intake[student].resultFromSimluation = True
 				addLcPassed(intake[student].leavingCertificate)
 				continue
-
 
 		# Pass by compensation modules found, but it was used for more than two modules
 		if (passByCompensationModules > 2):

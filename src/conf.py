@@ -38,7 +38,8 @@ KIVY_READY 			= 1		# Ready to be published with Kivy
 # SIMULATION
 PASSING_THRESHOLD				= 40		# Passing grade
 INTELLIGENT_AGENTS 				= True 		# Agent exhibit intelligent behaviour based on their school leaving certificated
-INTELLENT_AGENT_COEF			= 0.02  	# By how many percent agents are more clever 
+INTELLENT_AGENT_COEF			= 5 	  	# If an agent exhibits intelligent behaviour, his modules receive additional (INTELLENT_AGENT_COEF / 1000 * LeavingCertificate) marks
+											# e.g. if INTELLENT_AGENT_COEF = 5 => grade:  46.0 + 4.995
 INTELLENT_AGENT_CHANCE			= 0.81 		# What is a chance of the agent exhibiting intelligent behaviour. 1.0 - always intelligent
 INTELLENT_AGENT_LC_THRESHOLD	= 600		# Apply intelligent behaviour only if leaving certificate is higher that this number
 INTELLENT_AGENT_ABSENT_MODULE   = True      # Intelligent agent with an average grade > INTELLENT_AGENT_ABSENT_MODULE_THRESHOLD can pass an absent module
