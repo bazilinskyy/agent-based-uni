@@ -103,6 +103,8 @@
 	intAgentChanceSlider: intAgentChanceSlider
 	intAgentLevelLabel: intAgentLevelLabel
 	intAgentLevelTextInput: intAgentLevelTextInput
+	passByCompensationCheckBox: passByCompensationCheckBox
+	passByCompensationLabel: passByCompensationLabel
 	graph: graph
 
 	#Output labels - students
@@ -340,6 +342,17 @@
 			size: root.size
 			pos: root.pos
 			size_hint: (1.0, 0.9)
+			BoxLayout:
+				orientation: 'horizontal'
+				size: root.size
+				pos: root.pos
+				Label:
+					text: 'Pass by compensation'
+					id: passByCompensationLabel
+					markup: True
+				CheckBox:
+					id: passByCompensationCheckBox
+					active: True
 			BoxLayout:
 				orientation: 'horizontal'
 				size: root.size

@@ -87,6 +87,8 @@ if conf.KIVY_READY:
 		intAgentLevelLabel = ObjectProperty(None)
 		intAgentLevelTextInput = ObjectProperty(None)
 		graph = ObjectProperty(None)
+		passByCompensationCheckBox = ObjectProperty(None)
+		passByCompensationLabel = ObjectProperty(None)
 
 		#Output labels - students
 		studentsPassedLabel = ObjectProperty(None)
@@ -170,18 +172,27 @@ if conf.KIVY_READY:
 			# self.modulesPassedByAutoRepeatsValue = a["modulesPassedByAutoRepeatsValue"]
 
 		def on_touch_up(self, touch):
-			# Auto repeats and transfer of credits cannot be True at the same time
-			if (self.transferCheckBox.active and self.currentValues[3]):
+			# Auto repeats and transfer of credits cannot be True at the same time. Same for pass by compensation. Only one method can be anabled at a time.
+			if self.transferCheckBox.active and not self.currentValues[2]:
 				self.repeatsCheckBox.active = False
-			if (self.repeatsCheckBox.active and self.currentValues[4]):
+				self.passByCompensationCheckBox.active = False
+			elif self.repeatsCheckBox.active and not self.currentValues[3]:
 				self.transferCheckBox.active = False
+				self.passByCompensationCheckBox.active = False
+			elif self.passByCompensationCheckBox.active and not self.currentValues[5]:
+				self.transferCheckBox.active = False
+				self.repeatsCheckBox.active = False
 
 			self.currentValues = [
 				self.compensationLevelSlider.value,
 				self.compensationThresholdSlider.value,
 				self.transferCheckBox.active,
 				self.repeatsCheckBox.active,
-				self.intAgentCheckBox.active
+				self.intAgentCheckBox.active,
+				self.passByCompensationCheckBox.active,
+				self.intAgentLevelTextInput.text,
+				self.intAgentThresholdSlider.value,
+				self.intAgentChanceSlider.value
 			]
 
 			# Update simulation variables
@@ -193,6 +204,7 @@ if conf.KIVY_READY:
 			conf.INTELLENT_AGENT_LC_THRESHOLD = int(self.intAgentThresholdSlider.value)
 			conf.INTELLENT_AGENT_CHANCE = self.intAgentChanceSlider.value
 			conf.INTELLENT_AGENT_COEF = float(self.intAgentLevelTextInput.text)
+			conf.PASS_BY_COMPENSATION = self.passByCompensationCheckBox.active
 
 			self.updateConfLabels()
 
@@ -214,13 +226,6 @@ if conf.KIVY_READY:
 
 		def __init__(self, **kwargs):
 			super(ContainerBox, self).__init__(**kwargs)
-			self.currentValues= [
-				self.compensationLevelSlider.value,
-				self.compensationThresholdSlider.value,
-				self.transferCheckBox.active,
-				self.repeatsCheckBox.active,
-				self.intAgentCheckBox.active
-			]
 
 			# Populate list of student in current intake
 			# Load data from Excel and csv files
@@ -257,8 +262,21 @@ if conf.KIVY_READY:
 			self.intAgentThresholdSlider.value = conf.INTELLENT_AGENT_LC_THRESHOLD
 			self.intAgentChanceSlider.value = conf.INTELLENT_AGENT_CHANCE
 			self.intAgentLevelTextInput.text = str(conf.INTELLENT_AGENT_COEF)
+			self.passByCompensationCheckBox.active = conf.PASS_BY_COMPENSATION
 
 			self.simulateButton.bind(on_press=self.runSimulation)
+
+			self.currentValues= [
+				self.compensationLevelSlider.value,
+				self.compensationThresholdSlider.value,
+				self.transferCheckBox.active,
+				self.repeatsCheckBox.active,
+				self.intAgentCheckBox.active,
+				self.passByCompensationCheckBox.active,
+				self.intAgentLevelTextInput.text,
+				self.intAgentThresholdSlider.value,
+				self.intAgentChanceSlider.value
+			]
 
 	class UniSimulationApp(App):
 		title = 'Agent-based simualation of NUIM by pavlo.bazilinskyy@gmail.com'
