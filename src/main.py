@@ -1,3 +1,36 @@
+#!/usr/bin/env python
+"""
+Main file. To run with Kivy, type "kivy main.py" in the folder with this file.
+Requires graph module from Kivy.garden. See: http://kivy.org/docs/api-kivy.garden.html
+"""
+# Copyright (c) 2014, Pavlo Bazilinskyy <pavlo.bazilinskyy@gmail.com>
+# Department of Computer Science, National University of Ireland, Maynooth
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+__author__ = "Pavlo Bazilinskyy"
+__copyright__ = "Copyright 2008, National University of Ireland, Maynooth"
+__credits__ = "Ronan Reilly"
+__version__ = "1.0"
+__maintainer__ = "Pavlo Bazilinskyy"
+__email__ = "pavlo.bazilinskyy@gmail.com"
+__status__ = "Production"
+
 import conf
 import model
 from simulation import simulate
@@ -28,14 +61,6 @@ if conf.KIVY_READY:
 	from kivy.garden.graph import Graph, MeshLinePlot
 
 if conf.KIVY_READY:
-	# class PongBall(Widget):
-	#     velocity_x = NumericProperty(0)
-	#     velocity_y = NumericProperty(0)
-	#     velocity = ReferenceListProperty(velocity_x, velocity_y)
-
-	#     def move(self):
-	#         self.pos = Vector(*self.velocity) + self.pos
-
 	class HBoxWidget(Widget):
 		def __init__(self, **kwargs):
 			super(HBoxWidget, self).__init__(**kwargs)
@@ -264,8 +289,10 @@ if conf.KIVY_READY:
 			self.intAgentLevelTextInput.text = str(conf.INTELLENT_AGENT_COEF)
 			self.passByCompensationCheckBox.active = conf.PASS_BY_COMPENSATION
 
+			# Use button to run simulation
 			self.simulateButton.bind(on_press=self.runSimulation)
 
+			# Records current values in the GUI
 			self.currentValues= [
 				self.compensationLevelSlider.value,
 				self.compensationThresholdSlider.value,
@@ -305,6 +332,3 @@ if conf.KIVY_READY:
 if __name__ == '__main__':
 	if conf.KIVY_READY:
 		UniSimulationApp().run()
-
-	# Run simulation
-	# simulate()

@@ -1,9 +1,42 @@
+#!/usr/bin/env python
+"""
+List pf parameters used in the application.
+"""
+# Copyright (c) 2014, Pavlo Bazilinskyy <pavlo.bazilinskyy@gmail.com>
+# Department of Computer Science, National University of Ireland, Maynooth
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+__author__ = "Pavlo Bazilinskyy"
+__copyright__ = "Copyright 2008, National University of Ireland, Maynooth"
+__credits__ = "Ronan Reilly"
+__version__ = "1.0"
+__maintainer__ = "Pavlo Bazilinskyy"
+__email__ = "pavlo.bazilinskyy@gmail.com"
+__status__ = "Production"
+
 # ENVIRONMENT
-DEBUG				= 1
-SHOW_TIMESTAMPS 	= 1
+DEBUG				= 0		# 1 - show debugging information, 0 - do not show debugging information
+SHOW_TIMESTAMPS 	= 0		# Show timestamps with debuggin information
 KIVY_READY 			= 1		# Ready to be published with Kivy
 
 # SIMULATION
+PASSING_THRESHOLD				= 40		# Passing grade
 INTELLIGENT_AGENTS 				= True 		# Agent exhibit intelligent behaviour based on their school leaving certificated
 INTELLENT_AGENT_COEF			= 0.02  	# By how many percent agents are more clever 
 INTELLENT_AGENT_CHANCE			= 0.81 		# What is a chance of the agent exhibiting intelligent behaviour. 1.0 - always intelligent
@@ -22,14 +55,14 @@ SEMESTER_FINISH					= 2 		# How many semesters to process in simulation
 DID_NOT_COMPLETE_MODULES		= 0 		# How many modules can be unfinished
 
 # FILES WITH DATA
-FILE_WITH_NAMES = "names.txt"
+FILE_WITH_NAMES = "names.txt" # Not used
 FILE_WITH_INTAKE_SUMMER = "data/curriculum_raw_Data_Summer_allYrs-Leaving Cert Pts.xlsx"
 FILE_WITH_INTAKE_AUTUMN = "data/curriculum_raw_Data_Autumn_allYrs-Leaving Certs-Leaving Cert Pts.xlsx"
 FILE_WITH_COURSES = "data/NUIM degrees.xlsx"
 FILE_WITH_MODULES = "data/UG and PG summary no intoc no period study.xlsx"
 
 # GUI
-LABEL_VALUE_COLOR = "ff3333"
+LABEL_VALUE_COLOR = "ff3333" # Color for values in labeles shown in the sidebar in GUI
 LABEL_GREEN_COLOR = "ff3333"
 LABEL_RED_COLOR = "ff3333"
 LABEL_ORANGE_COLOR = "ff3333"
