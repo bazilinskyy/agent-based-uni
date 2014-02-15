@@ -7,6 +7,7 @@ import sys
 import copy
 import re
 from math import sin
+from collections import OrderedDict
 
 # Kivy imports
 if conf.KIVY_READY:
@@ -127,15 +128,21 @@ if conf.KIVY_READY:
 			print simulation.lcPassed
 			print simulation.lcFailed
 
-			#Plot graphs
+			##Plot graphs
+
+			# Sort dictionaries
+			# Sort dictionaries with passed / failed agains leaving certificates
+			lcPassed = OrderedDict(sorted(simulation.lcPassed.items()))
+			lcFailed = OrderedDict(sorted(simulation.lcFailed.items()))
+
 			#Plot for passed
 			plotPassed = MeshLinePlot(color=[0, 1, 0, 1])
-			plotPassed.points = [( x, simulation.lcPassed[x]) for x in simulation.lcPassed.keys()]
+			plotPassed.points = [(x, y) for x, y in lcPassed.iteritems()]
 			self.graph.add_plot(plotPassed)
 
 			#Plot for failed
 			plotFailed = MeshLinePlot(color=[1, 0, 0, 1])
-			plotFailed.points = [(x, simulation.lcFailed[x]) for x in simulation.lcFailed.keys()]
+			plotFailed.points = [(x, y) for x, y in lcFailed.iteritems()]
 			self.graph.add_plot(plotFailed)
 
 
