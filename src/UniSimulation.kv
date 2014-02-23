@@ -41,7 +41,7 @@
 	passingMarkSlider: passingMarkSlider
 	numberOfModulesSlider: numberOfModulesSlider
 	numberOfCourseSlider: numberOfCourseSlider
-	compensationLevelSlider: compensationLevelSlider
+	compensationThresholdSlider: compensationThresholdSlider
 	compensationCheckBox: compensationCheckBox
 
 	BoxLayout:
@@ -121,10 +121,10 @@
 	intAgentCheckBox: intAgentCheckBox
 	intAgentLabel: intAgentLabel
 	simulateButton: simulateButton
-	intAgentThresholdLabel: intAgentThresholdLabel
-	intAgentThresholdSlider: intAgentThresholdSlider
-	intAgentChanceLabel: intAgentChanceLabel
-	intAgentChanceSlider: intAgentChanceSlider
+	# intAgentThresholdLabel: intAgentThresholdLabel
+	# intAgentThresholdSlider: intAgentThresholdSlider
+	# intAgentChanceLabel: intAgentChanceLabel
+	# intAgentChanceSlider: intAgentChanceSlider
 	intAgentLevelLabel: intAgentLevelLabel
 	intAgentLevelTextInput: intAgentLevelTextInput
 	passByCompensationCheckBox: passByCompensationCheckBox
@@ -225,7 +225,7 @@
 								id: studentsPassedByAutoRepeatsLabel
 								text_size: (180, None)
 								markup: True
-								text: "Passed by auto repeats"
+								text: "Passed by autumn repeats"
 								halign: 'left'
 							Label:
 								id: studentsPassedByAutoRepeatsValue
@@ -329,7 +329,7 @@
 	# 							id: modulesPassedByAutoRepeatsLabel
 	# 							halign: 'left'
 	# 							markup: True
-	# 							text: "Modules passed by auto repeats"
+	# 							text: "Modules passed by autumn repeats"
 	# 						Label:
 	# 							id: modulesPassedByAutoRepeatsValue
 	# 							halign: 'left'
@@ -406,7 +406,7 @@
 				size: root.size
 				pos: root.pos
 				Label:
-					text: 'Allow repeats'
+					text: 'Autumn repeats'
 					id: repeatsLabel
 					markup: True
 				CheckBox:
@@ -445,32 +445,32 @@
 				FloatInput:
 					id: intAgentLevelTextInput
 					multiline: False
-			BoxLayout:
-				orientation: 'horizontal'
-				size: root.size
-				pos: root.pos
-				Label:
-					text: 'Intelligent chance'
-					id: intAgentChanceLabel
-					markup: True
-				Slider:
-					id: intAgentChanceSlider
-					min: 0
-					max: 1
-					step: 0.01
-			BoxLayout:
-				orientation: 'horizontal'
-				size: root.size
-				pos: root.pos
-				Label:
-					text: 'Intelligent threshold'
-					id: intAgentThresholdLabel
-					markup: True
-				Slider:
-					id: intAgentThresholdSlider
-					min: 1
-					max: 1000
-					step: 1
+			# BoxLayout:
+			# 	orientation: 'horizontal'
+			# 	size: root.size
+			# 	pos: root.pos
+			# 	Label:
+			# 		text: 'Intelligent chance'
+			# 		id: intAgentChanceLabel
+			# 		markup: True
+			# 	Slider:
+			# 		id: intAgentChanceSlider
+			# 		min: 0
+			# 		max: 1
+			# 		step: 0.01
+			# BoxLayout:
+			# 	orientation: 'horizontal'
+			# 	size: root.size
+			# 	pos: root.pos
+			# 	Label:
+			# 		text: 'Intelligent threshold'
+			# 		id: intAgentThresholdLabel
+			# 		markup: True
+			# 	Slider:
+			# 		id: intAgentThresholdSlider
+			# 		min: 1
+			# 		max: 1000
+			# 		step: 1
 			Button:
 				id: simulateButton
 				text: "Simulate"

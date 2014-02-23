@@ -2,6 +2,7 @@
 """
 Main file. To run with Kivy, type "kivy main.py" in the folder with this file.
 Requires graph module from Kivy.garden. See: http://kivy.org/docs/api-kivy.garden.html
+Also requires xlrg.
 """
 # Copyright (c) 2014, Pavlo Bazilinskyy <pavlo.bazilinskyy@gmail.com>
 # Department of Computer Science, National University of Ireland, Maynooth
@@ -105,10 +106,10 @@ if conf.KIVY_READY:
 		intAgentLabelCheckBox = ObjectProperty(None)
 		intAgentLabel = ObjectProperty(None)
 		simulateButton = ObjectProperty(None)
-		intAgentThresholdLabel = ObjectProperty(None)
-		intAgentThresholdSlider = ObjectProperty(None)
-		intAgentChanceSlider = ObjectProperty(None)
-		intAgentChanceLabel = ObjectProperty(None)
+		# intAgentThresholdLabel = ObjectProperty(None)
+		# intAgentThresholdSlider = ObjectProperty(None)
+		# intAgentChanceSlider = ObjectProperty(None)
+		# intAgentChanceLabel = ObjectProperty(None)
 		intAgentLevelLabel = ObjectProperty(None)
 		intAgentLevelTextInput = ObjectProperty(None)
 		graph = ObjectProperty(None)
@@ -216,8 +217,8 @@ if conf.KIVY_READY:
 				self.intAgentCheckBox.active,
 				self.passByCompensationCheckBox.active,
 				self.intAgentLevelTextInput.text,
-				self.intAgentThresholdSlider.value,
-				self.intAgentChanceSlider.value
+				# self.intAgentThresholdSlider.value,
+				# self.intAgentChanceSlider.value
 			]
 
 			# Update simulation variables
@@ -226,8 +227,8 @@ if conf.KIVY_READY:
 			conf.AUTO_REPEATS = self.repeatsCheckBox.active
 			conf.TRANSFER_OF_CREDITS = self.transferCheckBox.active
 			conf.INTELLIGENT_AGENTS = self.intAgentCheckBox.active
-			conf.INTELLENT_AGENT_LC_THRESHOLD = int(self.intAgentThresholdSlider.value)
-			conf.INTELLENT_AGENT_CHANCE = self.intAgentChanceSlider.value
+			# conf.INTELLENT_AGENT_LC_THRESHOLD = int(self.intAgentThresholdSlider.value)
+			# conf.INTELLENT_AGENT_CHANCE = self.intAgentChanceSlider.value
 			conf.INTELLENT_AGENT_COEF = float(self.intAgentLevelTextInput.text)
 			conf.PASS_BY_COMPENSATION = self.passByCompensationCheckBox.active
 
@@ -240,14 +241,14 @@ if conf.KIVY_READY:
 		def updateConfLabels(self):
 			self.compensationLevelLabel.text = "Compensation\nlevel - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(self.compensationLevelSlider.value)) + "[/color]"
 			self.compensationThresholdLabel.text = "Compensation\nthreashold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(self.compensationThresholdSlider.value)) + "[/color]"
-			self.intAgentThresholdLabel.text = "Intelligent\nthreashold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(self.intAgentThresholdSlider.value)) + "[/color]"
+			# self.intAgentThresholdLabel.text = "Intelligent\nthreashold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(self.intAgentThresholdSlider.value)) + "[/color]"
 			# Add zero to the value of chance to avoid jumping labels
-			chance = self.intAgentChanceSlider.value
-			if chance in [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]: # Modulus does not work somehow
-				chance = str(chance) + "0"
-			else:
-				chance = str(chance)
-			self.intAgentChanceLabel.text = "Intelligent\nchance - [color=" + conf.LABEL_VALUE_COLOR + "]" + chance + "[/color]"
+			# chance = self.intAgentChanceSlider.value
+			# if chance in [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]: # Modulus does not work somehow
+			# 	chance = str(chance) + "0"
+			# else:
+			# 	chance = str(chance)
+			# self.intAgentChanceLabel.text = "Intelligent\nchance - [color=" + conf.LABEL_VALUE_COLOR + "]" + chance + "[/color]"
 
 		def __init__(self, **kwargs):
 			super(ContainerBox, self).__init__(**kwargs)
@@ -271,21 +272,21 @@ if conf.KIVY_READY:
 			# Update labels ans sliders with current values
 			self.compensationLevelLabel.text = "Compensation\nlevel - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(conf.COMPENSATION_LEVEL) + "[/color]"
 			self.compensationThresholdLabel.text = "Compensation\nthreashold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(conf.COMPENSATION_THREASHOLD) + "[/color]"
-			self.intAgentThresholdLabel.text = "Intelligent\nthreashold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(conf.INTELLENT_AGENT_LC_THRESHOLD) + "[/color]"
+			# self.intAgentThresholdLabel.text = "Intelligent\nthreashold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(conf.INTELLENT_AGENT_LC_THRESHOLD) + "[/color]"
 			# Add zero to the value of chance to avoid jumping labels
-			chance = conf.INTELLENT_AGENT_CHANCE
-			if chance in [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]: # Modulus does not work somehow
-				chance = str(chance) + "0"
-			else:
-				chance = str(chance)
-			self.intAgentChanceLabel.text = "Intelligent\nchance - [color=" + conf.LABEL_VALUE_COLOR + "]" + chance + "[/color]"
+			# chance = conf.INTELLENT_AGENT_CHANCE
+			# if chance in [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]: # Modulus does not work somehow
+			# 	chance = str(chance) + "0"
+			# else:
+			# 	chance = str(chance)
+			# self.intAgentChanceLabel.text = "Intelligent\nchance - [color=" + conf.LABEL_VALUE_COLOR + "]" + chance + "[/color]"
 			self.repeatsCheckBox.active = conf.AUTO_REPEATS
 			self.transferCheckBox.active = conf.TRANSFER_OF_CREDITS
 			self.compensationLevelSlider.value = conf.COMPENSATION_LEVEL
 			self.compensationThresholdSlider.value = conf.COMPENSATION_THREASHOLD
 			self.intAgentCheckBox.active = conf.INTELLIGENT_AGENTS
-			self.intAgentThresholdSlider.value = conf.INTELLENT_AGENT_LC_THRESHOLD
-			self.intAgentChanceSlider.value = conf.INTELLENT_AGENT_CHANCE
+			# self.intAgentThresholdSlider.value = conf.INTELLENT_AGENT_LC_THRESHOLD
+			# self.intAgentChanceSlider.value = conf.INTELLENT_AGENT_CHANCE
 			self.intAgentLevelTextInput.text = str(conf.INTELLENT_AGENT_COEF)
 			self.passByCompensationCheckBox.active = conf.PASS_BY_COMPENSATION
 
@@ -301,8 +302,8 @@ if conf.KIVY_READY:
 				self.intAgentCheckBox.active,
 				self.passByCompensationCheckBox.active,
 				self.intAgentLevelTextInput.text,
-				self.intAgentThresholdSlider.value,
-				self.intAgentChanceSlider.value
+				# self.intAgentThresholdSlider.value,
+				# self.intAgentChanceSlider.value
 			]
 
 	class UniSimulationApp(App):
