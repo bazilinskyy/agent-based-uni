@@ -55,6 +55,9 @@ PASS_BY_COMPENSATION			= True  	# Enable pass by compensation
 SEMESTER_FINISH					= 2 		# How many semesters to process in simulation
 DID_NOT_COMPLETE_MODULES		= 0 		# How many modules can be unfinished
 
+# GRAPHS
+GRAPH_ROUND						= 10 		# Round values to 10, 100 etc. for smoothing graphs
+
 # FILES WITH DATA
 FILE_WITH_NAMES = "names.txt" # Not used
 FILE_WITH_INTAKE_SUMMER = "data/curriculum_raw_Data_Summer_allYrs-Leaving Cert Pts.xlsx"

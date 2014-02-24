@@ -36,6 +36,7 @@ import random
 from UniData import UniData
 import random
 import copy
+from math import ceil
 
 # Populate list of student in current intake
 # Load data from Excel and csv files
@@ -91,15 +92,18 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 		for moduleEnr in intake[student].moduleEnrollments:
 			## Normalise some values of received marks as they seem to be wrong in Excel sheets
 			# Check if it is actually a pass based on received marks
-			if intake[student].moduleEnrollments[moduleEnr].marksReceived < conf.PASSING_THRESHOLD:
+			if intake[student].moduleEnrollments[moduleEnr].marksReceived < conf.PASSING_THRESHOLD and conf.PASS_BY_COMPENSATION == False:
 				if intake[student].moduleEnrollments[moduleEnr].status == "PASS" or \
 					intake[student].moduleEnrollments[moduleEnr].status == "SATISFACTORY":
-
 					intake[student].moduleEnrollments[moduleEnr].status = "FAIL" # If mark is actually lower then the passing threshold, mark it as failed
 
-			# Check if pass by compensation is given to the passed module
-			if intake[student].moduleEnrollments[moduleEnr].status == "PASS BY COMPENSATION":
-				if intake[student].moduleEnrollments[moduleEnr].marksReceived >= conf.PASSING_THRESHOLD:
+			# Adjust results if passing by com[ensation is enabled
+			elif conf.PASS_BY_COMPENSATION == True:
+				# Check if it makes a failed module passed by compensation
+				if (intake[student].moduleEnrollments[moduleEnr].status == "FAIL" and intake[student].moduleEnrollments[moduleEnr].marksReceived >= conf.COMPENSATION_LEVEL and averageGrade >= conf.COMPENSATION_THREASHOLD and conf.PASS_BY_COMPENSATION == True):
+					intake[student].moduleEnrollments[moduleEnr].status = "PASS BY COMPENSATION"
+				# Check if it makes a passed by compensation module passed
+				elif intake[student].moduleEnrollments[moduleEnr].status == "PASS BY COMPENSATION" and intake[student].moduleEnrollments[moduleEnr].marksReceived >= conf.PASSING_THRESHOLD:
 					intake[student].moduleEnrollments[moduleEnr].status = "PASS"
 
 			# Intelligent agent behaviour
@@ -272,13 +276,9 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 			continue
 		# Student can pass by compensation
 		elif (passByCompensationModules <= 2 and passByCompensationModules > 0 and conf.PASS_BY_COMPENSATION == True):
-
 			# for moduleEnr in intake[student].moduleEnrollments:
 			# 	if (intake[student].moduleEnrollments[moduleEnr].status == "PASS BY COMPENSATION"):
 			# 		print intake[student].moduleEnrollments[moduleEnr].marksReceived
-
-			print studentsPassedByCompensation
-
 			studentsPassedByCompensation += 1
 			studentsPassed += 1
 			intake[student].resultFromSimluation = True
@@ -328,16 +328,20 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 # Record in the dictionary of numbers of students who failed sorted by leaving certificate points
 def addLcFailed(leavingCertificate):
 	try:
-		lcFailed[leavingCertificate] += 1
+		lcFailed[roundup(leavingCertificate)] += 1
 	except KeyError, e:
-		lcFailed[leavingCertificate] = 1
+		lcFailed[roundup(leavingCertificate)] = 1
 
 # Record in the dictionary of numbers of students who passed sorted by leaving certificate points
 def addLcPassed(leavingCertificate):
 	try:
-		lcPassed[leavingCertificate] += 1
+		lcPassed[roundup(leavingCertificate)] += 1
 	except KeyError, e:
-		lcPassed[leavingCertificate] = 1
+		lcPassed[roundup(leavingCertificate)] = 1
+
+# Round integer, used for smoothing graphs
+def roundup(x):
+	return int(ceil(x / float(conf.GRAPH_ROUND)) * conf.GRAPH_ROUND)
 
 # Algorithm by Ronan Reilly and Pavlo Bazilinskyy
 def simulate_old(compensationLevel, compensationThreashold, autoRepeats, transferOfCredits):
