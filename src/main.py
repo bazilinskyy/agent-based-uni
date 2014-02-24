@@ -103,6 +103,8 @@ if conf.KIVY_READY:
 		repeatsCheckBox = ObjectProperty(None)
 		transferLabel = ObjectProperty(None)
 		repeatsLabel = ObjectProperty(None)
+		repeatsCreditsLabel = ObjectProperty(None)
+		repeatsCreditsSlider = ObjectProperty(None)
 		intAgentLabelCheckBox = ObjectProperty(None)
 		intAgentLabel = ObjectProperty(None)
 		simulateButton = ObjectProperty(None)
@@ -149,7 +151,7 @@ if conf.KIVY_READY:
 
 		def runSimulation(self, instance):
 			# Run simulation
-			update = simulate(conf.COMPENSATION_LEVEL, conf.COMPENSATION_THREASHOLD, conf.AUTO_REPEATS , conf.TRANSFER_OF_CREDITS, conf.INTELLIGENT_AGENTS)
+			update = simulate(conf.COMPENSATION_LEVEL, conf.COMPENSATION_THREASHOLD, conf.AUTUMN_REPEATS , conf.TRANSFER_OF_CREDITS, conf.INTELLIGENT_AGENTS)
 
 			if conf.DEBUG:
 				print "Update from simulation: \n", update
@@ -198,16 +200,8 @@ if conf.KIVY_READY:
 			# self.modulesPassedByAutoRepeatsValue = a["modulesPassedByAutoRepeatsValue"]
 
 		def on_touch_up(self, touch):
+			self.refreshUIElements() # Activate / deactivate UI elements based on current values
 			# Auto repeats and transfer of credits cannot be True at the same time. Same for pass by compensation. Only one method can be anabled at a time.
-			if self.transferCheckBox.active and not self.currentValues[2]:
-				self.repeatsCheckBox.active = False
-				self.passByCompensationCheckBox.active = False
-			elif self.repeatsCheckBox.active and not self.currentValues[3]:
-				self.transferCheckBox.active = False
-				self.passByCompensationCheckBox.active = False
-			elif self.passByCompensationCheckBox.active and not self.currentValues[5]:
-				self.transferCheckBox.active = False
-				self.repeatsCheckBox.active = False
 
 			self.currentValues = [
 				self.compensationLevelSlider.value,
@@ -217,6 +211,7 @@ if conf.KIVY_READY:
 				self.intAgentCheckBox.active,
 				self.passByCompensationCheckBox.active,
 				self.intAgentLevelTextInput.text,
+				self.repeatsCreditsSlider.value
 				# self.intAgentThresholdSlider.value,
 				# self.intAgentChanceSlider.value
 			]
@@ -224,13 +219,14 @@ if conf.KIVY_READY:
 			# Update simulation variables
 			conf.COMPENSATION_LEVEL = int(self.compensationLevelSlider.value)
 			conf.COMPENSATION_THREASHOLD = int(self.compensationThresholdSlider.value)
-			conf.AUTO_REPEATS = self.repeatsCheckBox.active
+			conf.AUTUMN_REPEATS = self.repeatsCheckBox.active
 			conf.TRANSFER_OF_CREDITS = self.transferCheckBox.active
 			conf.INTELLIGENT_AGENTS = self.intAgentCheckBox.active
 			# conf.INTELLENT_AGENT_LC_THRESHOLD = int(self.intAgentThresholdSlider.value)
 			# conf.INTELLENT_AGENT_CHANCE = self.intAgentChanceSlider.value
 			conf.INTELLENT_AGENT_COEF = float(self.intAgentLevelTextInput.text)
 			conf.PASS_BY_COMPENSATION = self.passByCompensationCheckBox.active
+			conf.AUTUMN_REPEATS_LIMIT = int(self.repeatsCreditsSlider.value)
 
 			self.updateConfLabels()
 
@@ -241,6 +237,7 @@ if conf.KIVY_READY:
 		def updateConfLabels(self):
 			self.compensationLevelLabel.text = "Compensation\nlevel - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(self.compensationLevelSlider.value)) + "[/color]"
 			self.compensationThresholdLabel.text = "Compensation\nthreashold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(self.compensationThresholdSlider.value)) + "[/color]"
+			self.repeatsCreditsLabel.text = "Allowed credits\nin autumn repeats - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(self.repeatsCreditsSlider.value)) + "[/color]"
 			# self.intAgentThresholdLabel.text = "Intelligent\nthreashold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(self.intAgentThresholdSlider.value)) + "[/color]"
 			# Add zero to the value of chance to avoid jumping labels
 			# chance = self.intAgentChanceSlider.value
@@ -249,6 +246,33 @@ if conf.KIVY_READY:
 			# else:
 			# 	chance = str(chance)
 			# self.intAgentChanceLabel.text = "Intelligent\nchance - [color=" + conf.LABEL_VALUE_COLOR + "]" + chance + "[/color]"
+
+		# Activate / disable elements of GUI based on input
+		def refreshUIElements(self):
+			if self.transferCheckBox.active and not self.currentValues[2]:
+				self.repeatsCheckBox.active = False
+				self.passByCompensationCheckBox.active = False
+
+				# Does not work somehow..
+				self.compensationLevelSlider.disabled = True
+				self.compensationThresholdSlider.disabled = True
+				self.repeatsCreditsSlider.disabled = True
+
+			elif self.repeatsCheckBox.active and not self.currentValues[3]:
+				self.transferCheckBox.active = False
+				self.passByCompensationCheckBox.active = False
+
+				self.compensationLevelSlider.disabled = True
+				self.compensationThresholdSlider.disabled = True
+				self.repeatsCreditsSlider.disabled = False
+
+			elif self.passByCompensationCheckBox.active and not self.currentValues[5]:
+				self.transferCheckBox.active = False
+				self.repeatsCheckBox.active = False
+
+				self.compensationLevelSlider.disabled = False
+				self.compensationThresholdSlider.disabled = False
+				self.repeatsCreditsSlider.disabled = True
 
 		def __init__(self, **kwargs):
 			super(ContainerBox, self).__init__(**kwargs)
@@ -272,6 +296,8 @@ if conf.KIVY_READY:
 			# Update labels ans sliders with current values
 			self.compensationLevelLabel.text = "Compensation\nlevel - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(conf.COMPENSATION_LEVEL) + "[/color]"
 			self.compensationThresholdLabel.text = "Compensation\nthreashold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(conf.COMPENSATION_THREASHOLD) + "[/color]"
+			self.repeatsCreditsLabel.text = "Allowed credits\nin autumn repeats - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(conf.AUTUMN_REPEATS_LIMIT)) + "[/color]"
+
 			# self.intAgentThresholdLabel.text = "Intelligent\nthreashold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(conf.INTELLENT_AGENT_LC_THRESHOLD) + "[/color]"
 			# Add zero to the value of chance to avoid jumping labels
 			# chance = conf.INTELLENT_AGENT_CHANCE
@@ -280,7 +306,7 @@ if conf.KIVY_READY:
 			# else:
 			# 	chance = str(chance)
 			# self.intAgentChanceLabel.text = "Intelligent\nchance - [color=" + conf.LABEL_VALUE_COLOR + "]" + chance + "[/color]"
-			self.repeatsCheckBox.active = conf.AUTO_REPEATS
+			self.repeatsCheckBox.active = conf.AUTUMN_REPEATS
 			self.transferCheckBox.active = conf.TRANSFER_OF_CREDITS
 			self.compensationLevelSlider.value = conf.COMPENSATION_LEVEL
 			self.compensationThresholdSlider.value = conf.COMPENSATION_THREASHOLD
@@ -289,6 +315,7 @@ if conf.KIVY_READY:
 			# self.intAgentChanceSlider.value = conf.INTELLENT_AGENT_CHANCE
 			self.intAgentLevelTextInput.text = str(conf.INTELLENT_AGENT_COEF)
 			self.passByCompensationCheckBox.active = conf.PASS_BY_COMPENSATION
+			self.repeatsCreditsSlider.value = conf.AUTUMN_REPEATS_LIMIT
 
 			# Use button to run simulation
 			self.simulateButton.bind(on_press=self.runSimulation)
@@ -302,6 +329,7 @@ if conf.KIVY_READY:
 				self.intAgentCheckBox.active,
 				self.passByCompensationCheckBox.active,
 				self.intAgentLevelTextInput.text,
+				self.repeatsCreditsSlider.value
 				# self.intAgentThresholdSlider.value,
 				# self.intAgentChanceSlider.value
 			]

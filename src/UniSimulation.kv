@@ -116,6 +116,8 @@
 	repeatsCheckBox: repeatsCheckBox
 	transferLabel: transferLabel
 	repeatsLabel: repeatsLabel
+	repeatsCreditsLabel: repeatsCreditsLabel
+	repeatsCreditsSlider: repeatsCreditsSlider
 	compensationLevelLabel: compensationLevelLabel
 	compensationThresholdLabel: compensationThresholdLabel
 	intAgentCheckBox: intAgentCheckBox
@@ -412,6 +414,18 @@
 				CheckBox:
 					id: repeatsCheckBox
 					active: True
+			BoxLayout:
+				orientation: 'horizontal'
+				size: root.size
+				pos: root.pos
+				Label:
+					id: repeatsCreditsLabel
+					halign: 'left'
+					markup: True
+				Slider:
+					id: repeatsCreditsSlider
+					min: 0
+					max: 30
 			BoxLayout:
 				orientation: 'horizontal'
 				size: root.size
