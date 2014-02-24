@@ -270,13 +270,14 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 			intake[student].resultFromSimluation = False
 			addLcFailed(intake[student].leavingCertificate)
 			continue
-		# Everything is fine and this student can advance to the next year
-		if (passByCompensationModules <= 2 and passByCompensationModules > 0 and conf.PASS_BY_COMPENSATION == True):
+		# Student can pass by compensation
+		elif (passByCompensationModules <= 2 and passByCompensationModules > 0 and conf.PASS_BY_COMPENSATION == True):
 
 			# for moduleEnr in intake[student].moduleEnrollments:
 			# 	if (intake[student].moduleEnrollments[moduleEnr].status == "PASS BY COMPENSATION"):
 			# 		print intake[student].moduleEnrollments[moduleEnr].marksReceived
 
+			print studentsPassedByCompensation
 
 			studentsPassedByCompensation += 1
 			studentsPassed += 1
