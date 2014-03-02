@@ -188,8 +188,8 @@ if conf.KIVY_READY:
 			self.studentsPassedByCompensationValue.text = "[b]" + a["studentsPassedByCompensationValue"] + "[b]"
 			self.studentsPassedByTransferOfCreditsValue.text = "[b]" + a["studentsPassedByTransferOfCreditsValue"] + "[b]"
 			self.studentsPassedByAutoRepeatsValue.text = "[b]" + a["studentsPassedByAutoRepeatsValue"] + "[b]"
-			self.averageGradeValue.text = "[b]" + a["averageGradeValue"] + "[b]"
-			self.averageLeavingCertificateValue.text = "[b]" + a["averageLeavingCertificateValue"] + "[b]"
+			self.averageGradeValue.text = "[b]" + "{0:.2f}".format(float(a["averageGradeValue"])) + "[b]"
+			self.averageLeavingCertificateValue.text = "[b]" + "{0:.2f}".format(float(a["averageLeavingCertificateValue"])) + "[b]"
 			self.studentsFailedValue.text = "[b]" + a["studentsFailedValue"] + "[b]"
 
 			#Output labels - modules
