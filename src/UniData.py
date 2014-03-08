@@ -35,6 +35,7 @@ from xlrd import open_workbook, cellname
 import csv
 import model
 import conf
+import random
 
 class UniData():
 	intakeSummer = {}
@@ -176,7 +177,16 @@ class UniData():
 					if (i + 1 not in linesIgnoreIntakeSummer and row[2].value == 1): # Limit to result from only the first year
 						if (str(row[3]) not in tempSet): 
 							self.intakeSummer[str(int(row[3].value))] = model.Student(str(int(row[3].value)))
-							self.intakeSummer[str(int(row[3].value))].leavingCertificate = int(row[11].value) # Leaving certificate
+
+							# Leaving certificate
+							if (int(row[11].value) <= 625):
+								self.intakeSummer[str(int(row[3].value))].leavingCertificate = int(row[11].value) # Leaving certificate from Wrs column
+							else:
+								if (int(row[12].value) <= 625): # Check if the value is still correct
+									self.intakeSummer[str(int(row[3].value))].leavingCertificate = int(row[12].value) # Leaving certificate from Random column
+								else: # The value is not real leaving certificate -> assign to a random value
+									self.intakeSummer[str(int(row[3].value))].leavingCertificate = random.randint(250, 625) # Leaving certificate from Random column
+
 							tempSet.add(str(row[3]))
 
 						## Enrol student into a module
@@ -241,7 +251,16 @@ class UniData():
 					if (i + 1 not in linesIgnoreIntakeAutumn and row[2].value == 1): # Limit to result from only the first year
 						if (str(row[3]) not in tempSet): 
 							self.intakeAutumn[str(int(row[3].value))] = model.Student(str(int(row[3].value)))
-							self.intakeAutumn[str(int(row[3].value))].leavingCertificate = int(row[11].value) # Leaving certificate
+							
+							# Leaving certificate
+							if (int(row[11].value) <= 625):
+								self.intakeAutumn[str(int(row[3].value))].leavingCertificate = int(row[11].value) # Leaving certificate from Wrs column
+							else:
+								if (int(row[12].value) <= 625): # Check if the value is still correct
+									self.intakeAutumn[str(int(row[3].value))].leavingCertificate = int(row[12].value) # Leaving certificate from Random column
+								else: # The value is not real leaving certificate -> assign to a random value
+									self.intakeAutumn[str(int(row[3].value))].leavingCertificate = random.randint(250, 625) # Leaving certificate from Random column
+
 
 							tempSet.add(str(row[3]))
 
