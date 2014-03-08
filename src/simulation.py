@@ -54,6 +54,16 @@ initial_courses = []		# List of all courses
 # Record statistics of students passing/failing based on their school leaving certificates
 lcPassed = {}
 lcFailed = {}
+# Also record passed/failed ratios for individual faculties
+# ARTS,CELT.STUD. AND PHILOSOPHY
+lcPassedArts = {}
+lcFailedArts = {}
+# SOCIAL SCIENCES
+lcPassedSocial = {}
+lcFailedSocial = {}
+# SCIENCE AND ENGINEERING
+lcPassedScience = {}
+lcFailedScience = {}
 
 # Algorithm by Pavlo Bazilinskyy
 def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfCredits, intelligentAgents):
@@ -64,6 +74,12 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 	courses = copy.deepcopy(initial_courses)
 	lcPassed.clear()
 	lcFailed.clear()
+	lcPassedArts.clear()
+	lcFailedArts.clear()
+	lcPassedSocial.clear()
+	lcFailedSocial.clear()
+	lcPassedScience.clear()
+	lcFailedScience.clear()
 
 	# Variables for calculating 
 	studentsPassed = 0
@@ -248,38 +264,38 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 						studentsPassedByAutoRepeats += 1
 						studentsPassed += 1
 						intake[student].resultFromSimluation = True
-						addLcPassed(intake[student].leavingCertificate)
+						addLcPassed(intake[student])
 						continue
 
 			# Student did not pass failed modules
 			studentsFailed += 1
 			intake[student].resultFromSimluation = False
-			addLcFailed(intake[student].leavingCertificate)
+			addLcFailed(intake[student])
 			continue
 
 		# Pass by compensation modules found, but it was used for more than two modules
 		if (passByCompensationModules > 2):
 			studentsFailed += 1
 			intake[student].resultFromSimluation = False
-			addLcFailed(intake[student].leavingCertificate)
+			addLcFailed(intake[student])
 			continue
 		# Student has failed moduels, and auto repeats, transfer of credits and pass by compensation are disabled
 		elif (failedModules > 0 and conf.AUTUMN_REPEATS == False and conf.TRANSFER_OF_CREDITS == False and conf.PASS_BY_COMPENSATION == False):
 			studentsFailed += 1
 			intake[student].resultFromSimluation = False
-			addLcFailed(intake[student].leavingCertificate)
+			addLcFailed(intake[student])
 			continue
 		# Student has failed moduels, and auto repeats, transfer of credits and pass by compensation are disabled
 		elif (failedModules > 0 and conf.AUTUMN_REPEATS == False and conf.TRANSFER_OF_CREDITS == False and conf.PASS_BY_COMPENSATION == False):
 			studentsFailed += 1
 			intake[student].resultFromSimluation = False
-			addLcFailed(intake[student].leavingCertificate)
+			addLcFailed(intake[student])
 			continue
 		# Student has absent modules, and auto repeats, transfer of credits and pass by compensation are disabled
 		elif (absentModules > 0 and conf.AUTUMN_REPEATS == False and conf.TRANSFER_OF_CREDITS == False and conf.PASS_BY_COMPENSATION == False):
 			studentsFailed += 1
 			intake[student].resultFromSimluation = False
-			addLcFailed(intake[student].leavingCertificate)
+			addLcFailed(intake[student])
 			continue
 		# Found failed modules, transer of credits is allowed
 		elif (failedModules > 0 and conf.TRANSFER_OF_CREDITS == True and conf.AUTUMN_REPEATS == False and conf.PASS_BY_COMPENSATION == False):
@@ -288,19 +304,19 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 			if (failedModules > conf.TRANSFER_OF_CREDITS_MODULES):
 				studentsFailed += 1
 				intake[student].resultFromSimluation = False
-				addLcFailed(intake[student].leavingCertificate)
+				addLcFailed(intake[student])
 				continue
 			else:
 				studentsPassedByTransferCredits += 1
 				studentsPassed += 1
 				intake[student].resultFromSimluation = True
-				addLcPassed(intake[student].leavingCertificate)
+				addLcPassed(intake[student])
 				continue
 		# Student did not complete modules
 		elif (didNotCompleteModules > conf.DID_NOT_COMPLETE_MODULES):
 			studentsFailed += 1
 			intake[student].resultFromSimluation = False
-			addLcFailed(intake[student].leavingCertificate)
+			addLcFailed(intake[student])
 			continue
 		# Student can pass by compensation
 		elif (passByCompensationModules <= 2 and passByCompensationModules > 0 and conf.PASS_BY_COMPENSATION == True):
@@ -310,13 +326,13 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 			studentsPassedByCompensation += 1
 			studentsPassed += 1
 			intake[student].resultFromSimluation = True
-			addLcPassed(intake[student].leavingCertificate)
+			addLcPassed(intake[student])
 			continue
 
 		# Everything is fine and this student can go to the next year
 		studentsPassed += 1
 		intake[student].resultFromSimluation = True
-		addLcPassed(intake[student].leavingCertificate)
+		addLcPassed(intake[student])
 
 	totalAverageMark /= len(intake) # Calculate average grade
 	averageLeavingCert /= len(intake) # Calcualte average leaving certificate
@@ -354,18 +370,20 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 	return update
 
 # Record in the dictionary of numbers of students who failed sorted by leaving certificate points
-def addLcFailed(leavingCertificate):
+def addLcFailed(student):
 	try:
-		lcFailed[roundup(leavingCertificate)] += 1
+		lcFailed[roundup(student.leavingCertificate)] += 1
 	except KeyError, e:
-		lcFailed[roundup(leavingCertificate)] = 1
+		lcFailed[roundup(student.leavingCertificate)] = 1
 
 # Record in the dictionary of numbers of students who passed sorted by leaving certificate points
-def addLcPassed(leavingCertificate):
+def addLcPassed(student):
 	try:
-		lcPassed[roundup(leavingCertificate)] += 1
+		lcPassed[roundup(student.leavingCertificate)] += 1
+		# Also add to the 
+		# if (student)
 	except KeyError, e:
-		lcPassed[roundup(leavingCertificate)] = 1
+		lcPassed[roundup(student.leavingCertificate)] = 1
 
 # Round integer, used for smoothing graphs
 def roundup(x):

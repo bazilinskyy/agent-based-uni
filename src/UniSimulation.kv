@@ -132,6 +132,9 @@
 	passByCompensationCheckBox: passByCompensationCheckBox
 	passByCompensationLabel: passByCompensationLabel
 	graph: graph
+	graphArts: graphArts
+	graphSocial: graphSocial
+	graphScience: graphScience
 
 	#Output labels - students
 	studentsPassedLabel: studentsPassedLabel
@@ -338,9 +341,66 @@
 	# 							markup: True
 
 		    TabbedPanelItem:
-		        text: 'Graph'
+		        text: 'All'
 		        Graph:
 		        	id: graph
+	                xlabel: 'Leaving Certificate'
+	                ylabel: 'Passed / Failed'
+	                #x_ticks_minor: 5
+	                x_ticks_major: 100
+	                y_ticks_major: 30
+					y_grid_label: True
+					x_grid_label: True
+					padding: 5
+					x_grid: True
+					y_grid: True
+					xmin: 250
+					xmax: 999
+					ymin: 0
+					ymax: 300
+
+			TabbedPanelItem:
+		        text: 'Arts'
+		        Graph:
+		        	id: graphArts
+	                xlabel: 'Leaving Certificate'
+	                ylabel: 'Passed / Failed'
+	                #x_ticks_minor: 5
+	                x_ticks_major: 100
+	                y_ticks_major: 30
+					y_grid_label: True
+					x_grid_label: True
+					padding: 5
+					x_grid: True
+					y_grid: True
+					xmin: 250
+					xmax: 999
+					ymin: 0
+					ymax: 300
+
+			TabbedPanelItem:
+		        text: 'Social Sciences'
+		        Graph:
+		        	id: graphSocial
+	                xlabel: 'Leaving Certificate'
+	                ylabel: 'Passed / Failed'
+	                #x_ticks_minor: 5
+	                x_ticks_major: 100
+	                y_ticks_major: 30
+					y_grid_label: True
+					x_grid_label: True
+					padding: 5
+					x_grid: True
+					y_grid: True
+					xmin: 250
+					xmax: 999
+					ymin: 0
+					ymax: 300
+
+			TabbedPanelItem:
+		        text: 'Science'
+		        Graph:
+		        	id: graphScience
 	                xlabel: 'Leaving Certificate'
 	                ylabel: 'Passed / Failed'
 	                #x_ticks_minor: 5

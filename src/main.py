@@ -90,9 +90,15 @@ if conf.KIVY_READY:
 			super(CheckBoxWithLabel, self).__init__(**kwargs)
 			
 	class ContainerBox(BoxLayout):
-		# Plots for the graph
+		# Plots for the graphs
 		plotPassed = None
 		plotFailed = None
+		plotPassedArts = None
+		plotFailedArts = None
+		plotPassedSocial = None
+		plotFailedSocial = None
+		plotPassedScience = None
+		plotFailedScience = None
 
 		textView = ObjectProperty(None)
 		compensationLevelSlider = ObjectProperty(None)
@@ -115,6 +121,9 @@ if conf.KIVY_READY:
 		intAgentLevelLabel = ObjectProperty(None)
 		intAgentLevelTextInput = ObjectProperty(None)
 		graph = ObjectProperty(None)
+		graphArts = ObjectProperty(None)
+		graphSocial = ObjectProperty(None)
+		graphScience = ObjectProperty(None)
 		passByCompensationCheckBox = ObjectProperty(None)
 		passByCompensationLabel = ObjectProperty(None)
 
