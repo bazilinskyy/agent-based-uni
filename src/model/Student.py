@@ -11,6 +11,7 @@ class Student(Person):
 	totalMarks = 0
 	modules = []
 	moduleEnrollments = {}
+	facult = ""
 
 	resultFromSimluation = True # Result from simualtuion: True -> advance to next year; False -> expelled
 	passedByCompFromSimulation = 0 # Counter of a number of passed by compensation modules
@@ -22,6 +23,7 @@ class Student(Person):
 		self.moduleEnrollments = {}
 		self.semester = 1
 		self.leavingCertificate = leavingCertificate #TODO: check Irish system
+		self.faculty = ""
 
 	def getModules(self):
 		return self.modules

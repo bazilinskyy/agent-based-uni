@@ -172,6 +172,12 @@ if conf.KIVY_READY:
 			try:
 				self.graph.remove_plot(self.plotPassed) # Remove passed plot
 				self.graph.remove_plot(self.plotFailed) # Remove failed plot
+				self.graph.remove_plot(self.plotPassedArts) # Remove passed plot
+				self.graph.remove_plot(self.plotFailedArts) # Remove failed plot
+				self.graph.remove_plot(self.plotPassedSocial) # Remove passed plot
+				self.graph.remove_plot(self.plotFailedSocial) # Remove failed plot
+				self.graph.remove_plot(self.plotPassedScience) # Remove passed plot
+				self.graph.remove_plot(self.plotFailedScience) # Remove failed plot
 			except Exception, e:
 				pass
 
@@ -179,6 +185,12 @@ if conf.KIVY_READY:
 			# Sort dictionaries with passed / failed agains leaving certificates
 			lcPassed = OrderedDict(sorted(simulation.lcPassed.items()))
 			lcFailed = OrderedDict(sorted(simulation.lcFailed.items()))
+			lcPassedArts = OrderedDict(sorted(simulation.lcPassedArts.items()))
+			lcFailedArts = OrderedDict(sorted(simulation.lcFailedArts.items()))
+			lcPassedScience = OrderedDict(sorted(simulation.lcPassedScience.items()))
+			lcFailedScience = OrderedDict(sorted(simulation.lcFailedScience.items()))
+			lcPassedSocial = OrderedDict(sorted(simulation.lcPassedSocial.items()))
+			lcFailedSocial = OrderedDict(sorted(simulation.lcFailedSocial.items()))
 
 			#Plot for passed
 			self.plotPassed = MeshLinePlot(color=[0, 1, 0, 1])
@@ -189,6 +201,36 @@ if conf.KIVY_READY:
 			self.plotFailed = MeshLinePlot(color=[1, 0, 0, 1])
 			self.plotFailed.points = [(x, y) for x, y in lcFailed.iteritems()]
 			self.graph.add_plot(self.plotFailed)
+
+			#Plot for passed for ARTS,CELT.STUD. AND PHILOSOPHY
+			self.plotPassedArts = MeshLinePlot(color=[0, 1, 0, 1])
+			self.plotPassedArts.points = [(x, y) for x, y in lcPassedArts.iteritems()]
+			self.graphArts.add_plot(self.plotPassedArts)
+
+			#Plot for failed for ARTS,CELT.STUD. AND PHILOSOPHY
+			self.plotFailedArts = MeshLinePlot(color=[1, 0, 0, 1])
+			self.plotFailedArts.points = [(x, y) for x, y in lcFailedArts.iteritems()]
+			self.graphArts.add_plot(self.plotFailedArts)
+
+			#Plot for passed for SOCIAL SCIENCES
+			self.plotPassedSocial = MeshLinePlot(color=[0, 1, 0, 1])
+			self.plotPassedSocial.points = [(x, y) for x, y in lcPassedSocial.iteritems()]
+			self.graphSocial.add_plot(self.plotPassedSocial)
+
+			#Plot for failed for SOCIAL SCIENCES
+			self.plotFailedSocial = MeshLinePlot(color=[1, 0, 0, 1])
+			self.plotFailedSocial.points = [(x, y) for x, y in lcFailedSocial.iteritems()]
+			self.graphSocial.add_plot(self.plotFailedSocial)
+
+			#Plot for passed for SCIENCE AND ENGINEERING
+			self.plotPassedScience = MeshLinePlot(color=[0, 1, 0, 1])
+			self.plotPassedScience.points = [(x, y) for x, y in lcPassedScience.iteritems()]
+			self.graphScience.add_plot(self.plotPassedScience)
+
+			#Plot for failed for SCIENCE AND ENGINEERING
+			self.plotFailedScience = MeshLinePlot(color=[1, 0, 0, 1])
+			self.plotFailedScience.points = [(x, y) for x, y in lcFailedScience.iteritems()]
+			self.graphScience.add_plot(self.plotFailedScience)
 
 
 		def updateLabels(self, a):

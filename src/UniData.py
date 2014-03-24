@@ -187,6 +187,9 @@ class UniData():
 								else: # The value is not real leaving certificate -> assign to a random value
 									self.intakeSummer[str(int(row[3].value))].leavingCertificate = random.randint(250, 625) # Leaving certificate from Random column
 
+							# Faculty
+							self.decideFaculty(self.intakeSummer[str(int(row[3].value))]) # Call a separate function, as there are a lot of programs
+
 							tempSet.add(str(row[3]))
 
 						## Enrol student into a module
@@ -261,6 +264,8 @@ class UniData():
 								else: # The value is not real leaving certificate -> assign to a random value
 									self.intakeAutumn[str(int(row[3].value))].leavingCertificate = random.randint(250, 625) # Leaving certificate from Random column
 
+							# Faculty
+							self.decideFaculty(self.intakeSummer[str(int(row[3].value))]) # Call a separate function, as there are a lot of programs
 
 							tempSet.add(str(row[3]))
 
@@ -416,6 +421,163 @@ class UniData():
 				return update
 			except:
 				print traceback.format_exc()
+
+	## Add a name of the faculty that a student is enrolled in, based on the name of the programme
+	def decideFaculty(self, student):
+		if str(row[1]) == "ARTS (ANTHROPOLOGY) SINGLE HONOURS":
+			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY"
+		elif str(row[1]) == "MATHEMATICS":
+			student.faculty = "SCIENCE AND ENGINEERING"
+		elif str(row[1]) == "ARTS - SINGLE HONOURS":
+			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY"
+		elif str(row[1]) == "ANTHROPOLOLGY - INTERNATIONAL":
+			student.faculty = ""
+		elif str(row[1]) == "INTERNATIONAL FINANCE & ECONOMICS":
+			student.faculty = ""
+		elif str(row[1]) == "MEDIA STUDIES - INTERNATIONAL":
+			student.faculty = ""
+		elif str(row[1]) == "MULTIMEDIA - INTERNATIONAL":
+			student.faculty = ""
+		elif str(row[1]) == "MUSIC TECHNOLOGY - INTERNATIONAL":
+			student.faculty = ""
+		elif str(row[1]) == "BA INTERNATIONAL DEGREE":
+			student.faculty = ""
+		elif str(row[1]) == "POLITICS INTERNATIONAL":
+			student.faculty = ""
+		elif str(row[1]) == "BUSINESS & MANAGEMENT INTERNATIONAL":
+			student.faculty = ""
+		elif str(row[1]) == "BIOLOGICAL AND BIOMEDICAL SCIENCES":
+			student.faculty = ""
+		elif str(row[1]) == "SCIENCE (BIOTECHNOLOGY)":
+			student.faculty = ""
+		elif str(row[1]) == "B.B.S. BUSINESS & MANAGEMENT":
+			student.faculty = ""
+		elif str(row[1]) == "B.B.S. BUSINESS & ACCOUNTING":
+			student.faculty = ""
+		elif str(row[1]) == "B.B.S. BUSINESS & ACCOUNTING INTERNATION":
+			student.faculty = ""
+		elif str(row[1]) == "BGENETICS & BIOINFORMATICS":
+			student.faculty = ""
+		elif str(row[1]) == "COMPUTATIONAL THINKING":
+			student.faculty = ""
+		elif str(row[1]) == "COMPUTER SCI & SOFTWARE ENG (ARTS)":
+			student.faculty = ""
+		elif str(row[1]) == "COMPUTER SCI.& SOFTWARE ENGINEERING":
+			student.faculty = ""
+		elif str(row[1]) == "BA COMMUNITY & YOUTH WORK":
+			student.faculty = ""
+		elif str(row[1]) == "BA COMMUNITY & YOUTH WORK P/T":
+			student.faculty = ""
+		elif str(row[1]) == "PRODUCT DESIGN (MARKETING & INNOVATION)":
+			student.faculty = ""
+		elif str(row[1]) == "DIGITAL MEDIA":
+			student.faculty = ""
+		elif str(row[1]) == "BA IN EARLY CHILDHOOD - TEACHING & LEARN":
+			student.faculty = ""
+		elif str(row[1]) == "BACHELOR OF EDUCATION":
+			student.faculty = ""
+		elif str(row[1]) == "BACHELOR OF EDUCATION":
+			student.faculty = ""
+		elif str(row[1]) == "B.B.A. BUSINESS & ACCOUNTING":
+			student.faculty = ""
+		elif str(row[1]) == "ENGINEERING":
+			student.faculty = ""
+		elif str(row[1]) == "ELECTRONIC ENGINEER. WITH COMMUNICATIONS":
+			student.faculty = ""
+		elif str(row[1]) == "ELECTRONIC ENGINEERING WITH COMPUTERS":
+			student.faculty = ""
+		elif str(row[1]) == "ELECTRONIC ENGINEERING":
+			student.faculty = ""
+		elif str(row[1]) == "ARTS (ENGLISH)":
+			student.faculty = ""
+		elif str(row[1]) == "B.B.S. EQUINE BUSINESS":
+			student.faculty = ""
+		elif str(row[1]) == "B.B.A. EQUINE BUSINESS":
+			student.faculty = ""
+		elif str(row[1]) == "B.B.S. EQUINE BUSINESS INTERNATIONAL":
+			student.faculty = ""
+		elif str(row[1]) == "EUROPEAN STUDIES":
+			student.faculty = ""
+		elif str(row[1]) == "ARTS (FINANCE)":
+			student.faculty = ""
+		elif str(row[1]) == "ARTS(FINANCE) MAJOR/MINOR":
+			student.faculty = ""
+		elif str(row[1]) == "ACCOUNTING & FINANCE":
+			student.faculty = ""
+		elif str(row[1]) == "ARTS (GEOGRAPHY)":
+			student.faculty = ""
+		elif str(row[1]) == "ARTS (HISTORY)":
+			student.faculty = ""
+		elif str(row[1]) == "LL.B. LAW":
+			student.faculty = ""
+		elif str(row[1]) == "LL.B. LAW WITH PLACEMENT":
+			student.faculty = ""
+		elif str(row[1]) == "LAW AND ARTS":
+			student.faculty = ""
+		elif str(row[1]) == "LAW AND ARTS INTERNATIONAL":
+			student.faculty = ""
+		elif str(row[1]) == "LAW & ARTS INTERNATIONAL WITH PLACEMENT":
+			student.faculty = ""
+		elif str(row[1]) == "LAW AND MINOR ARTS":
+			student.faculty = ""
+		elif str(row[1]) == "LAW AND ARTS WITH PLACEMENT":
+			student.faculty = ""
+		elif str(row[1]) == "LAW AND BUSINESS":
+			student.faculty = ""
+		elif str(row[1]) == "LAW AND BUSINESS WITH PLACEMENT":
+			student.faculty = ""
+		elif str(row[1]) == "B.B.S. MARKETING":
+			student.faculty = ""
+		elif str(row[1]) == "MATHEMATICS EDUCATION":
+			student.faculty = ""
+		elif str(row[1]) == "MEDIA STUDIES":
+			student.faculty = ""
+		elif str(row[1]) == "ARTS (MULTIMEDIA)":
+			student.faculty = ""
+		elif str(row[1]) == "MUSIC HONOURS":
+			student.faculty = ""
+		elif str(row[1]) == "MUSIC TECHNOLOGY":
+			student.faculty = ""
+		elif str(row[1]) == "PHARMACEUTICAL AND BIOMEDICAL CHEMISTRY":
+			student.faculty = ""
+		elif str(row[1]) == "PHYSICS WITH ASTROPHYSICS":
+			student.faculty = ""
+		elif str(row[1]) == "PHYSICS WITH ASTROPHYSICS INTERNATIONAL":
+			student.faculty = ""
+		elif str(row[1]) == "ARTS (POLITICS)":
+			student.faculty = ""
+		elif str(row[1]) == "PHILOSOPHY,POLITICS & ECONOMICS":
+			student.faculty = ""
+		elif str(row[1]) == "ARTS (PSYCHOLOGY)":
+			student.faculty = ""
+		elif str(row[1]) == "BA (PUBLIC POLICY)":
+			student.faculty = ""
+		elif str(row[1]) == "SCIENCE EDUCATION":
+			student.faculty = ""
+		elif str(row[1]) == "SCIENCE HONOURS":
+			student.faculty = ""
+		elif str(row[1]) == "SCIENCE HONOURS ACCELERATED":
+			student.faculty = ""
+		elif str(row[1]) == "THEORETICAL PHYSICS & MATHEMATICS":
+			student.faculty = ""
+		elif str(row[1]) == "SCIENCE SINGLE HONOURS":
+			student.faculty = ""
+		elif str(row[1]) == "SCIENCE MULTIMEDIA":
+			student.faculty = ""
+		elif str(row[1]) == "MULTIMEDIA, MOBILE & WEB DEVELOPMENT":
+			student.faculty = ""
+		elif str(row[1]) == "SOCIAL SCIENCE":
+			student.faculty = ""
+		elif str(row[1]) == "THEOLOGY":
+			student.faculty = ""
+		elif str(row[1]) == "FINANCE & VENTURE MANAGEMENT":
+			student.faculty = ""
+		elif str(row[1]) == "ENTREPRENEURSHIP":
+			student.faculty = ""
+		elif str(row[1]) == "ENTREPRENEURSHIP WITH PLACEMENT":
+			student.faculty = ""
+		else:
+			student.faculty = "N/A"
 
 	# Based on http://stackoverflow.com/questions/5731670/simple-random-name-generator-in-python/5732034#5732034
 	def createIntake(self):

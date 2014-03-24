@@ -208,7 +208,7 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 				#satisfactoryModules += 1
 				passedModules += 1
 
-		# Found failed modules, and auto repeats are possible
+		# Found failed modules, and autumn repeats are possible
 		if (failedModules > 0 and conf.AUTUMN_REPEATS == True and conf.TRANSFER_OF_CREDITS == False
 			and conf.PASS_BY_COMPENSATION == False):
 			# Check if a student failed fewer or equal number of modules that can be repeated in autumn
@@ -376,14 +376,46 @@ def addLcFailed(student):
 	except KeyError, e:
 		lcFailed[roundup(student.leavingCertificate)] = 1
 
+		# Also add to the list of the faculty
+	if (student.faculty == "ARTS,CELT.STUD. AND PHILOSOPHY"):
+		try:
+			lcFailedArts[roundup(student.leavingCertificate)] += 1
+		except KeyError, e:
+			lcFailedArts[roundup(student.leavingCertificate)] = 1
+	if (student.faculty == "SOCIAL SCIENCES"):
+		try:
+			lcFailedSocial[roundup(student.leavingCertificate)] += 1
+		except KeyError, e:
+			lcFailedSocial[roundup(student.leavingCertificate)] = 1
+	if (student.faculty == "SCIENCE AND ENGINEERING"):
+		try:
+			lcFailedScience[roundup(student.leavingCertificate)] += 1
+		except KeyError, e:
+			lcFailedScience[roundup(student.leavingCertificate)] = 1
+
 # Record in the dictionary of numbers of students who passed sorted by leaving certificate points
 def addLcPassed(student):
 	try:
 		lcPassed[roundup(student.leavingCertificate)] += 1
-		# Also add to the 
-		# if (student)
 	except KeyError, e:
 		lcPassed[roundup(student.leavingCertificate)] = 1
+
+	# Also add to the list of the faculty
+	if (student.faculty == "ARTS,CELT.STUD. AND PHILOSOPHY"):
+		try:
+			lcPassedArts[roundup(student.leavingCertificate)] += 1
+		except KeyError, e:
+			lcPassedArts[roundup(student.leavingCertificate)] = 1
+	if (student.faculty == "SOCIAL SCIENCES"):
+		try:
+			lcPassedSocial[roundup(student.leavingCertificate)] += 1
+		except KeyError, e:
+			lcPassedSocial[roundup(student.leavingCertificate)] = 1
+	if (student.faculty == "SCIENCE AND ENGINEERING"):
+		try:
+			lcPassedScience[roundup(student.leavingCertificate)] += 1
+		except KeyError, e:
+			lcPassedScience[roundup(student.leavingCertificate)] = 1
 
 # Round integer, used for smoothing graphs
 def roundup(x):
