@@ -188,7 +188,7 @@ class UniData():
 									self.intakeSummer[str(int(row[3].value))].leavingCertificate = random.randint(250, 625) # Leaving certificate from Random column
 
 							# Faculty
-							self.decideFaculty(self.intakeSummer[str(int(row[3].value))]) # Call a separate function, as there are a lot of programs
+							self.decideFaculty(str(row[1]), self.intakeSummer[str(int(row[3].value))]) # Call a separate function, as there are a lot of programs
 
 							tempSet.add(str(row[3]))
 
@@ -265,7 +265,7 @@ class UniData():
 									self.intakeAutumn[str(int(row[3].value))].leavingCertificate = random.randint(250, 625) # Leaving certificate from Random column
 
 							# Faculty
-							self.decideFaculty(self.intakeSummer[str(int(row[3].value))]) # Call a separate function, as there are a lot of programs
+							self.decideFaculty(str(row[1]), self.intakeAutumn[str(int(row[3].value))]) # Call a separate function, as there are a lot of programs
 
 							tempSet.add(str(row[3]))
 
@@ -423,158 +423,158 @@ class UniData():
 				print traceback.format_exc()
 
 	## Add a name of the faculty that a student is enrolled in, based on the name of the programme
-	def decideFaculty(self, student):
-		if str(row[1]) == "ARTS (ANTHROPOLOGY) SINGLE HONOURS":
+	def decideFaculty(self, programme, student):
+		if programme == "ARTS (ANTHROPOLOGY) SINGLE HONOURS":
 			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY"
-		elif str(row[1]) == "MATHEMATICS":
+		elif programme == "MATHEMATICS":
 			student.faculty = "SCIENCE AND ENGINEERING"
-		elif str(row[1]) == "ARTS - SINGLE HONOURS":
+		elif programme == "ARTS - SINGLE HONOURS":
 			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY"
-		elif str(row[1]) == "ANTHROPOLOLGY - INTERNATIONAL":
+		elif programme == "ANTHROPOLOLGY - INTERNATIONAL":
 			student.faculty = ""
-		elif str(row[1]) == "INTERNATIONAL FINANCE & ECONOMICS":
+		elif programme == "INTERNATIONAL FINANCE & ECONOMICS":
 			student.faculty = ""
-		elif str(row[1]) == "MEDIA STUDIES - INTERNATIONAL":
+		elif programme == "MEDIA STUDIES - INTERNATIONAL":
 			student.faculty = ""
-		elif str(row[1]) == "MULTIMEDIA - INTERNATIONAL":
+		elif programme == "MULTIMEDIA - INTERNATIONAL":
 			student.faculty = ""
-		elif str(row[1]) == "MUSIC TECHNOLOGY - INTERNATIONAL":
+		elif programme == "MUSIC TECHNOLOGY - INTERNATIONAL":
 			student.faculty = ""
-		elif str(row[1]) == "BA INTERNATIONAL DEGREE":
+		elif programme == "BA INTERNATIONAL DEGREE":
 			student.faculty = ""
-		elif str(row[1]) == "POLITICS INTERNATIONAL":
+		elif programme == "POLITICS INTERNATIONAL":
 			student.faculty = ""
-		elif str(row[1]) == "BUSINESS & MANAGEMENT INTERNATIONAL":
+		elif programme == "BUSINESS & MANAGEMENT INTERNATIONAL":
 			student.faculty = ""
-		elif str(row[1]) == "BIOLOGICAL AND BIOMEDICAL SCIENCES":
+		elif programme == "BIOLOGICAL AND BIOMEDICAL SCIENCES":
 			student.faculty = ""
-		elif str(row[1]) == "SCIENCE (BIOTECHNOLOGY)":
+		elif programme == "SCIENCE (BIOTECHNOLOGY)":
 			student.faculty = ""
-		elif str(row[1]) == "B.B.S. BUSINESS & MANAGEMENT":
+		elif programme == "B.B.S. BUSINESS & MANAGEMENT":
 			student.faculty = ""
-		elif str(row[1]) == "B.B.S. BUSINESS & ACCOUNTING":
+		elif programme == "B.B.S. BUSINESS & ACCOUNTING":
 			student.faculty = ""
-		elif str(row[1]) == "B.B.S. BUSINESS & ACCOUNTING INTERNATION":
+		elif programme == "B.B.S. BUSINESS & ACCOUNTING INTERNATION":
 			student.faculty = ""
-		elif str(row[1]) == "BGENETICS & BIOINFORMATICS":
+		elif programme == "BGENETICS & BIOINFORMATICS":
 			student.faculty = ""
-		elif str(row[1]) == "COMPUTATIONAL THINKING":
+		elif programme == "COMPUTATIONAL THINKING":
 			student.faculty = ""
-		elif str(row[1]) == "COMPUTER SCI & SOFTWARE ENG (ARTS)":
+		elif programme == "COMPUTER SCI & SOFTWARE ENG (ARTS)":
 			student.faculty = ""
-		elif str(row[1]) == "COMPUTER SCI.& SOFTWARE ENGINEERING":
+		elif programme == "COMPUTER SCI.& SOFTWARE ENGINEERING":
 			student.faculty = ""
-		elif str(row[1]) == "BA COMMUNITY & YOUTH WORK":
+		elif programme == "BA COMMUNITY & YOUTH WORK":
 			student.faculty = ""
-		elif str(row[1]) == "BA COMMUNITY & YOUTH WORK P/T":
+		elif programme == "BA COMMUNITY & YOUTH WORK P/T":
 			student.faculty = ""
-		elif str(row[1]) == "PRODUCT DESIGN (MARKETING & INNOVATION)":
+		elif programme == "PRODUCT DESIGN (MARKETING & INNOVATION)":
 			student.faculty = ""
-		elif str(row[1]) == "DIGITAL MEDIA":
+		elif programme == "DIGITAL MEDIA":
 			student.faculty = ""
-		elif str(row[1]) == "BA IN EARLY CHILDHOOD - TEACHING & LEARN":
+		elif programme == "BA IN EARLY CHILDHOOD - TEACHING & LEARN":
 			student.faculty = ""
-		elif str(row[1]) == "BACHELOR OF EDUCATION":
+		elif programme == "BACHELOR OF EDUCATION":
 			student.faculty = ""
-		elif str(row[1]) == "BACHELOR OF EDUCATION":
+		elif programme == "BACHELOR OF EDUCATION":
 			student.faculty = ""
-		elif str(row[1]) == "B.B.A. BUSINESS & ACCOUNTING":
+		elif programme == "B.B.A. BUSINESS & ACCOUNTING":
 			student.faculty = ""
-		elif str(row[1]) == "ENGINEERING":
+		elif programme == "ENGINEERING":
 			student.faculty = ""
-		elif str(row[1]) == "ELECTRONIC ENGINEER. WITH COMMUNICATIONS":
+		elif programme == "ELECTRONIC ENGINEER. WITH COMMUNICATIONS":
 			student.faculty = ""
-		elif str(row[1]) == "ELECTRONIC ENGINEERING WITH COMPUTERS":
+		elif programme == "ELECTRONIC ENGINEERING WITH COMPUTERS":
 			student.faculty = ""
-		elif str(row[1]) == "ELECTRONIC ENGINEERING":
+		elif programme == "ELECTRONIC ENGINEERING":
 			student.faculty = ""
-		elif str(row[1]) == "ARTS (ENGLISH)":
+		elif programme == "ARTS (ENGLISH)":
 			student.faculty = ""
-		elif str(row[1]) == "B.B.S. EQUINE BUSINESS":
+		elif programme == "B.B.S. EQUINE BUSINESS":
 			student.faculty = ""
-		elif str(row[1]) == "B.B.A. EQUINE BUSINESS":
+		elif programme == "B.B.A. EQUINE BUSINESS":
 			student.faculty = ""
-		elif str(row[1]) == "B.B.S. EQUINE BUSINESS INTERNATIONAL":
+		elif programme == "B.B.S. EQUINE BUSINESS INTERNATIONAL":
 			student.faculty = ""
-		elif str(row[1]) == "EUROPEAN STUDIES":
+		elif programme == "EUROPEAN STUDIES":
 			student.faculty = ""
-		elif str(row[1]) == "ARTS (FINANCE)":
+		elif programme == "ARTS (FINANCE)":
 			student.faculty = ""
-		elif str(row[1]) == "ARTS(FINANCE) MAJOR/MINOR":
+		elif programme == "ARTS(FINANCE) MAJOR/MINOR":
 			student.faculty = ""
-		elif str(row[1]) == "ACCOUNTING & FINANCE":
+		elif programme == "ACCOUNTING & FINANCE":
 			student.faculty = ""
-		elif str(row[1]) == "ARTS (GEOGRAPHY)":
+		elif programme == "ARTS (GEOGRAPHY)":
 			student.faculty = ""
-		elif str(row[1]) == "ARTS (HISTORY)":
+		elif programme == "ARTS (HISTORY)":
 			student.faculty = ""
-		elif str(row[1]) == "LL.B. LAW":
+		elif programme == "LL.B. LAW":
 			student.faculty = ""
-		elif str(row[1]) == "LL.B. LAW WITH PLACEMENT":
+		elif programme == "LL.B. LAW WITH PLACEMENT":
 			student.faculty = ""
-		elif str(row[1]) == "LAW AND ARTS":
+		elif programme == "LAW AND ARTS":
 			student.faculty = ""
-		elif str(row[1]) == "LAW AND ARTS INTERNATIONAL":
+		elif programme == "LAW AND ARTS INTERNATIONAL":
 			student.faculty = ""
-		elif str(row[1]) == "LAW & ARTS INTERNATIONAL WITH PLACEMENT":
+		elif programme == "LAW & ARTS INTERNATIONAL WITH PLACEMENT":
 			student.faculty = ""
-		elif str(row[1]) == "LAW AND MINOR ARTS":
+		elif programme == "LAW AND MINOR ARTS":
 			student.faculty = ""
-		elif str(row[1]) == "LAW AND ARTS WITH PLACEMENT":
+		elif programme == "LAW AND ARTS WITH PLACEMENT":
 			student.faculty = ""
-		elif str(row[1]) == "LAW AND BUSINESS":
+		elif programme == "LAW AND BUSINESS":
 			student.faculty = ""
-		elif str(row[1]) == "LAW AND BUSINESS WITH PLACEMENT":
+		elif programme == "LAW AND BUSINESS WITH PLACEMENT":
 			student.faculty = ""
-		elif str(row[1]) == "B.B.S. MARKETING":
+		elif programme == "B.B.S. MARKETING":
 			student.faculty = ""
-		elif str(row[1]) == "MATHEMATICS EDUCATION":
+		elif programme == "MATHEMATICS EDUCATION":
 			student.faculty = ""
-		elif str(row[1]) == "MEDIA STUDIES":
+		elif programme == "MEDIA STUDIES":
 			student.faculty = ""
-		elif str(row[1]) == "ARTS (MULTIMEDIA)":
+		elif programme == "ARTS (MULTIMEDIA)":
 			student.faculty = ""
-		elif str(row[1]) == "MUSIC HONOURS":
+		elif programme == "MUSIC HONOURS":
 			student.faculty = ""
-		elif str(row[1]) == "MUSIC TECHNOLOGY":
+		elif programme == "MUSIC TECHNOLOGY":
 			student.faculty = ""
-		elif str(row[1]) == "PHARMACEUTICAL AND BIOMEDICAL CHEMISTRY":
+		elif programme == "PHARMACEUTICAL AND BIOMEDICAL CHEMISTRY":
 			student.faculty = ""
-		elif str(row[1]) == "PHYSICS WITH ASTROPHYSICS":
+		elif programme == "PHYSICS WITH ASTROPHYSICS":
 			student.faculty = ""
-		elif str(row[1]) == "PHYSICS WITH ASTROPHYSICS INTERNATIONAL":
+		elif programme == "PHYSICS WITH ASTROPHYSICS INTERNATIONAL":
 			student.faculty = ""
-		elif str(row[1]) == "ARTS (POLITICS)":
+		elif programme == "ARTS (POLITICS)":
 			student.faculty = ""
-		elif str(row[1]) == "PHILOSOPHY,POLITICS & ECONOMICS":
+		elif programme == "PHILOSOPHY,POLITICS & ECONOMICS":
 			student.faculty = ""
-		elif str(row[1]) == "ARTS (PSYCHOLOGY)":
+		elif programme == "ARTS (PSYCHOLOGY)":
 			student.faculty = ""
-		elif str(row[1]) == "BA (PUBLIC POLICY)":
+		elif programme == "BA (PUBLIC POLICY)":
 			student.faculty = ""
-		elif str(row[1]) == "SCIENCE EDUCATION":
+		elif programme == "SCIENCE EDUCATION":
 			student.faculty = ""
-		elif str(row[1]) == "SCIENCE HONOURS":
+		elif programme == "SCIENCE HONOURS":
 			student.faculty = ""
-		elif str(row[1]) == "SCIENCE HONOURS ACCELERATED":
+		elif programme == "SCIENCE HONOURS ACCELERATED":
 			student.faculty = ""
-		elif str(row[1]) == "THEORETICAL PHYSICS & MATHEMATICS":
+		elif programme == "THEORETICAL PHYSICS & MATHEMATICS":
 			student.faculty = ""
-		elif str(row[1]) == "SCIENCE SINGLE HONOURS":
+		elif programme == "SCIENCE SINGLE HONOURS":
 			student.faculty = ""
-		elif str(row[1]) == "SCIENCE MULTIMEDIA":
+		elif programme == "SCIENCE MULTIMEDIA":
 			student.faculty = ""
-		elif str(row[1]) == "MULTIMEDIA, MOBILE & WEB DEVELOPMENT":
+		elif programme == "MULTIMEDIA, MOBILE & WEB DEVELOPMENT":
 			student.faculty = ""
-		elif str(row[1]) == "SOCIAL SCIENCE":
+		elif programme == "SOCIAL SCIENCE":
 			student.faculty = ""
-		elif str(row[1]) == "THEOLOGY":
+		elif programme == "THEOLOGY":
 			student.faculty = ""
-		elif str(row[1]) == "FINANCE & VENTURE MANAGEMENT":
+		elif programme == "FINANCE & VENTURE MANAGEMENT":
 			student.faculty = ""
-		elif str(row[1]) == "ENTREPRENEURSHIP":
+		elif programme == "ENTREPRENEURSHIP":
 			student.faculty = ""
-		elif str(row[1]) == "ENTREPRENEURSHIP WITH PLACEMENT":
+		elif programme == "ENTREPRENEURSHIP WITH PLACEMENT":
 			student.faculty = ""
 		else:
 			student.faculty = "N/A"
