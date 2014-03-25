@@ -188,7 +188,7 @@ class UniData():
 									self.intakeSummer[str(int(row[3].value))].leavingCertificate = random.randint(250, 625) # Leaving certificate from Random column
 
 							# Faculty
-							self.decideFaculty(str(row[1]), self.intakeSummer[str(int(row[3].value))]) # Call a separate function, as there are a lot of programs
+							self.decideFaculty(str(row[1].value), self.intakeSummer[str(int(row[3].value))]) # Call a separate function, as there are a lot of programs
 
 							tempSet.add(str(row[3]))
 
@@ -265,7 +265,7 @@ class UniData():
 									self.intakeAutumn[str(int(row[3].value))].leavingCertificate = random.randint(250, 625) # Leaving certificate from Random column
 
 							# Faculty
-							self.decideFaculty(str(row[1]), self.intakeAutumn[str(int(row[3].value))]) # Call a separate function, as there are a lot of programs
+							self.decideFaculty(str(row[1].value), self.intakeAutumn[str(int(row[3].value))]) # Call a separate function, as there are a lot of programs
 
 							tempSet.add(str(row[3]))
 
@@ -424,158 +424,158 @@ class UniData():
 
 	## Add a name of the faculty that a student is enrolled in, based on the name of the programme
 	def decideFaculty(self, programme, student):
-		if programme == "ARTS (ANTHROPOLOGY) SINGLE HONOURS":
+		if str(programme) == "ARTS (ANTHROPOLOGY) SINGLE HONOURS":
 			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY"
-		elif programme == "MATHEMATICS":
+		elif str(programme) == "MATHEMATICS":
 			student.faculty = "SCIENCE AND ENGINEERING"
-		elif programme == "ARTS - SINGLE HONOURS":
+		elif str(programme) == "ARTS - SINGLE HONOURS":
 			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY"
-		elif programme == "ANTHROPOLOLGY - INTERNATIONAL":
-			student.faculty = ""
-		elif programme == "INTERNATIONAL FINANCE & ECONOMICS":
-			student.faculty = ""
-		elif programme == "MEDIA STUDIES - INTERNATIONAL":
-			student.faculty = ""
-		elif programme == "MULTIMEDIA - INTERNATIONAL":
-			student.faculty = ""
-		elif programme == "MUSIC TECHNOLOGY - INTERNATIONAL":
-			student.faculty = ""
-		elif programme == "BA INTERNATIONAL DEGREE":
-			student.faculty = ""
-		elif programme == "POLITICS INTERNATIONAL":
-			student.faculty = ""
-		elif programme == "BUSINESS & MANAGEMENT INTERNATIONAL":
-			student.faculty = ""
-		elif programme == "BIOLOGICAL AND BIOMEDICAL SCIENCES":
-			student.faculty = ""
-		elif programme == "SCIENCE (BIOTECHNOLOGY)":
-			student.faculty = ""
-		elif programme == "B.B.S. BUSINESS & MANAGEMENT":
-			student.faculty = ""
-		elif programme == "B.B.S. BUSINESS & ACCOUNTING":
-			student.faculty = ""
-		elif programme == "B.B.S. BUSINESS & ACCOUNTING INTERNATION":
-			student.faculty = ""
-		elif programme == "BGENETICS & BIOINFORMATICS":
-			student.faculty = ""
-		elif programme == "COMPUTATIONAL THINKING":
-			student.faculty = ""
-		elif programme == "COMPUTER SCI & SOFTWARE ENG (ARTS)":
-			student.faculty = ""
-		elif programme == "COMPUTER SCI.& SOFTWARE ENGINEERING":
-			student.faculty = ""
-		elif programme == "BA COMMUNITY & YOUTH WORK":
-			student.faculty = ""
-		elif programme == "BA COMMUNITY & YOUTH WORK P/T":
-			student.faculty = ""
-		elif programme == "PRODUCT DESIGN (MARKETING & INNOVATION)":
-			student.faculty = ""
-		elif programme == "DIGITAL MEDIA":
-			student.faculty = ""
-		elif programme == "BA IN EARLY CHILDHOOD - TEACHING & LEARN":
-			student.faculty = ""
-		elif programme == "BACHELOR OF EDUCATION":
-			student.faculty = ""
-		elif programme == "BACHELOR OF EDUCATION":
-			student.faculty = ""
-		elif programme == "B.B.A. BUSINESS & ACCOUNTING":
-			student.faculty = ""
-		elif programme == "ENGINEERING":
-			student.faculty = ""
-		elif programme == "ELECTRONIC ENGINEER. WITH COMMUNICATIONS":
-			student.faculty = ""
-		elif programme == "ELECTRONIC ENGINEERING WITH COMPUTERS":
-			student.faculty = ""
-		elif programme == "ELECTRONIC ENGINEERING":
-			student.faculty = ""
-		elif programme == "ARTS (ENGLISH)":
-			student.faculty = ""
-		elif programme == "B.B.S. EQUINE BUSINESS":
-			student.faculty = ""
-		elif programme == "B.B.A. EQUINE BUSINESS":
-			student.faculty = ""
-		elif programme == "B.B.S. EQUINE BUSINESS INTERNATIONAL":
-			student.faculty = ""
-		elif programme == "EUROPEAN STUDIES":
-			student.faculty = ""
-		elif programme == "ARTS (FINANCE)":
-			student.faculty = ""
-		elif programme == "ARTS(FINANCE) MAJOR/MINOR":
-			student.faculty = ""
-		elif programme == "ACCOUNTING & FINANCE":
-			student.faculty = ""
-		elif programme == "ARTS (GEOGRAPHY)":
-			student.faculty = ""
-		elif programme == "ARTS (HISTORY)":
-			student.faculty = ""
-		elif programme == "LL.B. LAW":
-			student.faculty = ""
-		elif programme == "LL.B. LAW WITH PLACEMENT":
-			student.faculty = ""
-		elif programme == "LAW AND ARTS":
-			student.faculty = ""
-		elif programme == "LAW AND ARTS INTERNATIONAL":
-			student.faculty = ""
-		elif programme == "LAW & ARTS INTERNATIONAL WITH PLACEMENT":
-			student.faculty = ""
-		elif programme == "LAW AND MINOR ARTS":
-			student.faculty = ""
-		elif programme == "LAW AND ARTS WITH PLACEMENT":
-			student.faculty = ""
-		elif programme == "LAW AND BUSINESS":
-			student.faculty = ""
-		elif programme == "LAW AND BUSINESS WITH PLACEMENT":
-			student.faculty = ""
-		elif programme == "B.B.S. MARKETING":
-			student.faculty = ""
-		elif programme == "MATHEMATICS EDUCATION":
-			student.faculty = ""
-		elif programme == "MEDIA STUDIES":
-			student.faculty = ""
-		elif programme == "ARTS (MULTIMEDIA)":
-			student.faculty = ""
-		elif programme == "MUSIC HONOURS":
-			student.faculty = ""
-		elif programme == "MUSIC TECHNOLOGY":
-			student.faculty = ""
-		elif programme == "PHARMACEUTICAL AND BIOMEDICAL CHEMISTRY":
-			student.faculty = ""
-		elif programme == "PHYSICS WITH ASTROPHYSICS":
-			student.faculty = ""
-		elif programme == "PHYSICS WITH ASTROPHYSICS INTERNATIONAL":
-			student.faculty = ""
-		elif programme == "ARTS (POLITICS)":
-			student.faculty = ""
-		elif programme == "PHILOSOPHY,POLITICS & ECONOMICS":
-			student.faculty = ""
-		elif programme == "ARTS (PSYCHOLOGY)":
-			student.faculty = ""
-		elif programme == "BA (PUBLIC POLICY)":
-			student.faculty = ""
-		elif programme == "SCIENCE EDUCATION":
-			student.faculty = ""
-		elif programme == "SCIENCE HONOURS":
-			student.faculty = ""
-		elif programme == "SCIENCE HONOURS ACCELERATED":
-			student.faculty = ""
-		elif programme == "THEORETICAL PHYSICS & MATHEMATICS":
-			student.faculty = ""
-		elif programme == "SCIENCE SINGLE HONOURS":
-			student.faculty = ""
-		elif programme == "SCIENCE MULTIMEDIA":
-			student.faculty = ""
-		elif programme == "MULTIMEDIA, MOBILE & WEB DEVELOPMENT":
-			student.faculty = ""
-		elif programme == "SOCIAL SCIENCE":
-			student.faculty = ""
-		elif programme == "THEOLOGY":
-			student.faculty = ""
-		elif programme == "FINANCE & VENTURE MANAGEMENT":
-			student.faculty = ""
-		elif programme == "ENTREPRENEURSHIP":
-			student.faculty = ""
-		elif programme == "ENTREPRENEURSHIP WITH PLACEMENT":
-			student.faculty = ""
+		elif str(programme) == "ANTHROPOLOLGY - INTERNATIONAL":
+			student.faculty = "SOCIAL SCIENCES"
+		elif str(programme) == "INTERNATIONAL FINANCE & ECONOMICS":
+			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY" # ?
+		elif str(programme) == "MEDIA STUDIES - INTERNATIONAL":
+			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY"
+		elif str(programme) == "MULTIMEDIA - INTERNATIONAL":
+			student.faculty = "SCIENCE AND ENGINEERING"
+		elif str(programme) == "MUSIC TECHNOLOGY - INTERNATIONAL":
+			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY"
+		elif str(programme) == "BA INTERNATIONAL DEGREE":
+			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY"
+		elif str(programme) == "POLITICS INTERNATIONAL":
+			student.faculty = "SOCIAL SCIENCES" # ?
+		elif str(programme) == "BUSINESS & MANAGEMENT INTERNATIONAL":
+			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY"
+		elif str(programme) == "BIOLOGICAL AND BIOMEDICAL SCIENCES":
+			student.faculty = "SCIENCE AND ENGINEERING"
+		elif str(programme) == "SCIENCE (BIOTECHNOLOGY)":
+			student.faculty = "SCIENCE AND ENGINEERING"
+		elif str(programme) == "B.B.S. BUSINESS & MANAGEMENT":
+			student.faculty = "SOCIAL SCIENCES"
+		elif str(programme) == "B.B.S. BUSINESS & ACCOUNTING":
+			student.faculty = "SOCIAL SCIENCES"
+		elif str(programme) == "B.B.S. BUSINESS & ACCOUNTING INTERNATION":
+			student.faculty = "SOCIAL SCIENCES"
+		elif str(programme) == "BGENETICS & BIOINFORMATICS":
+			student.faculty = "SCIENCE AND ENGINEERING"
+		elif str(programme) == "COMPUTATIONAL THINKING":
+			student.faculty = "SCIENCE AND ENGINEERING"
+		elif str(programme) == "COMPUTER SCI & SOFTWARE ENG (ARTS)":
+			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY"
+		elif str(programme) == "COMPUTER SCI.& SOFTWARE ENGINEERING":
+			student.faculty = "SCIENCE AND ENGINEERING"
+		elif str(programme) == "BA COMMUNITY & YOUTH WORK":
+			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY"
+		elif str(programme) == "BA COMMUNITY & YOUTH WORK P/T":
+			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY"
+		elif str(programme) == "PRODUCT DESIGN (MARKETING & INNOVATION)":
+			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY"
+		elif str(programme) == "DIGITAL MEDIA":
+			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY"
+		elif str(programme) == "BA IN EARLY CHILDHOOD - TEACHING & LEARN":
+			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY"
+		elif str(programme) == "BACHELOR OF EDUCATION":
+			student.faculty = "SOCIAL SCIENCES"
+		elif str(programme) == "BACHELOR OF EDUCATION":
+			student.faculty = "SOCIAL SCIENCES"
+		elif str(programme) == "B.B.A. BUSINESS & ACCOUNTING":
+			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY"
+		elif str(programme) == "ENGINEERING":
+			student.faculty = "SCIENCE AND ENGINEERING"
+		elif str(programme) == "ELECTRONIC ENGINEER. WITH COMMUNICATIONS":
+			student.faculty = "SCIENCE AND ENGINEERING"
+		elif str(programme) == "ELECTRONIC ENGINEERING WITH COMPUTERS":
+			student.faculty = "SCIENCE AND ENGINEERING"
+		elif str(programme) == "ELECTRONIC ENGINEERING":
+			student.faculty = "SCIENCE AND ENGINEERING"
+		elif str(programme) == "ARTS (ENGLISH)":
+			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY"
+		elif str(programme) == "B.B.S. EQUINE BUSINESS":
+			student.faculty = "SOCIAL SCIENCES"
+		elif str(programme) == "B.B.A. EQUINE BUSINESS":
+			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY"
+		elif str(programme) == "B.B.S. EQUINE BUSINESS INTERNATIONAL":
+			student.faculty = "SOCIAL SCIENCES"
+		elif str(programme) == "EUROPEAN STUDIES":
+			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY" # ?
+		elif str(programme) == "ARTS (FINANCE)":
+			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY"
+		elif str(programme) == "ARTS(FINANCE) MAJOR/MINOR":
+			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY"
+		elif str(programme) == "ACCOUNTING & FINANCE":
+			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY" # ?
+		elif str(programme) == "ARTS (GEOGRAPHY)":
+			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY"
+		elif str(programme) == "ARTS (HISTORY)":
+			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY"
+		elif str(programme) == "LL.B. LAW":
+			student.faculty = "SOCIAL SCIENCES" # ? 
+		elif str(programme) == "LL.B. LAW WITH PLACEMENT": 
+			student.faculty = "SOCIAL SCIENCES" # ?
+		elif str(programme) == "LAW AND ARTS":
+			student.faculty = "SOCIAL SCIENCES" # ?
+		elif str(programme) == "LAW AND ARTS INTERNATIONAL":
+			student.faculty = "SOCIAL SCIENCES" # ?
+		elif str(programme) == "LAW & ARTS INTERNATIONAL WITH PLACEMENT":
+			student.faculty = "SOCIAL SCIENCES" # ?
+		elif str(programme) == "LAW AND MINOR ARTS":
+			student.faculty = "SOCIAL SCIENCES" # ?
+		elif str(programme) == "LAW AND ARTS WITH PLACEMENT":
+			student.faculty = "SOCIAL SCIENCES" # ?
+		elif str(programme) == "LAW AND BUSINESS":
+			student.faculty = "SOCIAL SCIENCES" # ?
+		elif str(programme) == "LAW AND BUSINESS WITH PLACEMENT":
+			student.faculty = "SOCIAL SCIENCES" # ?
+		elif str(programme) == "B.B.S. MARKETING":
+			student.faculty = "SOCIAL SCIENCES"
+		elif str(programme) == "MATHEMATICS EDUCATION":
+			student.faculty = "SOCIAL SCIENCES"
+		elif str(programme) == "MEDIA STUDIES":
+			student.faculty = "SCIENCE AND ENGINEERING"
+		elif str(programme) == "ARTS (MULTIMEDIA)":
+			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY"
+		elif str(programme) == "MUSIC HONOURS":
+			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY"
+		elif str(programme) == "MUSIC TECHNOLOGY":
+			student.faculty = "SCIENCE AND ENGINEERING" # ?
+		elif str(programme) == "PHARMACEUTICAL AND BIOMEDICAL CHEMISTRY":
+			student.faculty = "SCIENCE AND ENGINEERING"
+		elif str(programme) == "PHYSICS WITH ASTROPHYSICS":
+			student.faculty = "SCIENCE AND ENGINEERING"
+		elif str(programme) == "PHYSICS WITH ASTROPHYSICS INTERNATIONAL":
+			student.faculty = "SCIENCE AND ENGINEERING"
+		elif str(programme) == "ARTS (POLITICS)":
+			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY"
+		elif str(programme) == "PHILOSOPHY,POLITICS & ECONOMICS":
+			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY"
+		elif str(programme) == "ARTS (PSYCHOLOGY)":
+			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY"
+		elif str(programme) == "BA (PUBLIC POLICY)":
+			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY"
+		elif str(programme) == "SCIENCE EDUCATION":
+			student.faculty = "SOCIAL SCIENCES" # ?
+		elif str(programme) == "SCIENCE HONOURS":
+			student.faculty = "SCIENCE AND ENGINEERING"
+		elif str(programme) == "SCIENCE HONOURS ACCELERATED":
+			student.faculty = "SCIENCE AND ENGINEERING"
+		elif str(programme) == "THEORETICAL PHYSICS & MATHEMATICS":
+			student.faculty = "SCIENCE AND ENGINEERING"
+		elif str(programme) == "SCIENCE SINGLE HONOURS":
+			student.faculty = "SCIENCE AND ENGINEERING"
+		elif str(programme) == "SCIENCE MULTIMEDIA":
+			student.faculty = "SCIENCE AND ENGINEERING"
+		elif str(programme) == "MULTIMEDIA, MOBILE & WEB DEVELOPMENT":
+			student.faculty = "SCIENCE AND ENGINEERING"
+		elif str(programme) == "SOCIAL SCIENCE":
+			student.faculty = "SOCIAL SCIENCES"
+		elif str(programme) == "THEOLOGY":
+			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY"
+		elif str(programme) == "FINANCE & VENTURE MANAGEMENT":
+			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY"
+		elif str(programme) == "ENTREPRENEURSHIP":
+			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY"
+		elif str(programme) == "ENTREPRENEURSHIP WITH PLACEMENT":
+			student.faculty = "ARTS,CELT.STUD. AND PHILOSOPHY"
 		else:
 			student.faculty = "N/A"
 
