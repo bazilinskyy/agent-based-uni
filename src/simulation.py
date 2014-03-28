@@ -279,13 +279,13 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 			intake[student].resultFromSimluation = False
 			addLcFailed(intake[student])
 			continue
-		# Student has failed moduels, and auto repeats, transfer of credits and pass by compensation are disabled
+		# Student has failed modules, and auto repeats, transfer of credits and pass by compensation are disabled
 		elif (failedModules > 0 and conf.AUTUMN_REPEATS == False and conf.TRANSFER_OF_CREDITS == False and conf.PASS_BY_COMPENSATION == False):
 			studentsFailed += 1
 			intake[student].resultFromSimluation = False
 			addLcFailed(intake[student])
 			continue
-		# Student has failed moduels, and auto repeats, transfer of credits and pass by compensation are disabled
+		# Student has failed modules, and auto repeats, transfer of credits and pass by compensation are disabled
 		elif (failedModules > 0 and conf.AUTUMN_REPEATS == False and conf.TRANSFER_OF_CREDITS == False and conf.PASS_BY_COMPENSATION == False):
 			studentsFailed += 1
 			intake[student].resultFromSimluation = False
@@ -329,11 +329,19 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 			addLcPassed(intake[student])
 			continue
 
+		# Students still has failed modules -> fail
+		elif (failedModules > 0):
+			studentsFailed += 1
+			intake[student].resultFromSimluation = False
+			addLcFailed(intake[student])
+			continue
+
 		# Everything is fine and this student can go to the next year
 		studentsPassed += 1
 		intake[student].resultFromSimluation = True
 		addLcPassed(intake[student])
 
+	print "SUMMER INTAKE: ", len(intake)
 	totalAverageMark /= len(intake) # Calculate average grade
 	averageLeavingCert /= len(intake) # Calcualte average leaving certificate
 

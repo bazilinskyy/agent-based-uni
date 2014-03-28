@@ -86,11 +86,16 @@ class UniData():
 		if (len(self.courses) < 1 and len(self.modules) < 1 and len(self.intakeSummer) < 1 and len(self.intakeAutumn) < 1): # import from files only once
 			try:
 				## Opening the excel or csv file
-				fileCourses = self.openDataFile(conf.FILE_WITH_COURSES)
-				fileModules = self.openDataFile(conf.FILE_WITH_MODULES)
-				fileIntakeSummer = self.openDataFile(conf.FILE_WITH_INTAKE_SUMMER)
-				fileIntakeAutumn = self.openDataFile(conf.FILE_WITH_INTAKE_AUTUMN)
-
+				if (not conf.USE_SMALL_DATA): # Use full data
+					fileCourses = self.openDataFile(conf.FILE_WITH_COURSES)
+					fileModules = self.openDataFile(conf.FILE_WITH_MODULES)
+					fileIntakeSummer = self.openDataFile(conf.FILE_WITH_INTAKE_SUMMER)
+					fileIntakeAutumn = self.openDataFile(conf.FILE_WITH_INTAKE_AUTUMN)
+				else: # Use a smalls sample of data
+					fileCourses = self.openDataFile(conf.SMALL_FILE_WITH_COURSES)
+					fileModules = self.openDataFile(conf.SMALL_FILE_WITH_MODULES)
+					fileIntakeSummer = self.openDataFile(conf.SMALL_FILE_WITH_INTAKE_SUMMER)
+					fileIntakeAutumn = self.openDataFile(conf.SMALL_FILE_WITH_INTAKE_AUTUMN)
 				
 				sheetModules = fileModules.sheet_by_index(0)
 				#sheetIntakeSummer = fileIntakeSummer.sheet_by_index(0)

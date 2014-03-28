@@ -36,6 +36,7 @@ SHOW_TIMESTAMPS 	= 0		# Show timestamps with debuggin information
 KIVY_READY 			= 1		# Ready to be published with Kivy
 
 # SIMULATION
+USE_SMALL_DATA					= False		# Use data with small intake for testing
 PASSING_THRESHOLD				= 40		# Passing grade
 INTELLIGENT_AGENTS 				= True 		# Agent exhibit intelligent behaviour based on their school leaving certificated
 INTELLENT_AGENT_COEF			= 5 	  	# If an agent exhibits intelligent behaviour, his modules receive additional (INTELLENT_AGENT_COEF / 1000 * LeavingCertificate) marks
@@ -64,6 +65,12 @@ FILE_WITH_INTAKE_SUMMER = "data/curriculum_raw_Data_Summer_allYrs-Leaving Cert P
 FILE_WITH_INTAKE_AUTUMN = "data/curriculum_raw_Data_Autumn_allYrs-Leaving Certs-Leaving Cert Pts.xlsx"
 FILE_WITH_COURSES = "data/NUIM degrees.xlsx"
 FILE_WITH_MODULES = "data/UG and PG summary no intoc no period study.xlsx"
+
+# SMALL SAMPLE WITH DATA FOR TESTING
+SMALL_FILE_WITH_INTAKE_SUMMER = "data/small_sample/curriculum_raw_Data_Summer_allYrs-Leaving Cert Pts.xlsx"
+SMALL_FILE_WITH_INTAKE_AUTUMN = "data/small_sample/curriculum_raw_Data_Autumn_allYrs-Leaving Certs-Leaving Cert Pts.xlsx"
+SMALL_FILE_WITH_COURSES = "data/small_sample/NUIM degrees.xlsx"
+SMALL_FILE_WITH_MODULES = "data/small_sample/UG and PG summary no intoc no period study.xlsx"
 
 # GUI
 LABEL_VALUE_COLOR = "ff3333" # Color for values in labeles shown in the sidebar in GUI
