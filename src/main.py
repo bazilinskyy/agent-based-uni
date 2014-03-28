@@ -172,12 +172,12 @@ if conf.KIVY_READY:
 			try:
 				self.graph.remove_plot(self.plotPassed) # Remove passed plot
 				self.graph.remove_plot(self.plotFailed) # Remove failed plot
-				self.graph.remove_plot(self.plotPassedArts) # Remove passed plot
-				self.graph.remove_plot(self.plotFailedArts) # Remove failed plot
-				self.graph.remove_plot(self.plotPassedSocial) # Remove passed plot
-				self.graph.remove_plot(self.plotFailedSocial) # Remove failed plot
-				self.graph.remove_plot(self.plotPassedScience) # Remove passed plot
-				self.graph.remove_plot(self.plotFailedScience) # Remove failed plot
+				self.graphArts.remove_plot(self.plotPassedArts) # Remove passed plot
+				self.graphArts.remove_plot(self.plotFailedArts) # Remove failed plot
+				self.graphSocial.remove_plot(self.plotPassedSocial) # Remove passed plot
+				self.graphSocial.remove_plot(self.plotFailedSocial) # Remove failed plot
+				self.graphScience.remove_plot(self.plotPassedScience) # Remove passed plot
+				self.graphScience.remove_plot(self.plotFailedScience) # Remove failed plot
 			except Exception, e:
 				pass
 

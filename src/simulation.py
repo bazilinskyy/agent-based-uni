@@ -121,7 +121,7 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 					passedModules -= 1
 					failedModulesList.append(intake[student].moduleEnrollments[moduleEnr])
 				elif intake[student].moduleEnrollments[moduleEnr].status == "SATISFACTORY":
-					intake[student].moduleEnrollments[moduleEnr].status = "FAIL" # If mark is actually lower then the passing threshold, mark it as failed
+					intake[student].moduleEnrollments[moduleEnr].status = "FAIL" # See satisfactory as fail.
 					failedModules += 1
 					satisfactoryModules -= 1
 					failedModulesList.append(intake[student].moduleEnrollments[moduleEnr])
@@ -157,8 +157,13 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 					passedModules += 1
 					failedModules -= 1
 				# Check if it makes a failed module passed by compensation
-				elif (intake[student].moduleEnrollments[moduleEnr].status == "FAIL" and intake[student].moduleEnrollments[moduleEnr].marksReceived >= conf.COMPENSATION_LEVEL and averageGrade >= conf.COMPENSATION_THREASHOLD and conf.PASS_BY_COMPENSATION == True):
+				elif (intake[student].moduleEnrollments[moduleEnr].status == "FAIL" and 
+					intake[student].moduleEnrollments[moduleEnr].marksReceived >= conf.COMPENSATION_LEVEL and 
+					averageGrade >= conf.COMPENSATION_THREASHOLD and 
+					conf.PASS_BY_COMPENSATION == True):
+
 					intake[student].moduleEnrollments[moduleEnr].status = "PASS BY COMPENSATION"
+					print "pass 2 ", intake[student].moduleEnrollments[moduleEnr].marksReceived
 					passByCompensationModules += 1
 					failedModules -= 1
 				# Check if it makes a passed by compensation module passed
@@ -196,6 +201,7 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 					passByCompensationModules -= 1
 					failedModulesList.append(moduleEnr)
 				else: # Pass by compensation holds
+					print "pass 3 ", moduleEnr.marksReceived
 					passByCompensationModules += 1
 			elif (moduleEnr.status == "PASS"): 
 				passedModules += 1
