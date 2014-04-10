@@ -168,7 +168,7 @@ if conf.KIVY_READY:
 
 		def runSimulation(self, instance):
 			# Run simulation
-			update = simulate(conf.COMPENSATION_LEVEL, conf.COMPENSATION_THREASHOLD, conf.AUTUMN_REPEATS , conf.TRANSFER_OF_CREDITS, conf.INTELLIGENT_AGENTS)
+			update = simulate()
 
 			if conf.DEBUG:
 				print "Update from simulation: \n", update

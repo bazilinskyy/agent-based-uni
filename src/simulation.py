@@ -66,7 +66,7 @@ lcPassedScience = {}
 lcFailedScience = {}
 
 # Algorithm by Pavlo Bazilinskyy
-def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfCredits, intelligentAgents):
+def simulate():
 	# Reset data
 	intake = copy.deepcopy(initial_intake)
 	intakeAutumn = copy.deepcopy(initial_intakeAutumn)
@@ -123,10 +123,53 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 		satisfactoryModules = 0
 		didNotCompleteModules = 0
 
-		## Normalise some values of received marks as they seem to be wrong in Excel sheets			
-		# Check if it is actually a pass based on received marks
+
+		## Now loop through modules of the student
 		for moduleEnr in intake[student].moduleEnrollments:
 			moduleEnr = intake[student].moduleEnrollments[moduleEnr]
+
+			## Intelligent agent behaviour
+			# Add marks based on the leaving school certificate mark, based on probability of exhibiting intellgent behaviour INTELLENT_AGENT_CHANGE
+			if (conf.INTELLIGENT_AGENTS and random.random() <= conf.INTELLENT_AGENT_CHANCE and
+				intake[student].leavingCertificate >= conf.INTELLENT_AGENT_LC_THRESHOLD and not 
+				moduleEnr.marksReceived == 0):
+
+				grade = moduleEnr.marksReceived
+				#print "grade: ", grade, " plus: ", float(conf.INTELLENT_AGENT_COEF) / 1000 * intake[student].leavingCertificate
+				grade += float(conf.INTELLENT_AGENT_COEF) / 1000 * intake[student].leavingCertificate
+				moduleEnr.marksReceived = grade
+				if moduleEnr.marksReceived > 100:
+					moduleEnr.marksReceived = 100
+
+				# Calcualate total average grade
+				tempAverageGrade = 0.0
+				for tempModuleEnr in intake[student].moduleEnrollments:
+					tempAverageGrade += moduleEnr.marksReceived
+				tempAverageGrade /= len(intake[student].moduleEnrollments)
+
+				# # Check if it makes a failed module passed
+				# if (moduleEnr.status == "FAIL" and moduleEnr.marksReceived >= conf.PASSING_THRESHOLD):
+				# 	moduleEnr.status = "PASS"
+				# # Check if it makes a failed module passed by compensation
+				# elif (moduleEnr.status == "FAIL" and 
+				# 	moduleEnr.marksReceived >= conf.COMPENSATION_LEVEL and 
+				# 	tempAverageGrade >= conf.COMPENSATION_THREASHOLD and 
+				# 	conf.PASS_BY_COMPENSATION == True):
+
+				# 	moduleEnr.status = "PASS BY COMPENSATION"
+				# # Check if it makes a passed by compensation module passed
+				# elif moduleEnr.status == "PASS BY COMPENSATION" and moduleEnr.marksReceived >= conf.PASSING_THRESHOLD:
+				# 	moduleEnr.status = "PASS"
+				# # Check if a student was absent on the exam
+				if ((moduleEnr.status == "ABSENT" or moduleEnr.status == "DID NOT COMPLETE") and conf.INTELLENT_AGENT_ABSENT_MODULE):
+					
+					# If average grade > conf.INTELLENT_AGENT_ABSENT_MODULE_THRESHOLD, there is "conf.INTELLENT_AGENT_CHANGE / 2" chance the student passed this module with a grade equal to his average grade
+					if tempAverageGrade >= conf.INTELLENT_AGENT_ABSENT_MODULE_THRESHOLD and random.random() <= conf.INTELLENT_AGENT_CHANCE / 2:
+						moduleEnr.status = "PASS"
+						moduleEnr.marksReceived = int(tempAverageGrade)
+
+			## Normalise some values of received marks as they seem to be wrong in Excel sheets			
+			# Check if it is actually a pass based on received marks
 			if conf.NORMALISE_VALUES:
 				if moduleEnr.status == "PASS BY COMPENSATION":
 					if (moduleEnr.marksReceived < conf.COMPENSATION_LEVEL):
@@ -164,7 +207,6 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 			if conf.DETAILED_DEBUG:
 				print "MODULE ID: ", moduleEnr.module.moduleID, " MARK: ", moduleEnr.marksReceived, " STATUS: ", moduleEnr.status, " CREDIT: ", moduleEnr.module.moduleCredit
 
-
 			## Adjust what was assigned to modules, based on the configuration
 			if moduleEnr.status == "PASS BY COMPENSATION":
 				if (averageGrade < conf.COMPENSATION_THREASHOLD or 
@@ -195,40 +237,6 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 					
 				elif moduleEnr.marksReceived < conf.PASSING_THRESHOLD: # Check if received grade is less than passing threshold
 					moduleEnr.status = "FAIL"
-
-
-			## Intelligent agent behaviour
-			grade = moduleEnr.marksReceived
-			# Add marks based on the leaving school certificate mark, based on probability of exhibiting intellgent behaviour INTELLENT_AGENT_CHANGE
-			if conf.INTELLIGENT_AGENTS and random.random() <= conf.INTELLENT_AGENT_CHANCE and intake[student].leavingCertificate >= conf.INTELLENT_AGENT_LC_THRESHOLD:
-				#print "grade: ", grade, " plus: ", float(conf.INTELLENT_AGENT_COEF) / 1000 * intake[student].leavingCertificate
-				grade += float(conf.INTELLENT_AGENT_COEF) / 1000 * intake[student].leavingCertificate
-				moduleEnr.marksReceived = grade
-				# Check if it makes a failed module passed
-				# if (moduleEnr.status == "FAIL" and moduleEnr.marksReceived >= conf.PASSING_THRESHOLD):
-				# 	moduleEnr.status = "PASS"
-				# Check if it makes a failed module passed by compensation
-				# elif (moduleEnr.status == "FAIL" and 
-				# 	moduleEnr.marksReceived >= conf.COMPENSATION_LEVEL and 
-				# 	averageGrade >= conf.COMPENSATION_THREASHOLD and 
-				# 	conf.PASS_BY_COMPENSATION == True):
-
-				# 	moduleEnr.status = "PASS BY COMPENSATION"
-				# 	print "pass 2 ", moduleEnr.marksReceived
-				# # Check if it makes a passed by compensation module passed
-				# elif moduleEnr.status == "PASS BY COMPENSATION" and moduleEnr.marksReceived >= conf.PASSING_THRESHOLD:
-				# 	moduleEnr.status = "PASS"
-				# Check if a student was absent on the exam
-				if (moduleEnr.status == "ABSENT" and conf.INTELLENT_AGENT_ABSENT_MODULE):
-					# Calcualate total average grade
-					tempAverageGrade = 0.0
-					for tempModuleEnr in intake[student].moduleEnrollments:
-						tempAverageGrade += moduleEnr.marksReceived
-					tempAverageGrade /= len(intake[student].moduleEnrollments)
-					# If average grade > conf.INTELLENT_AGENT_ABSENT_MODULE_THRESHOLD, there is "conf.INTELLENT_AGENT_CHANGE / 2" chance the student passed this module with a grade equal to his average grade
-					if tempAverageGrade >= conf.INTELLENT_AGENT_ABSENT_MODULE_THRESHOLD and random.random() <= conf.INTELLENT_AGENT_CHANCE / 2:
-						moduleEnr.status = "PASS"
-						moduleEnr.marksReceived = int(tempAverageGrade)
 
 			#First check if pass by compesation still holds
 			if (moduleEnr.status == "PASS BY COMPENSATION"):
@@ -267,7 +275,6 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 				try:
 					failedCredits += int(fMod.module.moduleCredit)
 				except:
-					print "BOOM"
 					failedCredits += 5 # Give 5 credits by default, if information is missing
 			
 			if conf.DETAILED_DEBUG:		
