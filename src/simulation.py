@@ -84,6 +84,10 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 	# Variables for calculating 
 	studentsPassed = 0
 	studentsFailed = 0
+	studentsDidNotComplete = 0
+	studentsExcempt = 0
+	studentsAbsent = 0
+	studentsSatisfactory = 0
 	studentsPassedByCompensation = 0
 	studentsPassedByTransferCredits = 0
 	studentsPassedByAutoRepeats = 0
@@ -237,13 +241,18 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 			elif (moduleEnr.status == "ABSENT"):
 				absentModules += 1				
 			elif (moduleEnr.status == "DID NOT COMPLETE"): # Treat it as missing data
-				failedModules += 1
-				failedModulesList.append(moduleEnr)
+				didNotCompleteModules += 1
 			elif (moduleEnr.status == "EXEMPTION"): # Treat it as passed
 				passedModules += 1
 			elif (moduleEnr.status == "SATISFACTORY"):
 				#satisfactoryModules += 1
 				passedModules += 1
+
+		# Record if the student was absent / did not complete a module etc.
+		if absentModules > 0:
+			studentsAbsent += 1
+		if didNotCompleteModules > 0:
+			studentsDidNotComplete += 1
 
 		# Found failed modules, and autumn repeats are possible
 		if (failedModules > 0 and conf.AUTUMN_REPEATS == True and conf.TRANSFER_OF_CREDITS == False
@@ -366,7 +375,7 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 			intake[student].resultFromSimluation = False
 			addLcFailed(intake[student])
 			continue
-				# Student did not complete modules
+		# Student did not complete modules
 		elif (didNotCompleteModules > conf.DID_NOT_COMPLETE_MODULES and didNotCompleteModules > 0):
 			if conf.DETAILED_DEBUG:
 				print "9 did not complete: ", didNotCompleteModules
@@ -399,6 +408,10 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 	update = {}
 	update["studentsPassedValue"] = str(studentsPassed)
 	update["studentsFailedValue"] = str(studentsFailed)
+	update["studentsAbsentValue"] = str(studentsAbsent)
+	update["studentsDidNotCompleteValue"] = str(studentsDidNotComplete)
+	update["studentsExcemptValue"] = str(studentsExcempt)
+	update["studentsSatisfactoryValue"] = str(studentsSatisfactory)
 	update["studentsPassedByCompensationValue"] = str(studentsPassedByCompensation)
 	update["studentsPassedByTransferOfCreditsValue"] = str(studentsPassedByTransferCredits)
 	update["studentsPassedByAutoRepeatsValue"] = str(studentsPassedByAutoRepeats)

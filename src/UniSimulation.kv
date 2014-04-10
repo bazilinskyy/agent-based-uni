@@ -143,6 +143,10 @@
 	#Output labels - students
 	studentsPassedLabel: studentsPassedLabel
 	studentsPassedValue: studentsPassedValue
+	studentsDidNotCompleteLabel: studentsDidNotCompleteLabel
+	studentsDidNotCompleteValue: studentsDidNotCompleteValue
+	studentsAbsentValue: studentsAbsentValue
+	studentsAbsentLabel: studentsAbsentLabel
 	studentsPassedByCompensationLabel: studentsPassedByCompensationLabel
 	studentsPassedByCompensationValue: studentsPassedByCompensationValue
 	studentsPassedByTransferOfCreditsLabel: studentsPassedByTransferOfCreditsLabel
@@ -251,6 +255,32 @@
 								halign: 'left'
 							Label:
 								id: studentsFailedValue
+								markup: True
+						BoxLayout:
+							orientation: 'horizontal'
+							size: root.size
+							pos: root.pos
+							Label:
+								id: studentsDidNotCompleteLabel
+								text_size: (180, None)
+								markup: True
+								text: "Had did not complete"
+								halign: 'left'
+							Label:
+								id: studentsDidNotCompleteValue
+								markup: True
+						BoxLayout:
+							orientation: 'horizontal'
+							size: root.size
+							pos: root.pos
+							Label:
+								id: studentsAbsentLabel
+								text_size: (180, None)
+								markup: True
+								text: "Had absent"
+								halign: 'left'
+							Label:
+								id: studentsAbsentValue
 								markup: True
 						BoxLayout:
 							orientation: 'horizontal'

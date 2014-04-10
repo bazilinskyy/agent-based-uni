@@ -146,6 +146,10 @@ if conf.KIVY_READY:
 		averageLeavingCertificateValue = ObjectProperty(None)
 		studentsFailedLabel = ObjectProperty(None)
 		studentsFailedValue = ObjectProperty(None)
+		studentsAbsentLabel = ObjectProperty(None)
+		studentsAbsentValue = ObjectProperty(None)
+		studentsDidNotCompleteValue = ObjectProperty(None)
+		studentsDidNotCompleteLabel = ObjectProperty(None)
 
 		#Output labels - modules
 		modulesPassedLabel = ObjectProperty(None)
@@ -246,6 +250,8 @@ if conf.KIVY_READY:
 			self.averageGradeValue.text = "[b]" + "{0:.2f}".format(float(a["averageGradeValue"])) + "[b]"
 			self.averageLeavingCertificateValue.text = "[b]" + "{0:.2f}".format(float(a["averageLeavingCertificateValue"])) + "[b]"
 			self.studentsFailedValue.text = "[b]" + a["studentsFailedValue"] + "[b]"
+			self.studentsDidNotCompleteValue.text = "[b]" + a["studentsDidNotCompleteValue"] + "[b]"
+			self.studentsAbsentValue.text = "[b]" + a["studentsAbsentValue"] + "[b]"
 
 			#Output labels - modules
 			# self.modulesPassedValue = a["modulesPassedValue"]
