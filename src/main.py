@@ -114,6 +114,8 @@ if conf.KIVY_READY:
 		intAgentLabelCheckBox = ObjectProperty(None)
 		intAgentLabel = ObjectProperty(None)
 		simulateButton = ObjectProperty(None)
+		passingThreasholdSlider = ObjectProperty(None)
+		passingThreasholdLabel = ObjectProperty(None)
 		# intAgentThresholdLabel = ObjectProperty(None)
 		# intAgentThresholdSlider = ObjectProperty(None)
 		# intAgentChanceSlider = ObjectProperty(None)
@@ -265,7 +267,8 @@ if conf.KIVY_READY:
 				self.passByCompensationCheckBox.active,
 				self.intAgentLevelTextInput.text,
 				self.repeatsCreditsSlider.value,
-				self.normaliseValuesCheckBox.active
+				self.normaliseValuesCheckBox.active,
+				self.passingThreasholdSlider.value
 				# self.intAgentThresholdSlider.value,
 				# self.intAgentChanceSlider.value
 			]
@@ -282,6 +285,7 @@ if conf.KIVY_READY:
 			conf.PASS_BY_COMPENSATION = self.passByCompensationCheckBox.active
 			conf.AUTUMN_REPEATS_LIMIT = int(self.repeatsCreditsSlider.value)
 			conf.NORMALISE_VALUES = self.normaliseValuesCheckBox.active
+			conf.PASSING_THRESHOLD = int(self.passingThreasholdSlider.value)
 
 			self.updateConfLabels()
 
@@ -291,6 +295,7 @@ if conf.KIVY_READY:
 		## Update labels
 		def updateConfLabels(self):
 			self.compensationLevelLabel.text = "Compensation\nlevel - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(self.compensationLevelSlider.value)) + "[/color]"
+			self.passingThreasholdLabel.text = "Passing\nthreshold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(self.passingThreasholdSlider.value)) + "[/color]"
 			self.compensationThresholdLabel.text = "Compensation\nthreashold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(self.compensationThresholdSlider.value)) + "[/color]"
 			self.repeatsCreditsLabel.text = "Allowed credits\nin autumn repeats - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(self.repeatsCreditsSlider.value)) + "[/color]"
 			# self.intAgentThresholdLabel.text = "Intelligent\nthreashold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(self.intAgentThresholdSlider.value)) + "[/color]"
@@ -352,6 +357,7 @@ if conf.KIVY_READY:
 			self.compensationLevelLabel.text = "Compensation\nlevel - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(conf.COMPENSATION_LEVEL) + "[/color]"
 			self.compensationThresholdLabel.text = "Compensation\nthreashold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(conf.COMPENSATION_THREASHOLD) + "[/color]"
 			self.repeatsCreditsLabel.text = "Allowed credits\nin autumn repeats - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(conf.AUTUMN_REPEATS_LIMIT)) + "[/color]"
+			self.passingThreasholdLabel.text = "Passing\nthreshold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(conf.PASSING_THRESHOLD)) + "[/color]"
 
 			# self.intAgentThresholdLabel.text = "Intelligent\nthreashold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(conf.INTELLENT_AGENT_LC_THRESHOLD) + "[/color]"
 			# Add zero to the value of chance to avoid jumping labels
@@ -372,12 +378,13 @@ if conf.KIVY_READY:
 			self.passByCompensationCheckBox.active = conf.PASS_BY_COMPENSATION
 			self.repeatsCreditsSlider.value = conf.AUTUMN_REPEATS_LIMIT
 			self.normaliseValuesCheckBox.active = conf.NORMALISE_VALUES
+			self.passingThreasholdSlider.value = conf.PASSING_THRESHOLD
 
 			# Use button to run simulation
 			self.simulateButton.bind(on_press=self.runSimulation)
 
 			# Records current values in the GUI
-			self.currentValues= [
+			self.currentValues = [
 				self.compensationLevelSlider.value,
 				self.compensationThresholdSlider.value,
 				self.transferCheckBox.active,
@@ -386,7 +393,8 @@ if conf.KIVY_READY:
 				self.passByCompensationCheckBox.active,
 				self.intAgentLevelTextInput.text,
 				self.repeatsCreditsSlider.value,
-				self.normaliseValuesCheckBox.active
+				self.normaliseValuesCheckBox.active,
+				self.passingThreasholdSlider.value
 				# self.intAgentThresholdSlider.value,
 				# self.intAgentChanceSlider.value
 			]

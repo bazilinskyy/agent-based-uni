@@ -111,6 +111,8 @@
 <ContainerBox>:
 	#textView: textView
 	compensationLevelSlider: compensationLevelSlider
+	passingThreasholdSlider: passingThreasholdSlider
+	passingThreasholdLabel: passingThreasholdLabel
 	compensationThresholdSlider: compensationThresholdSlider
 	transferCheckBox: transferCheckBox
 	repeatsCheckBox: repeatsCheckBox
@@ -441,6 +443,18 @@
 				CheckBox:
 					id: normaliseValuesCheckBox
 					active: True
+			BoxLayout:
+				orientation: 'horizontal'
+				size: root.size
+				pos: root.pos
+				Label:
+					id: passingThreasholdLabel
+					halign: 'left'
+					markup: True
+				Slider:
+					id: passingThreasholdSlider
+					min: 0
+					max: 100
 			BoxLayout:
 				orientation: 'horizontal'
 				size: root.size

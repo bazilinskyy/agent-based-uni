@@ -109,8 +109,6 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 
 	for student in intake.keys(): # Iterate through all students
 
-		
-
 		# Define variables to calculate results in modules
 		passedModules = 0
 		failedModules = 0
@@ -120,7 +118,6 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 		excemptionModules = 0
 		satisfactoryModules = 0
 		didNotCompleteModules = 0
-
 
 		## Normalise some values of received marks as they seem to be wrong in Excel sheets			
 		# Check if it is actually a pass based on received marks
@@ -344,7 +341,7 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 			# 	if (intake[student].moduleEnrollments[moduleEnr].status == "PASS BY COMPENSATION"):
 			# 		print intake[student].moduleEnrollments[moduleEnr].marksReceived
 			if conf.DETAILED_DEBUG:
-				print "10 more passed by compensation than allowed"
+				print "10 passed by compensation. Modules passed by compensation: ", passByCompensationModules
 			studentsPassedByCompensation += 1
 			studentsPassed += 1
 			intake[student].resultFromSimluation = True
