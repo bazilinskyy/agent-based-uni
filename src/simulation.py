@@ -155,14 +155,14 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 		averageLeavingCert += intake[student].leavingCertificate
 
 		if conf.DETAILED_DEBUG:
-			print "Student ID: ", intake[student].studentID, " Average grade: ", averageGrade
+			print "\nStudent ID: ", intake[student].studentID, " Average grade: ", averageGrade
 
 		##### MAIN ALGORITHM Iterate through all modeules that were taken by the student
 		for moduleEnr in intake[student].moduleEnrollments:
 			moduleEnr = intake[student].moduleEnrollments[moduleEnr]
 
 			if conf.DETAILED_DEBUG:
-				print "MODULE ID: ", moduleEnr.module.moduleID, " MARK: ", moduleEnr.marksReceived, " STATUS: ", moduleEnr.status
+				print "MODULE ID: ", moduleEnr.module.moduleID, " MARK: ", moduleEnr.marksReceived, " STATUS: ", moduleEnr.status, " CREDIT: ", moduleEnr.module.moduleCredit
 
 
 			## Adjust what was assigned to modules, based on the configuration
@@ -239,10 +239,14 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 				failedModules += 1
 				failedModulesList.append(moduleEnr)
 			elif (moduleEnr.status == "ABSENT"):
-				absentModules += 1				
-			elif (moduleEnr.status == "DID NOT COMPLETE"): # Treat it as missing data
+				absentModules += 1
+				failedModules += 1
+				failedModulesList.append(moduleEnr)		
+			elif (moduleEnr.status == "DID NOT COMPLETE"): # Treat it as a fail
 				didNotCompleteModules += 1
-			elif (moduleEnr.status == "EXEMPTION"): # Treat it as passed
+				failedModules += 1
+				failedModulesList.append(moduleEnr)		
+			elif (moduleEnr.status == "EXEMPTION"): # Treat it as a fail
 				passedModules += 1
 			elif (moduleEnr.status == "SATISFACTORY"):
 				#satisfactoryModules += 1
@@ -262,10 +266,14 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 			for fMod in failedModulesList:
 				try:
 					failedCredits += int(fMod.module.moduleCredit)
-				except Exception, e:
+				except:
+					print "BOOM"
 					failedCredits += 5 # Give 5 credits by default, if information is missing
-
-			if failedModules <= conf.AUTUMN_REPEATS_LIMIT:
+			
+			if conf.DETAILED_DEBUG:		
+				print "AUTUMN failedModulesList: ", len(failedModulesList), " failed credits: ", failedCredits
+			# Check if the student does not have too many failed credits
+			if failedCredits <= conf.AUTUMN_REPEATS_LIMIT:
 				# Find this student in autumn intake
 				if (intake[student].studentID in intakeAutumn.keys()):
 					for moduleEnr in intake[student].moduleEnrollments:
@@ -296,6 +304,9 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 							elif (modEnrAutumn.status == "SATISFACTORY"):
 								#satisfactoryModules += 1
 								failedModules -= 1
+
+							if conf.DETAILED_DEBUG:
+								print "AUTUMN MODULE ID: ", modEnrAutumn.module.moduleID, " MARK: ", modEnrAutumn.marksReceived, " STATUS: ", modEnrAutumn.status, " CREDIT: ", modEnrAutumn.module.moduleCredit
 
 					# Check if students managed to pass all modules by auto repeats
 					if (failedModules == 0):
@@ -329,7 +340,7 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 			# to the number of modules that can be transfered to the next year
 			if (failedModules > conf.TRANSFER_OF_CREDITS_MODULES):
 				if conf.DETAILED_DEBUG:
-					print "7 failed modules: ", failedModules
+					print "7 transfer of credits, failed modules: ", failedModules
 					for fMod in failedModulesList:
 						print fMod.status, " ", fMod.module.moduleID
 				studentsFailed += 1
@@ -357,16 +368,6 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 			addLcPassed(intake[student])
 			continue
 
-		# Students still has failed modules -> fail
-		elif (failedModules > 0):
-			if conf.DETAILED_DEBUG:
-				print "11 failed: ", failedModules
-				for fMod in failedModulesList:
-					print fMod.status, " ", fMod.module.moduleID
-			studentsFailed += 1
-			intake[student].resultFromSimluation = False
-			addLcFailed(intake[student])
-			continue
 		# Student has absent modules, and auto repeats, transfer of credits and pass by compensation are disabled
 		elif (absentModules > 0):
 			if conf.DETAILED_DEBUG:
@@ -383,11 +384,23 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 			intake[student].resultFromSimluation = False
 			addLcFailed(intake[student])
 			continue
+				# Students still has failed modules -> fail
+		elif (failedModules > 0):
+			if conf.DETAILED_DEBUG:
+				print "11 failed: ", failedModules
+				for fMod in failedModulesList:
+					print fMod.status, " ", fMod.module.moduleID
+			studentsFailed += 1
+			intake[student].resultFromSimluation = False
+			addLcFailed(intake[student])
+			continue
 
 		# Everything is fine and this student can go to the next year
 		studentsPassed += 1
 		intake[student].resultFromSimluation = True
 		addLcPassed(intake[student])
+		if conf.DETAILED_DEBUG:
+				print "12 passed"
 
 
 	totalAverageMark /= len(intake) # Calculate average grade
