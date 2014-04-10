@@ -126,6 +126,8 @@ if conf.KIVY_READY:
 		graphScience = ObjectProperty(None)
 		passByCompensationCheckBox = ObjectProperty(None)
 		passByCompensationLabel = ObjectProperty(None)
+		normaliseValuesCheckBox = ObjectProperty(None)
+		normaliseValuesLabel = ObjectProperty(None)
 
 		#Output labels - students
 		studentsPassedLabel = ObjectProperty(None)
@@ -262,7 +264,8 @@ if conf.KIVY_READY:
 				self.intAgentCheckBox.active,
 				self.passByCompensationCheckBox.active,
 				self.intAgentLevelTextInput.text,
-				self.repeatsCreditsSlider.value
+				self.repeatsCreditsSlider.value,
+				self.normaliseValuesCheckBox.active
 				# self.intAgentThresholdSlider.value,
 				# self.intAgentChanceSlider.value
 			]
@@ -278,6 +281,7 @@ if conf.KIVY_READY:
 			conf.INTELLENT_AGENT_COEF = float(self.intAgentLevelTextInput.text)
 			conf.PASS_BY_COMPENSATION = self.passByCompensationCheckBox.active
 			conf.AUTUMN_REPEATS_LIMIT = int(self.repeatsCreditsSlider.value)
+			conf.NORMALISE_VALUES = self.normaliseValuesCheckBox.active
 
 			self.updateConfLabels()
 
@@ -367,6 +371,7 @@ if conf.KIVY_READY:
 			self.intAgentLevelTextInput.text = str(conf.INTELLENT_AGENT_COEF)
 			self.passByCompensationCheckBox.active = conf.PASS_BY_COMPENSATION
 			self.repeatsCreditsSlider.value = conf.AUTUMN_REPEATS_LIMIT
+			self.normaliseValuesCheckBox.active = conf.NORMALISE_VALUES
 
 			# Use button to run simulation
 			self.simulateButton.bind(on_press=self.runSimulation)
@@ -380,7 +385,8 @@ if conf.KIVY_READY:
 				self.intAgentCheckBox.active,
 				self.passByCompensationCheckBox.active,
 				self.intAgentLevelTextInput.text,
-				self.repeatsCreditsSlider.value
+				self.repeatsCreditsSlider.value,
+				self.normaliseValuesCheckBox.active
 				# self.intAgentThresholdSlider.value,
 				# self.intAgentChanceSlider.value
 			]

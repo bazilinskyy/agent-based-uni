@@ -420,9 +420,6 @@ class UniData():
 				if conf.DEBUG:
 					print update
 
-				for i in self.faculties:
-					print i.name
-
 				return update
 			except:
 				print traceback.format_exc()

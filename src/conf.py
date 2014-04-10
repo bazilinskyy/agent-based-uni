@@ -36,6 +36,7 @@ SHOW_TIMESTAMPS 	= 0		# Show timestamps with debuggin information
 KIVY_READY 			= 1		# Ready to be published with Kivy
 
 # SIMULATION
+NORMALISE_VALUES				= True
 USE_SMALL_DATA					= False		# Use data with small intake for testing
 PASSING_THRESHOLD				= 40		# Passing grade
 INTELLIGENT_AGENTS 				= True 		# Agent exhibit intelligent behaviour based on their school leaving certificated

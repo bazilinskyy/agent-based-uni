@@ -130,29 +130,30 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 		# Adjust values
 		for moduleEnr in intake[student].moduleEnrollments:
 			## Normalise some values of received marks as they seem to be wrong in Excel sheets
-			# Check if it is actually a pass based on received marks
-			if intake[student].moduleEnrollments[moduleEnr].marksReceived < conf.PASSING_THRESHOLD and conf.PASS_BY_COMPENSATION == False:
-				if intake[student].moduleEnrollments[moduleEnr].status == "PASS":
-					intake[student].moduleEnrollments[moduleEnr].status = "FAIL" # If mark is actually lower then the passing threshold, mark it as failed
-					failedModulesList.append(intake[student].moduleEnrollments[moduleEnr])
-				elif intake[student].moduleEnrollments[moduleEnr].status == "SATISFACTORY":
-					intake[student].moduleEnrollments[moduleEnr].status = "FAIL" # See satisfactory as fail.
-					failedModulesList.append(intake[student].moduleEnrollments[moduleEnr])
+			if conf.NORMALISE_VALUES:
+				# Check if it is actually a pass based on received marks
+				if intake[student].moduleEnrollments[moduleEnr].marksReceived < conf.PASSING_THRESHOLD and conf.PASS_BY_COMPENSATION == False:
+					if intake[student].moduleEnrollments[moduleEnr].status == "PASS":
+						intake[student].moduleEnrollments[moduleEnr].status = "FAIL" # If mark is actually lower then the passing threshold, mark it as failed
+						failedModulesList.append(intake[student].moduleEnrollments[moduleEnr])
+					elif intake[student].moduleEnrollments[moduleEnr].status == "SATISFACTORY":
+						intake[student].moduleEnrollments[moduleEnr].status = "FAIL" # See satisfactory as fail.
+						failedModulesList.append(intake[student].moduleEnrollments[moduleEnr])
 
-			# Adjust results if passing by compensation is enabled
-			elif conf.PASS_BY_COMPENSATION == True:
-				# Check if it makes a failed module can be passed by compensation
-				if (intake[student].moduleEnrollments[moduleEnr].status == "FAIL" and 
-					intake[student].moduleEnrollments[moduleEnr].marksReceived >= conf.COMPENSATION_LEVEL and 
-					averageGrade >= conf.COMPENSATION_THREASHOLD and 
-					conf.PASS_BY_COMPENSATION == True):
+				# Adjust results if passing by compensation is enabled
+				elif conf.PASS_BY_COMPENSATION == True:
+					# Check if it makes a failed module can be passed by compensation
+					if (intake[student].moduleEnrollments[moduleEnr].status == "FAIL" and 
+						intake[student].moduleEnrollments[moduleEnr].marksReceived >= conf.COMPENSATION_LEVEL and 
+						averageGrade >= conf.COMPENSATION_THREASHOLD and 
+						conf.PASS_BY_COMPENSATION == True):
 
-					intake[student].moduleEnrollments[moduleEnr].status = "PASS BY COMPENSATION"
-					print "pass 1 ", intake[student].moduleEnrollments[moduleEnr].marksReceived, " ", averageGrade
-				# Check if it makes a passed by compensation module passed
-				elif intake[student].moduleEnrollments[moduleEnr].status == "PASS BY COMPENSATION" and intake[student].moduleEnrollments[moduleEnr].marksReceived >= conf.PASSING_THRESHOLD:
+						intake[student].moduleEnrollments[moduleEnr].status = "PASS BY COMPENSATION"
+						print "pass 1 ", intake[student].moduleEnrollments[moduleEnr].marksReceived, " ", averageGrade
+					# Check if it makes a passed by compensation module passed
+					elif intake[student].moduleEnrollments[moduleEnr].status == "PASS BY COMPENSATION" and intake[student].moduleEnrollments[moduleEnr].marksReceived >= conf.PASSING_THRESHOLD:
 
-					intake[student].moduleEnrollments[moduleEnr].status = "PASS"
+						intake[student].moduleEnrollments[moduleEnr].status = "PASS"
 
 			# Intelligent agent behaviour
 			grade = intake[student].moduleEnrollments[moduleEnr].marksReceived
