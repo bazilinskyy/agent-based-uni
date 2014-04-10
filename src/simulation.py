@@ -103,9 +103,14 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 
 				tempFailedCounter += 1
 				break
-	print "FAILED before adjustments: ", tempFailedCounter
+	if conf.DETAILED_DEBUG:
+		print "SUMMER INTAKE: ", len(intake)
+		print "FAILED before adjustments: ", tempFailedCounter
 
 	for student in intake.keys(): # Iterate through all students
+
+		
+
 		# Define variables to calculate results in modules
 		passedModules = 0
 		failedModules = 0
@@ -115,6 +120,27 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 		excemptionModules = 0
 		satisfactoryModules = 0
 		didNotCompleteModules = 0
+
+
+		## Normalise some values of received marks as they seem to be wrong in Excel sheets			
+		# Check if it is actually a pass based on received marks
+		for moduleEnr in intake[student].moduleEnrollments:
+			moduleEnr = intake[student].moduleEnrollments[moduleEnr]
+			if conf.NORMALISE_VALUES:
+				if moduleEnr.status == "PASS BY COMPENSATION":
+					if (moduleEnr.marksReceived < conf.COMPENSATION_LEVEL):
+						moduleEnr.marksReceived = conf.PASSING_THRESHOLD - 1
+				elif moduleEnr.status == "PASS":
+					if (moduleEnr.marksReceived < conf.PASSING_THRESHOLD):
+						moduleEnr.marksReceived = conf.PASSING_THRESHOLD
+				elif moduleEnr.status == "FAIL":
+					if (moduleEnr.marksReceived == 0):
+						moduleEnr.marksReceived = int(conf.PASSING_THRESHOLD / 2) # Many rows have mark == 0 in the table
+					elif (moduleEnr.marksReceived > conf.PASSING_THRESHOLD):
+						moduleEnr.marksReceived = conf.PASSING_THRESHOLD - 1
+				# elif moduleEnr.status == "DID NOT COMPLETE": # Artificially, bring the average grade up
+				# 	if (moduleEnr.marksReceived < conf.COMPENSATION_LEVEL):
+				# 		moduleEnr.marksReceived = conf.PASSING_THRESHOLD - 1
 
 		# Calculate average grade
 		averageGrade = 0.0
@@ -127,36 +153,50 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 		# Calculating average leaving certificate
 		averageLeavingCert += intake[student].leavingCertificate
 
-		# Normalise values
+		if conf.DETAILED_DEBUG:
+			print "Student ID: ", intake[student].studentID, " Average grade: ", averageGrade
+
+		##### MAIN ALGORITHM Iterate through all modeules that were taken by the student
 		for moduleEnr in intake[student].moduleEnrollments:
 			moduleEnr = intake[student].moduleEnrollments[moduleEnr]
-			## Normalise some values of received marks as they seem to be wrong in Excel sheets
-			if conf.NORMALISE_VALUES:
-				# Check if it is actually a pass based on received marks
-				if moduleEnr.marksReceived < conf.PASSING_THRESHOLD and conf.PASS_BY_COMPENSATION == False:
-					if moduleEnr.status == "PASS":
-						moduleEnr.status = "FAIL" # If mark is actually lower then the passing threshold, mark it as failed
-						failedModulesList.append(moduleEnr)
-					elif moduleEnr.status == "SATISFACTORY":
-						moduleEnr.status = "FAIL" # See satisfactory as fail.
-						failedModulesList.append(moduleEnr)
 
-				# Adjust results if passing by compensation is enabled
-				elif conf.PASS_BY_COMPENSATION == True:
-					# Check if it makes a failed module can be passed by compensation
-					if (moduleEnr.status == "FAIL" and 
-						moduleEnr.marksReceived >= conf.COMPENSATION_LEVEL and 
-						averageGrade >= conf.COMPENSATION_THREASHOLD and 
-						conf.PASS_BY_COMPENSATION == True):
+			if conf.DETAILED_DEBUG:
+				print "MODULE ID: ", moduleEnr.module.moduleID, " MARK: ", moduleEnr.marksReceived, " STATUS: ", moduleEnr.status
 
-						moduleEnr.status = "PASS BY COMPENSATION"
-						print "pass 1 ", moduleEnr.marksReceived, " ", averageGrade
-					# Check if it makes a passed by compensation module passed
-					elif moduleEnr.status == "PASS BY COMPENSATION" and moduleEnr.marksReceived >= conf.PASSING_THRESHOLD:
 
+			## Adjust what was assigned to modules, based on the configuration
+			if moduleEnr.status == "PASS BY COMPENSATION":
+				if (averageGrade < conf.COMPENSATION_THREASHOLD or 
+				moduleEnr.marksReceived < conf.COMPENSATION_LEVEL or
+				conf.PASS_BY_COMPENSATION == False):
+				# Could be two possibilities
+					if moduleEnr.marksReceived < conf.PASSING_THRESHOLD: # Check if received grade is less than passing threshold
+						moduleEnr.status = "FAIL"
+					else:
 						moduleEnr.status = "PASS"
 
-			# Intelligent agent behaviour
+			elif moduleEnr.status == "PASS":
+				if (moduleEnr.marksReceived >= conf.COMPENSATION_LEVEL and 
+				averageGrade >= conf.COMPENSATION_THREASHOLD and 
+				moduleEnr.marksReceived < conf.PASSING_THRESHOLD and
+				conf.PASS_BY_COMPENSATION == True):
+					moduleEnr.status = "PASS BY COMPENSATION"
+
+				elif moduleEnr.marksReceived < conf.PASSING_THRESHOLD: # Check if received grade is less than passing threshold
+					moduleEnr.status = "FAIL"
+
+			elif moduleEnr.status == "FAIL":
+				if (moduleEnr.marksReceived >= conf.COMPENSATION_LEVEL and 
+				averageGrade >= conf.COMPENSATION_THREASHOLD and 
+				moduleEnr.marksReceived < conf.PASSING_THRESHOLD and
+				conf.PASS_BY_COMPENSATION == True):
+					moduleEnr.status = "PASS BY COMPENSATION"
+					
+				elif moduleEnr.marksReceived < conf.PASSING_THRESHOLD: # Check if received grade is less than passing threshold
+					moduleEnr.status = "FAIL"
+
+
+			## Intelligent agent behaviour
 			grade = moduleEnr.marksReceived
 			# Add marks based on the leaving school certificate mark, based on probability of exhibiting intellgent behaviour INTELLENT_AGENT_CHANGE
 			if conf.INTELLIGENT_AGENTS and random.random() <= conf.INTELLENT_AGENT_CHANCE and intake[student].leavingCertificate >= conf.INTELLENT_AGENT_LC_THRESHOLD:
@@ -189,49 +229,14 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 						moduleEnr.status = "PASS"
 						moduleEnr.marksReceived = int(tempAverageGrade)
 
-		# Iterate through all enrolled modules for each student
-		for moduleEnr in intake[student].moduleEnrollments:
 			#First check if pass by compesation still holds
-			moduleEnr = intake[student].moduleEnrollments[moduleEnr]
 			if (moduleEnr.status == "PASS BY COMPENSATION"):
-				if (averageGrade < conf.COMPENSATION_THREASHOLD or 
-					moduleEnr.marksReceived < conf.COMPENSATION_LEVEL or
-					conf.PASS_BY_COMPENSATION == False):
-					# Could be two possibilities
-						if moduleEnr.marksReceived < conf.PASSING_THRESHOLD: # Check if received grade is less than passing threshold
-							moduleEnr.status = "FAIL"
-							failedModules += 1
-							failedModulesList.append(moduleEnr)
-						else:
-							moduleEnr.status = "PASS"
-							passedModules += 1
-				else: # Pass by compensation holds
-					print "pass 3 ", moduleEnr.marksReceived
-					passByCompensationModules += 1
+				passByCompensationModules += 1	
 			elif (moduleEnr.status == "PASS"):
-				if (moduleEnr.marksReceived >= conf.COMPENSATION_LEVEL and 
-					averageGrade >= conf.COMPENSATION_THREASHOLD and 
-					moduleEnr.marksReceived < conf.PASSING_THRESHOLD and
-					conf.PASS_BY_COMPENSATION == True):
-
-					passByCompensationModules += 1
-				elif moduleEnr.marksReceived < conf.PASSING_THRESHOLD: # Check if received grade is less than passing threshold
-					failedModules += 1
-					failedModulesList.append(moduleEnr)
-				else:
-					passedModules += 1
+				passedModules += 1
 			elif (moduleEnr.status == "FAIL"):
-				if (moduleEnr.marksReceived >= conf.COMPENSATION_LEVEL and 
-					averageGrade >= conf.COMPENSATION_THREASHOLD and 
-					moduleEnr.marksReceived < conf.PASSING_THRESHOLD and
-					conf.PASS_BY_COMPENSATION == True):
-				
-					passByCompensationModules += 1
-				elif moduleEnr.marksReceived < conf.PASSING_THRESHOLD: # Check if received grade is less than passing threshold
-					failedModules += 1
-					failedModulesList.append(moduleEnr)
-				else:
-					passedModules += 1
+				failedModules += 1
+				failedModulesList.append(moduleEnr)
 			elif (moduleEnr.status == "ABSENT"):
 				absentModules += 1				
 			elif (moduleEnr.status == "DID NOT COMPLETE"): # Treat it as missing data
@@ -239,7 +244,6 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 				failedModulesList.append(moduleEnr)
 			elif (moduleEnr.status == "EXEMPTION"): # Treat it as passed
 				passedModules += 1
-				
 			elif (moduleEnr.status == "SATISFACTORY"):
 				#satisfactoryModules += 1
 				passedModules += 1
@@ -254,9 +258,8 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 					failedCredits += int(fMod.module.moduleCredit)
 				except Exception, e:
 					failedCredits += 5 # Give 5 credits by default, if information is missing
+
 			if failedModules <= conf.AUTUMN_REPEATS_LIMIT:
-				# We can continue
-				modulesPassedByAutoRepeats = 0
 				# Find this student in autumn intake
 				if (intake[student].studentID in intakeAutumn.keys()):
 					for moduleEnr in intake[student].moduleEnrollments:
@@ -266,9 +269,7 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 							# Check new status of the module after it was retaken
 							modEnrAutumn = intakeAutumn[intake[student].studentID].moduleEnrollments[moduleEnr.module.moduleID]
 							if (modEnrAutumn.status == "PASS"): 
-								passedModules += 1
 								failedModules -= 1
-								modulesPassedByAutoRepeats += 1
 
 							# elif (intakeAutumn[intake[student].studentID].moduleEnrollments[moduleEnr.module.moduleID] == "FAIL"):
 							# 	failedModules += 1
@@ -277,12 +278,8 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 							# 	absentModules += 1
 							elif (modEnrAutumn.status == "PASS BY COMPENSATION"):
 									# Check if pass by compensation holds, if not mark this module as failed
-									if (averageGrade >= conf.COMPENSATION_THREASHOLD and modEnrAutumn.marksReceived >= conf.COMPENSATION_LEVEL and conf.PASS_BY_COMPENSATION == True):
-										passByCompensationModules += 1
+									if (averageGrade >= conf.COMPENSATION_THREASHOLD and modEnrAutumn.marksReceived >= conf.COMPENSATION_LEVEL):
 										failedModules -= 1
-										modulesPassedByAutoRepeats += 1
-									else:
-										modEnrAutumn.status == "FAIL"
 							elif (modEnrAutumn.status == "DID NOT COMPLETE"):
 								didNotCompleteModules += 1
 								failedModules -= 1
@@ -292,12 +289,12 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 							# Treat Satisfactory as Passed
 							elif (modEnrAutumn.status == "SATISFACTORY"):
 								#satisfactoryModules += 1
-								passedModules += 1
 								failedModules -= 1
 
 					# Check if students managed to pass all modules by auto repeats
 					if (failedModules == 0):
-						print "1"
+						if conf.DETAILED_DEBUG:
+							print "1 passed with autumn repeats"
 						studentsPassedByAutoRepeats += 1
 						studentsPassed += 1
 						intake[student].resultFromSimluation = True
@@ -305,7 +302,10 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 						continue
 
 			# Student did not pass failed modules
-			print "2"
+			if conf.DETAILED_DEBUG:
+				print "2 failed modules: ", failedModules
+				for fMod in failedModulesList:
+					print fMod.status, " ", fMod.module.moduleID
 			studentsFailed += 1
 			intake[student].resultFromSimluation = False
 			addLcFailed(intake[student])
@@ -313,14 +313,6 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 
 		# Pass by compensation modules found, but it was used for more than two modules
 		if (passByCompensationModules > 2 and conf.PASS_BY_COMPENSATION == True):
-			print passByCompensationModules, " 3"
-			studentsFailed += 1
-			intake[student].resultFromSimluation = False
-			addLcFailed(intake[student])
-			continue
-		# Student has absent modules, and auto repeats, transfer of credits and pass by compensation are disabled
-		elif (absentModules > 0 and conf.AUTUMN_REPEATS == False and conf.TRANSFER_OF_CREDITS == False and conf.PASS_BY_COMPENSATION == False):
-			print "id ", intake[student].studentID, " 6 absent: ", absentModules
 			studentsFailed += 1
 			intake[student].resultFromSimluation = False
 			addLcFailed(intake[student])
@@ -330,31 +322,29 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 			# Calculate how many modules were failed and compare that number 
 			# to the number of modules that can be transfered to the next year
 			if (failedModules > conf.TRANSFER_OF_CREDITS_MODULES):
-				print "7"
+				if conf.DETAILED_DEBUG:
+					print "7 failed modules: ", failedModules
+					for fMod in failedModulesList:
+						print fMod.status, " ", fMod.module.moduleID
 				studentsFailed += 1
 				intake[student].resultFromSimluation = False
 				addLcFailed(intake[student])
 				continue
 			else:
-				print "8"
+				if conf.DETAILED_DEBUG:
+					print "8 passed with transfer of credits."
 				studentsPassedByTransferCredits += 1
 				studentsPassed += 1
 				intake[student].resultFromSimluation = True
 				addLcPassed(intake[student])
 				continue
-		# Student did not complete modules
-		elif (didNotCompleteModules > conf.DID_NOT_COMPLETE_MODULES and didNotCompleteModules > 0):
-			print "9 did not complete "
-			studentsFailed += 1
-			intake[student].resultFromSimluation = False
-			addLcFailed(intake[student])
-			continue
 		# Student can pass by compensation
 		elif (passByCompensationModules <= 2 and passByCompensationModules > 0 and conf.PASS_BY_COMPENSATION == True):
 			# for moduleEnr in intake[student].moduleEnrollments:
 			# 	if (intake[student].moduleEnrollments[moduleEnr].status == "PASS BY COMPENSATION"):
 			# 		print intake[student].moduleEnrollments[moduleEnr].marksReceived
-			print "10"
+			if conf.DETAILED_DEBUG:
+				print "10 more passed by compensation than allowed"
 			studentsPassedByCompensation += 1
 			studentsPassed += 1
 			intake[student].resultFromSimluation = True
@@ -363,7 +353,26 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 
 		# Students still has failed modules -> fail
 		elif (failedModules > 0):
-			print "id ", intake[student].studentID, " 11 failed: ", failedModules
+			if conf.DETAILED_DEBUG:
+				print "11 failed: ", failedModules
+				for fMod in failedModulesList:
+					print fMod.status, " ", fMod.module.moduleID
+			studentsFailed += 1
+			intake[student].resultFromSimluation = False
+			addLcFailed(intake[student])
+			continue
+		# Student has absent modules, and auto repeats, transfer of credits and pass by compensation are disabled
+		elif (absentModules > 0):
+			if conf.DETAILED_DEBUG:
+				print "6 absent: ", absentModules
+			studentsFailed += 1
+			intake[student].resultFromSimluation = False
+			addLcFailed(intake[student])
+			continue
+				# Student did not complete modules
+		elif (didNotCompleteModules > conf.DID_NOT_COMPLETE_MODULES and didNotCompleteModules > 0):
+			if conf.DETAILED_DEBUG:
+				print "9 did not complete: ", didNotCompleteModules
 			studentsFailed += 1
 			intake[student].resultFromSimluation = False
 			addLcFailed(intake[student])
@@ -374,7 +383,7 @@ def simulate(compensationLevel, compensationThreashold, autoRepeats, transferOfC
 		intake[student].resultFromSimluation = True
 		addLcPassed(intake[student])
 
-	print "SUMMER INTAKE: ", len(intake)
+
 	totalAverageMark /= len(intake) # Calculate average grade
 	averageLeavingCert /= len(intake) # Calcualte average leaving certificate
 

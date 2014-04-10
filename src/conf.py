@@ -32,6 +32,7 @@ __status__ = "Production"
 
 # ENVIRONMENT
 DEBUG				= 0		# 1 - show debugging information, 0 - do not show debugging information
+DETAILED_DEBUG		= 0		# 1 - show debugging information, 0 - do not show debugging information
 SHOW_TIMESTAMPS 	= 0		# Show timestamps with debuggin information
 KIVY_READY 			= 1		# Ready to be published with Kivy
 
