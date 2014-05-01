@@ -122,15 +122,16 @@
 	repeatsCreditsSlider: repeatsCreditsSlider
 	compensationLevelLabel: compensationLevelLabel
 	compensationThresholdLabel: compensationThresholdLabel
-	intAgentCheckBox: intAgentCheckBox
-	intAgentLabel: intAgentLabel
+	# intAgentCheckBox: intAgentCheckBox
+	# intAgentLabel: intAgentLabel
 	simulateButton: simulateButton
+	verifyButton: verifyButton
 	# intAgentThresholdLabel: intAgentThresholdLabel
 	# intAgentThresholdSlider: intAgentThresholdSlider
 	# intAgentChanceLabel: intAgentChanceLabel
 	# intAgentChanceSlider: intAgentChanceSlider
-	intAgentLevelLabel: intAgentLevelLabel
-	intAgentLevelTextInput: intAgentLevelTextInput
+	# intAgentLevelLabel: intAgentLevelLabel
+	# intAgentLevelTextInput: intAgentLevelTextInput
 	passByCompensationCheckBox: passByCompensationCheckBox
 	passByCompensationLabel: passByCompensationLabel
 	normaliseValuesCheckBox: normaliseValuesCheckBox
@@ -264,7 +265,7 @@
 								id: studentsDidNotCompleteLabel
 								text_size: (180, None)
 								markup: True
-								text: "Had did not complete"
+								text: "    Had \"did not complete\""
 								halign: 'left'
 							Label:
 								id: studentsDidNotCompleteValue
@@ -277,7 +278,7 @@
 								id: studentsAbsentLabel
 								text_size: (180, None)
 								markup: True
-								text: "Had absent"
+								text: "    Had \"absent\""
 								halign: 'left'
 							Label:
 								id: studentsAbsentValue
@@ -457,151 +458,177 @@
 	        #    Label:
 	        #        text: 'Particle-based representation will be here.'
 
-		BoxLayout:
-			orientation: 'vertical'
-			size: root.size
-			pos: root.pos
-			size_hint: (1.0, 0.9)
-			BoxLayout:
-				orientation: 'horizontal'
-				size: root.size
-				pos: root.pos
-				Label:
-					text: 'Normalise values'
-					id: normaliseValuesLabel
-					markup: True
-				CheckBox:
-					id: normaliseValuesCheckBox
-					active: True
-			BoxLayout:
-				orientation: 'horizontal'
-				size: root.size
-				pos: root.pos
-				Label:
-					id: passingThreasholdLabel
-					halign: 'left'
-					markup: True
-				Slider:
-					id: passingThreasholdSlider
-					min: 0
-					max: 100
-			BoxLayout:
-				orientation: 'horizontal'
-				size: root.size
-				pos: root.pos
-				Label:
-					text: 'Pass by compensation'
-					id: passByCompensationLabel
-					markup: True
-				CheckBox:
-					id: passByCompensationCheckBox
-					active: True
-			BoxLayout:
-				orientation: 'horizontal'
-				size: root.size
-				pos: root.pos
-				Label:
-					id: compensationLevelLabel
-					halign: 'left'
-					markup: True
-				Slider:
-					id: compensationLevelSlider
-					min: 0
-					max: 100
-			BoxLayout:
-				orientation: 'horizontal'
-				size: root.size
-				pos: root.pos
-				Label:
-					id: compensationThresholdLabel
-					halign: 'left'
-					markup: True
-				Slider:
-					id: compensationThresholdSlider
-					min: 0
-					max: 100
-			BoxLayout:
-				orientation: 'horizontal'
-				size: root.size
-				pos: root.pos
-				Label:
-					text: 'Autumn repeats'
-					id: repeatsLabel
-					markup: True
-				CheckBox:
-					id: repeatsCheckBox
-					active: True
-			BoxLayout:
-				orientation: 'horizontal'
-				size: root.size
-				pos: root.pos
-				Label:
-					id: repeatsCreditsLabel
-					halign: 'left'
-					markup: True
-				Slider:
-					id: repeatsCreditsSlider
-					min: 0
-					max: 50
-			BoxLayout:
-				orientation: 'horizontal'
-				size: root.size
-				pos: root.pos
-				Label:
-					text: 'Transfer of credits'
-					id: transferLabel
-					markup: True
-				CheckBox:
-					id: transferCheckBox
-					active: True
-			BoxLayout:
-				orientation: 'horizontal'
-				size: root.size
-				pos: root.pos
-				Label:
-					text: 'Intelligent agents'
-					id: intAgentLabel
-					markup: True
-				CheckBox:
-					id: intAgentCheckBox
-					active: True
-			BoxLayout:
-				orientation: 'horizontal'
-				size: root.size
-				pos: root.pos
-				Label:
-					text: 'Intelligent level'
-					id: intAgentLevelLabel
-					markup: True
-				FloatInput:
-					id: intAgentLevelTextInput
-					multiline: False
-			# BoxLayout:
-			# 	orientation: 'horizontal'
-			# 	size: root.size
-			# 	pos: root.pos
-			# 	Label:
-			# 		text: 'Intelligent chance'
-			# 		id: intAgentChanceLabel
-			# 		markup: True
-			# 	Slider:
-			# 		id: intAgentChanceSlider
-			# 		min: 0
-			# 		max: 1
-			# 		step: 0.01
-			# BoxLayout:
-			# 	orientation: 'horizontal'
-			# 	size: root.size
-			# 	pos: root.pos
-			# 	Label:
-			# 		text: 'Intelligent threshold'
-			# 		id: intAgentThresholdLabel
-			# 		markup: True
-			# 	Slider:
-			# 		id: intAgentThresholdSlider
-			# 		min: 1
-			# 		max: 1000
-			# 		step: 1
-			Button:
-				id: simulateButton
-				text: "Simulate"
+		TabbedPanel:
+		    do_default_tab: False
+			TabbedPanelItem:
+				text: 'Verification'
+				BoxLayout:
+					orientation: 'vertical'
+					size: root.size
+					pos: root.pos
+					size_hint: (1.0, 1.0)
+					BoxLayout:
+						orientation: 'horizontal'
+						size: root.size
+						pos: root.pos
+						Label:
+							text: 'Normalise values'
+							id: normaliseValuesLabel
+							markup: True
+						CheckBox:
+							id: normaliseValuesCheckBox
+							active: True
+					BoxLayout:
+						orientation: 'horizontal'
+						size: root.size
+						pos: root.pos
+						Label:
+							id: passingThreasholdLabel
+							halign: 'left'
+							markup: True
+						Slider:
+							id: passingThreasholdSlider
+							min: 0
+							max: 100
+					BoxLayout:
+						orientation: 'horizontal'
+						size: root.size
+						pos: root.pos
+						Label:
+							text: 'Pass by compensation'
+							id: passByCompensationLabel
+							markup: True
+						CheckBox:
+							id: passByCompensationCheckBox
+							active: True
+					BoxLayout:
+						orientation: 'horizontal'
+						size: root.size
+						pos: root.pos
+						Label:
+							id: compensationLevelLabel
+							halign: 'left'
+							markup: True
+						Slider:
+							id: compensationLevelSlider
+							min: 0
+							max: 100
+					BoxLayout:
+						orientation: 'horizontal'
+						size: root.size
+						pos: root.pos
+						Label:
+							id: compensationThresholdLabel
+							halign: 'left'
+							markup: True
+						Slider:
+							id: compensationThresholdSlider
+							min: 0
+							max: 100
+					BoxLayout:
+						orientation: 'horizontal'
+						size: root.size
+						pos: root.pos
+						Label:
+							text: 'Autumn repeats'
+							id: repeatsLabel
+							markup: True
+						CheckBox:
+							id: repeatsCheckBox
+							active: True
+					BoxLayout:
+						orientation: 'horizontal'
+						size: root.size
+						pos: root.pos
+						Label:
+							id: repeatsCreditsLabel
+							halign: 'left'
+							markup: True
+						Slider:
+							id: repeatsCreditsSlider
+							min: 0
+							max: 50
+					BoxLayout:
+						orientation: 'horizontal'
+						size: root.size
+						pos: root.pos
+						Label:
+							text: 'Transfer of credits'
+							id: transferLabel
+							markup: True
+						CheckBox:
+							id: transferCheckBox
+							active: True
+					# BoxLayout:
+					# 	orientation: 'horizontal'
+					# 	size: root.size
+					# 	pos: root.pos
+					# 	Label:
+					# 		text: 'Intelligent agents'
+					# 		id: intAgentLabel
+					# 		markup: True
+					# 	CheckBox:
+					# 		id: intAgentCheckBox
+					# 		active: True
+					# BoxLayout:
+					# 	orientation: 'horizontal'
+					# 	size: root.size
+					# 	pos: root.pos
+					# 	Label:
+					# 		text: 'Intelligent level'
+					# 		id: intAgentLevelLabel
+					# 		markup: True
+					# 	FloatInput:
+					# 		id: intAgentLevelTextInput
+					# 		multiline: False
+					# BoxLayout:
+					# 	orientation: 'horizontal'
+					# 	size: root.size
+					# 	pos: root.pos
+					# 	Label:
+					# 		text: 'Intelligent chance'
+					# 		id: intAgentChanceLabel
+					# 		markup: True
+					# 	Slider:
+					# 		id: intAgentChanceSlider
+					# 		min: 0
+					# 		max: 1
+					# 		step: 0.01
+					# BoxLayout:
+					# 	orientation: 'horizontal'
+					# 	size: root.size
+					# 	pos: root.pos
+					# 	Label:
+					# 		text: 'Intelligent threshold'
+					# 		id: intAgentThresholdLabel
+					# 		markup: True
+					# 	Slider:
+					# 		id: intAgentThresholdSlider
+					# 		min: 1
+					# 		max: 1000
+					# 		step: 1
+					Button:
+						id: verifyButton
+						text: "Verify"
+
+			TabbedPanelItem:
+				text: 'Simulation'
+				# BoxLayout:
+				# 	orientation: 'vertical'
+				# 	size: root.size
+				# 	pos: root.pos
+				# 	size_hint: (1.0, 0.9)
+				# 	BoxLayout:
+				# 		orientation: 'horizontal'
+				# 		size: root.size
+				# 		pos: root.pos
+				# 		Label:
+				# 			text: 'Normalise values'
+				# 			id: normaliseValuesLabel
+				# 			markup: True
+				# 		CheckBox:
+				# 			id: normaliseValuesCheckBox
+				# 			active: True
+				Button:
+					id: simulateButton
+					text: "Simulate"

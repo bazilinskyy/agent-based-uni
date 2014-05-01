@@ -2,7 +2,7 @@
 """
 Main file. To run with Kivy, type "kivy main.py" in the folder with this file.
 Requires graph module from Kivy.garden. See: http://kivy.org/docs/api-kivy.garden.html
-Also requires xlrg.
+Also requires xlrd.
 """
 # Copyright (c) 2014, Pavlo Bazilinskyy <pavlo.bazilinskyy@gmail.com>
 # Department of Computer Science, National University of Ireland, Maynooth
@@ -45,6 +45,11 @@ from collections import OrderedDict
 
 # Kivy imports
 if conf.KIVY_READY:
+	import kivy
+	kivy.require('1.1.2')
+	from kivy.config import Config
+	Config.set('graphics', 'width', '1100')
+	Config.set('graphics', 'height', '800')
 	from kivy.app import App
 	from kivy.uix.widget import Widget
 	from kivy.vector import Vector
@@ -111,17 +116,18 @@ if conf.KIVY_READY:
 		repeatsLabel = ObjectProperty(None)
 		repeatsCreditsLabel = ObjectProperty(None)
 		repeatsCreditsSlider = ObjectProperty(None)
-		intAgentLabelCheckBox = ObjectProperty(None)
-		intAgentLabel = ObjectProperty(None)
+		# intAgentLabelCheckBox = ObjectProperty(None)
+		# intAgentLabel = ObjectProperty(None)
 		simulateButton = ObjectProperty(None)
+		verifyButton = ObjectProperty(None)
 		passingThreasholdSlider = ObjectProperty(None)
 		passingThreasholdLabel = ObjectProperty(None)
 		# intAgentThresholdLabel = ObjectProperty(None)
 		# intAgentThresholdSlider = ObjectProperty(None)
 		# intAgentChanceSlider = ObjectProperty(None)
 		# intAgentChanceLabel = ObjectProperty(None)
-		intAgentLevelLabel = ObjectProperty(None)
-		intAgentLevelTextInput = ObjectProperty(None)
+		# intAgentLevelLabel = ObjectProperty(None)
+		# intAgentLevelTextInput = ObjectProperty(None)
 		graph = ObjectProperty(None)
 		graphArts = ObjectProperty(None)
 		graphSocial = ObjectProperty(None)
@@ -166,12 +172,12 @@ if conf.KIVY_READY:
 		# Record current values in the GUI for updates
 		currentValues = []
 
-		def runSimulation(self, instance):
+		def runVerification(self, instance):
 			# Run simulation
 			update = simulate()
 
 			if conf.DEBUG:
-				print "Update from simulation: \n", update
+				print "Update from verification: \n", update
 			#self.textView.text = update
 			self.updateLabels(update) # Update lebels on GUI
 
@@ -269,9 +275,9 @@ if conf.KIVY_READY:
 				self.compensationThresholdSlider.value,
 				self.transferCheckBox.active,
 				self.repeatsCheckBox.active,
-				self.intAgentCheckBox.active,
+				# self.intAgentCheckBox.active,
 				self.passByCompensationCheckBox.active,
-				self.intAgentLevelTextInput.text,
+				# self.intAgentLevelTextInput.text,
 				self.repeatsCreditsSlider.value,
 				self.normaliseValuesCheckBox.active,
 				self.passingThreasholdSlider.value
@@ -284,10 +290,10 @@ if conf.KIVY_READY:
 			conf.COMPENSATION_THREASHOLD = int(self.compensationThresholdSlider.value)
 			conf.AUTUMN_REPEATS = self.repeatsCheckBox.active
 			conf.TRANSFER_OF_CREDITS = self.transferCheckBox.active
-			conf.INTELLIGENT_AGENTS = self.intAgentCheckBox.active
+			# conf.INTELLIGENT_AGENTS = self.intAgentCheckBox.active
 			# conf.INTELLENT_AGENT_LC_THRESHOLD = int(self.intAgentThresholdSlider.value)
 			# conf.INTELLENT_AGENT_CHANCE = self.intAgentChanceSlider.value
-			conf.INTELLENT_AGENT_COEF = float(self.intAgentLevelTextInput.text)
+			# conf.INTELLENT_AGENT_COEF = float(self.intAgentLevelTextInput.text)
 			conf.PASS_BY_COMPENSATION = self.passByCompensationCheckBox.active
 			conf.AUTUMN_REPEATS_LIMIT = int(self.repeatsCreditsSlider.value)
 			conf.NORMALISE_VALUES = self.normaliseValuesCheckBox.active
@@ -302,7 +308,7 @@ if conf.KIVY_READY:
 		def updateConfLabels(self):
 			self.compensationLevelLabel.text = "Compensation\nlevel - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(self.compensationLevelSlider.value)) + "[/color]"
 			self.passingThreasholdLabel.text = "Passing\nthreshold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(self.passingThreasholdSlider.value)) + "[/color]"
-			self.compensationThresholdLabel.text = "Compensation\nthreashold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(self.compensationThresholdSlider.value)) + "[/color]"
+			self.compensationThresholdLabel.text = "Compensation\nthreshold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(self.compensationThresholdSlider.value)) + "[/color]"
 			self.repeatsCreditsLabel.text = "Allowed credits\nin autumn repeats - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(self.repeatsCreditsSlider.value)) + "[/color]"
 			# self.intAgentThresholdLabel.text = "Intelligent\nthreashold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(self.intAgentThresholdSlider.value)) + "[/color]"
 			# Add zero to the value of chance to avoid jumping labels
@@ -361,7 +367,7 @@ if conf.KIVY_READY:
 
 			# Update labels ans sliders with current values
 			self.compensationLevelLabel.text = "Compensation\nlevel - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(conf.COMPENSATION_LEVEL) + "[/color]"
-			self.compensationThresholdLabel.text = "Compensation\nthreashold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(conf.COMPENSATION_THREASHOLD) + "[/color]"
+			self.compensationThresholdLabel.text = "Compensation\nthreshold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(conf.COMPENSATION_THREASHOLD) + "[/color]"
 			self.repeatsCreditsLabel.text = "Allowed credits\nin autumn repeats - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(conf.AUTUMN_REPEATS_LIMIT)) + "[/color]"
 			self.passingThreasholdLabel.text = "Passing\nthreshold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(conf.PASSING_THRESHOLD)) + "[/color]"
 
@@ -377,17 +383,17 @@ if conf.KIVY_READY:
 			self.transferCheckBox.active = conf.TRANSFER_OF_CREDITS
 			self.compensationLevelSlider.value = conf.COMPENSATION_LEVEL
 			self.compensationThresholdSlider.value = conf.COMPENSATION_THREASHOLD
-			self.intAgentCheckBox.active = conf.INTELLIGENT_AGENTS
+			# self.intAgentCheckBox.active = conf.INTELLIGENT_AGENTS
 			# self.intAgentThresholdSlider.value = conf.INTELLENT_AGENT_LC_THRESHOLD
 			# self.intAgentChanceSlider.value = conf.INTELLENT_AGENT_CHANCE
-			self.intAgentLevelTextInput.text = str(conf.INTELLENT_AGENT_COEF)
+			# self.intAgentLevelTextInput.text = str(conf.INTELLENT_AGENT_COEF)
 			self.passByCompensationCheckBox.active = conf.PASS_BY_COMPENSATION
 			self.repeatsCreditsSlider.value = conf.AUTUMN_REPEATS_LIMIT
 			self.normaliseValuesCheckBox.active = conf.NORMALISE_VALUES
 			self.passingThreasholdSlider.value = conf.PASSING_THRESHOLD
 
 			# Use button to run simulation
-			self.simulateButton.bind(on_press=self.runSimulation)
+			self.verifyButton.bind(on_press=self.runVerification)
 
 			# Records current values in the GUI
 			self.currentValues = [
@@ -395,9 +401,9 @@ if conf.KIVY_READY:
 				self.compensationThresholdSlider.value,
 				self.transferCheckBox.active,
 				self.repeatsCheckBox.active,
-				self.intAgentCheckBox.active,
+				# self.intAgentCheckBox.active,
 				self.passByCompensationCheckBox.active,
-				self.intAgentLevelTextInput.text,
+				# self.intAgentLevelTextInput.text,
 				self.repeatsCreditsSlider.value,
 				self.normaliseValuesCheckBox.active,
 				self.passingThreasholdSlider.value
@@ -430,5 +436,6 @@ if conf.KIVY_READY:
 # 	sys.stdout = F()
 
 if __name__ == '__main__':
+
 	if conf.KIVY_READY:
 		UniSimulationApp().run()
