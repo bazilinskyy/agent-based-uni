@@ -122,6 +122,8 @@
 	repeatsCreditsSlider: repeatsCreditsSlider
 	compensationLevelLabel: compensationLevelLabel
 	compensationThresholdLabel: compensationThresholdLabel
+	transferModulesLabel: transferModulesLabel
+	transferModulesSlider: transferModulesSlider
 	# intAgentCheckBox: intAgentCheckBox
 	# intAgentLabel: intAgentLabel
 	simulateButton: simulateButton
@@ -559,6 +561,18 @@
 						CheckBox:
 							id: transferCheckBox
 							active: True
+					BoxLayout:
+						orientation: 'horizontal'
+						size: root.size
+						pos: root.pos
+						Label:
+							id: transferModulesLabel
+							halign: 'left'
+							markup: True
+						Slider:
+							id: transferModulesSlider
+							min: 0
+							max: 20
 					# BoxLayout:
 					# 	orientation: 'horizontal'
 					# 	size: root.size

@@ -116,6 +116,8 @@ if conf.KIVY_READY:
 		repeatsLabel = ObjectProperty(None)
 		repeatsCreditsLabel = ObjectProperty(None)
 		repeatsCreditsSlider = ObjectProperty(None)
+		transferModulesSlider = ObjectProperty(None)
+		transferModulesLabel = ObjectProperty(None)
 		# intAgentLabelCheckBox = ObjectProperty(None)
 		# intAgentLabel = ObjectProperty(None)
 		simulateButton = ObjectProperty(None)
@@ -280,7 +282,8 @@ if conf.KIVY_READY:
 				# self.intAgentLevelTextInput.text,
 				self.repeatsCreditsSlider.value,
 				self.normaliseValuesCheckBox.active,
-				self.passingThreasholdSlider.value
+				self.passingThreasholdSlider.value,
+				self.transferModulesSlider.value
 				# self.intAgentThresholdSlider.value,
 				# self.intAgentChanceSlider.value
 			]
@@ -297,6 +300,7 @@ if conf.KIVY_READY:
 			conf.PASS_BY_COMPENSATION = self.passByCompensationCheckBox.active
 			conf.AUTUMN_REPEATS_LIMIT = int(self.repeatsCreditsSlider.value)
 			conf.NORMALISE_VALUES = self.normaliseValuesCheckBox.active
+			conf.TRANSFER_OF_CREDITS_MODULES = int(self.transferModulesSlider.value)
 			conf.PASSING_THRESHOLD = int(self.passingThreasholdSlider.value)
 
 			self.updateConfLabels()
@@ -310,6 +314,7 @@ if conf.KIVY_READY:
 			self.passingThreasholdLabel.text = "Passing\nthreshold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(self.passingThreasholdSlider.value)) + "[/color]"
 			self.compensationThresholdLabel.text = "Compensation\nthreshold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(self.compensationThresholdSlider.value)) + "[/color]"
 			self.repeatsCreditsLabel.text = "Allowed credits\nin autumn repeats - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(self.repeatsCreditsSlider.value)) + "[/color]"
+			self.transferModulesLabel.text = "Allowed modules\nfor transfer of credits - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(self.transferModulesSlider.value)) + "[/color]"
 			# self.intAgentThresholdLabel.text = "Intelligent\nthreashold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(self.intAgentThresholdSlider.value)) + "[/color]"
 			# Add zero to the value of chance to avoid jumping labels
 			# chance = self.intAgentChanceSlider.value
@@ -330,8 +335,11 @@ if conf.KIVY_READY:
 				self.compensationThresholdSlider.disabled = True
 				self.repeatsCreditsSlider.disabled = True
 
+				self.transferModulesSlider.disabled = False
+
 			elif self.repeatsCheckBox.active and not self.currentValues[3]:
 				self.transferCheckBox.active = False
+				self.transferModulesSlider.disabled = True
 				self.passByCompensationCheckBox.active = False
 
 				self.compensationLevelSlider.disabled = True
@@ -341,6 +349,7 @@ if conf.KIVY_READY:
 			elif self.passByCompensationCheckBox.active and not self.currentValues[5]:
 				self.transferCheckBox.active = False
 				self.repeatsCheckBox.active = False
+				self.transferModulesSlider.disabled = True
 
 				self.compensationLevelSlider.disabled = False
 				self.compensationThresholdSlider.disabled = False
@@ -370,6 +379,7 @@ if conf.KIVY_READY:
 			self.compensationThresholdLabel.text = "Compensation\nthreshold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(conf.COMPENSATION_THREASHOLD) + "[/color]"
 			self.repeatsCreditsLabel.text = "Allowed credits\nin autumn repeats - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(conf.AUTUMN_REPEATS_LIMIT)) + "[/color]"
 			self.passingThreasholdLabel.text = "Passing\nthreshold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(conf.PASSING_THRESHOLD)) + "[/color]"
+			self.transferModulesLabel.text = "Allowed modules\nfor transfer of credits - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(int(conf.TRANSFER_OF_CREDITS_MODULES)) + "[/color]"
 
 			# self.intAgentThresholdLabel.text = "Intelligent\nthreashold - [color=" + conf.LABEL_VALUE_COLOR + "]" + str(conf.INTELLENT_AGENT_LC_THRESHOLD) + "[/color]"
 			# Add zero to the value of chance to avoid jumping labels
@@ -391,6 +401,7 @@ if conf.KIVY_READY:
 			self.repeatsCreditsSlider.value = conf.AUTUMN_REPEATS_LIMIT
 			self.normaliseValuesCheckBox.active = conf.NORMALISE_VALUES
 			self.passingThreasholdSlider.value = conf.PASSING_THRESHOLD
+			self.transferModulesSlider.value = conf.TRANSFER_OF_CREDITS_MODULES
 
 			# Use button to run simulation
 			self.verifyButton.bind(on_press=self.runVerification)
@@ -406,7 +417,8 @@ if conf.KIVY_READY:
 				# self.intAgentLevelTextInput.text,
 				self.repeatsCreditsSlider.value,
 				self.normaliseValuesCheckBox.active,
-				self.passingThreasholdSlider.value
+				self.passingThreasholdSlider.value,
+				self.transferModulesSlider.value
 				# self.intAgentThresholdSlider.value,
 				# self.intAgentChanceSlider.value
 			]
