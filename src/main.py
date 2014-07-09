@@ -25,7 +25,7 @@ Also requires xlrd.
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 __author__ = "Pavlo Bazilinskyy"
-__copyright__ = "Copyright 2008, National University of Ireland, Maynooth"
+__copyright__ = "Copyright 2014, National University of Ireland, Maynooth"
 __credits__ = "Ronan Reilly"
 __version__ = "1.0"
 __maintainer__ = "Pavlo Bazilinskyy"
@@ -268,9 +268,11 @@ if conf.KIVY_READY:
 			# self.modulesAbsentValue = a["modulesAbsentValue"]
 			# self.modulesPassedByAutoRepeatsValue = a["modulesPassedByAutoRepeatsValue"]
 
+
+
 		def on_touch_up(self, touch):
-			self.refreshUIElements() # Activate / deactivate UI elements based on current values
-			# Auto repeats and transfer of credits cannot be True at the same time. Same for pass by compensation. Only one method can be anabled at a time.
+			# self.refreshUIElements() # Activate / deactivate UI elements based on current values
+			# # Auto repeats and transfer of credits cannot be True at the same time. Same for pass by compensation. Only one method can be anabled at a time.
 
 			self.currentValues = [
 				self.compensationLevelSlider.value,
@@ -326,7 +328,8 @@ if conf.KIVY_READY:
 
 		# Activate / disable elements of GUI based on input
 		def refreshUIElements(self):
-			if self.transferCheckBox.active and not self.currentValues[2]:
+			if self.transferCheckBox.active:
+				print "TRANSFER"
 				self.repeatsCheckBox.active = False
 				self.passByCompensationCheckBox.active = False
 
@@ -334,26 +337,34 @@ if conf.KIVY_READY:
 				self.compensationLevelSlider.disabled = True
 				self.compensationThresholdSlider.disabled = True
 				self.repeatsCreditsSlider.disabled = True
-
 				self.transferModulesSlider.disabled = False
 
-			elif self.repeatsCheckBox.active and not self.currentValues[3]:
+			if self.repeatsCheckBox.active:
+				print "AUTUMN"
 				self.transferCheckBox.active = False
-				self.transferModulesSlider.disabled = True
 				self.passByCompensationCheckBox.active = False
 
+				self.transferModulesSlider.active = True
 				self.compensationLevelSlider.disabled = True
 				self.compensationThresholdSlider.disabled = True
 				self.repeatsCreditsSlider.disabled = False
 
-			elif self.passByCompensationCheckBox.active and not self.currentValues[5]:
+			if self.passByCompensationCheckBox.active:
+				print "PASS BY"
 				self.transferCheckBox.active = False
 				self.repeatsCheckBox.active = False
-				self.transferModulesSlider.disabled = True
 
+				self.transferModulesSlider.disabled = True
 				self.compensationLevelSlider.disabled = False
 				self.compensationThresholdSlider.disabled = False
 				self.repeatsCreditsSlider.disabled = True
+
+			print "self.currentValues[2]: ", self.currentValues[2]
+			print "self.currentValues[3]: ", self.currentValues[3]
+			print "self.currentValues[4]: ", self.currentValues[4]
+			print "self.transferCheckBox.active: ", self.transferCheckBox.active
+			print "self.repeatsCheckBox.active: ", self.repeatsCheckBox.active
+			print "self.passByCompensationCheckBox.active: ", self.passByCompensationCheckBox.active
 
 		def __init__(self, **kwargs):
 			super(ContainerBox, self).__init__(**kwargs)
