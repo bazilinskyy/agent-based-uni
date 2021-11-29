@@ -1,4 +1,3 @@
-agent-based-uni
-===============
+# Agent-based model of a university
 
-Agent-based-uni
+Project for modelling Maynooth university.
